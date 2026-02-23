@@ -1,12 +1,3 @@
----
-name: PR template
-about: PR template
-title: ''
-labels: ''
-assignees: ''
-
----
-
 ## 📝 PR 개요
 - 개요
 
