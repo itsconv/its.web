@@ -1,0 +1,13 @@
+<header xmlns:th="http://www.thymeleaf.org" th:fragment="header" class="header">
+  <div class="header-inner">
+    <div class="logo">ITSConvergence</div>
+    <nav class="header-nav">
+      <a href="#" class="header-link">내홈페이지</a>
+      <a th:href="@{/basic/admin_list}" href="/basic/admin_list" id="adminHomeLink" class="header-link">관리자홈</a>
+      <button type="button" class="logout-btn">
+        <span class="icon">↪</span>
+        로그아웃
+      </button>
+    </nav>
+  </div>
+</header>

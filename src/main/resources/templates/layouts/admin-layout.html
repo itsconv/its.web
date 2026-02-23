@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title layout:fragment="title">ITSConvergence 관리자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body th:attr="data-page=${pageData != null ? pageData : 'index'}">
+  <div class="app">
+    <th:block th:replace="~{fragments/header :: header}"></th:block>
+
+    <div class="tabs" id="tabButtons"></div>
+
+    <section id="dashboardView" class="view active">
+      <div class="layout">
+        <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
+
+        <main class="main">
+          <div id="location" class="breadcrumb">
+            <span class="home" aria-hidden="true"></span>
+            <span>›</span>
+            <span id="pageTitleBread">기본설정</span>
+          </div>
+
+          <div class="dashboard-content">
+            <h3 id="pageTitleMain">관리자설정<span>관리자를 추가/수정/삭제 합니다.</span></h3>
+            <div class="divider"></div>
+
+            <th:block layout:fragment="page-content"></th:block>
+          </div>
+        </main>
+      </div>
+      <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+    </section>
+
+  </div>
+
+  <script src="/js/admin-shared-config.js"></script>
+  <script src="/js/admin-common.js"></script>
+  <th:block layout:fragment="scripts"></th:block>
+</body>
+
+</html>
