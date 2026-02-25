@@ -5,10 +5,15 @@
 
 <head>
   <title>ITSConvergence 관리자</title>
+
+  <link rel="stylesheet" th:href="@{/css/history/history.css}" />
 </head>
 
 <body>
-  <div layout:fragment="page-content">
+  <div class="dashboard-content" layout:fragment="page-content">
+    <h3 id="pageTitleMain">연혁 관리<span>연혁을 추가/수정 관리합니다.</span></h3>
+    <div class="divider"></div>
+
     <div class="table-wrap">
       <table>
         <thead id="dataTableHead"></thead>
@@ -20,14 +25,14 @@
       <div class="action-area">
         <button type="button" id="tableActionBtn" class="add-btn">
           <span class="icon"><img src="/asset/img/plus.gif" alt="" /></span>
-          관리자등록
+          연혁 추가
         </button>
       </div>
     </div>
   </div>
 
   <th:block layout:fragment="scripts">
-    <script src="/js/year_list.js"></script>
+    <script th:src="@{/js/history/history.js}"></script>
   </th:block>
 </body>
 </html>

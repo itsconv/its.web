@@ -46,8 +46,8 @@ public class AdminViewController {
         return "bbs/bbs_list";
     }
 
-    @GetMapping("/year/year_list")
+    @GetMapping("/history/history")
     public String yearList() {
-        return "year/year_list";
+        return "history/history";
     }
 }
