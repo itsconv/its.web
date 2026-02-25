@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://49.50.130.177:3306/its_web
-    username: mariadb
-    password: mariadb@4023
+    username: ENC(CYZd3f9hnpJww0aFmG4xdA==)
+    password: ENC(7lrzYyAWRIr+UiFKxdvOBAlr478A5fyJ)
   jpa:
     hibernate:
       ddl-auto: update
