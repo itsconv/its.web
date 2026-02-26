@@ -1,4 +1,4 @@
-package com.itsconv.web.configuration;
+package com.itsconv.web.config;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.context.annotation.Bean;
