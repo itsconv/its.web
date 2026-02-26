@@ -2,6 +2,7 @@ package com.itsconv.web.history.domain;
 
 import java.time.LocalDateTime;
 
+import com.itsconv.web.common.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "history")
 @Getter
 @NoArgsConstructor
-public class History {
+public class History extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +34,4 @@ public class History {
 
     @Column(name = "last_update_id", length = 20)
     private String lastUpdateId;
-
-    @Column(name = "last_update")
-    private LocalDateTime lastUpdate;
 }
