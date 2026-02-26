@@ -1,4 +1,4 @@
-package com.itsconv.web.controller;
+package com.itsconv.web.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +47,7 @@ public class AdminViewController {
     }
 
     @GetMapping("/history/history")
-    public String yearList() {
+    public String historyList() {
         return "history/history";
     }
 }

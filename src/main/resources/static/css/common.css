@@ -82,6 +82,14 @@ a {
   text-decoration: none;
 }
 
+.header-link:link,
+.header-link:visited,
+.header-link:hover,
+.header-link:active {
+  text-decoration: none;
+  color: #fff;
+}
+
 .logout-btn {
   display: flex;
   align-items: center;
@@ -102,6 +110,7 @@ a {
   border: 0;
   background: none;
   border-bottom: 2px solid transparent;
+  text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,6 +119,14 @@ a {
   width: 110px;
   flex: 0 0 110px;
   height: 100%;
+}
+
+.tabs .tab-btn:link,
+.tabs .tab-btn:visited,
+.tabs .tab-btn:hover,
+.tabs .tab-btn:active {
+  text-decoration: none;
+  color: inherit;
 }
 
 .tab-btn + .tab-btn {
@@ -218,6 +235,15 @@ a {
   align-items: center;
   line-height: 1.25;
   justify-content: flex-start;
+  text-decoration: none;
+}
+
+.submenu-btn:link,
+.submenu-btn:visited,
+.submenu-btn:hover,
+.submenu-btn:active {
+  text-decoration: none;
+  color: inherit;
 }
 
 .submenu-btn::before {

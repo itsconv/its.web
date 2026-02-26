@@ -14,13 +14,11 @@
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
-<body th:attr="data-page=${pageData != null ? pageData : 'index'}">
+<body th:attr="data-page=${pageData}">
   <div class="app">
     <th:block th:replace="~{fragments/header :: header}"></th:block>
 
-    <div class="tabs" id="tabButtons"></div>
-
-    <section id="dashboardView" class="view active">
+    <section>
       <div class="layout">
         <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
 
@@ -28,15 +26,17 @@
           <div id="location" class="breadcrumb">
             <span class="home" aria-hidden="true"></span>
             <span>›</span>
-            <span id="pageTitleBread">기본설정</span>
+            <span id="pageTitleBread" th:text="${breadcrumbTitle}"></span>
+          </div>
+
+          <div class="dashboard-content">
+            <h3>
+              <th:block th:text="${pageTitle}"></th:block>
+              <span th:text="${pageDescription}"></span>
+            </h3>
           </div>
 
           <th:block layout:fragment="page-content"></th:block>
-          <!-- <div class="dashboard-content">
-            <h3 id="pageTitleMain">관리자설정<span>관리자를 추가/수정/삭제 합니다.</span></h3>
-            <div class="divider"></div>
-
-          </div> -->
         </main>
       </div>
       <th:block th:replace="~{fragments/footer :: footer}"></th:block>
@@ -44,9 +44,6 @@
 
   </div>
 
-  <script th:src="@{/js/history/history.js}"></script>
-  <script src="/js/admin-shared-config.js"></script>
-  <script src="/js/admin-common.js"></script>
   <th:block layout:fragment="scripts"></th:block>
 </body>
 
