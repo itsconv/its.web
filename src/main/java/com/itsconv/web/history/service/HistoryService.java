@@ -15,6 +15,6 @@ public class HistoryService {
     private final HistoryRepository historyRepository;
 
     public List<History> findByParent(String parent) {
-        return historyRepository.findByHistoryParent(parent);
+        return historyRepository.findByParent(parent);
     }
 }

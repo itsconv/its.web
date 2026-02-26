@@ -21,16 +21,16 @@ public class History extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "history_id")
-    private Integer historyId;
+    private Integer id;
 
     @Column(name = "history_parent", nullable = false, length = 20)
-    private String historyParent = "TOP";
+    private String parent = "TOP";
 
     @Column(name = "history_name", length = 50)
-    private String historyName;
+    private String name;
 
     @Column(name = "history_sub_name", length = 50)
-    private String historySubName;
+    private String subName;
 
     @Column(name = "last_update_id", length = 20)
     private String lastUpdateId;
