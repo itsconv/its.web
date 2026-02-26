@@ -7,16 +7,17 @@ const Executor = (function() {
     }
 
     const top = {
-        modify(id) {
+        modify(id, callback) {
             const paylod = {...getTopParam(), id};
 
             $.ajax({
                 url: `/api/history/${id}/modify`,
                 type: 'POST',
+                data: JSON.stringify(paylod),
                 dataType: 'JSON',
             })
             .then(function(res) {
-                
+                if (typeof callback === 'function') callback(res);
             })
             .catch(function(error){
                 alert('에러발생!', error);

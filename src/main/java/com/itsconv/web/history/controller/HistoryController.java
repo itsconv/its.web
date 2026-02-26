@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itsconv.web.common.response.ApiResponse;
 import com.itsconv.web.history.domain.History;
 import com.itsconv.web.history.service.HistoryService;
 
@@ -20,7 +21,7 @@ public class HistoryController {
     private final HistoryService historyService;
 
     @GetMapping("/{parent}")
-    public ResponseEntity<List<History>> getByParent(@PathVariable String parent) {
-        return ResponseEntity.ok(historyService.findByParent(parent));
+    public ResponseEntity<ApiResponse<List<History>>> getByParent(@PathVariable String parent) {
+        return ResponseEntity.ok(ApiResponse.success(historyService.findByParent(parent)));
     }
 }

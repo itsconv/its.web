@@ -34,4 +34,14 @@ public class History extends BaseTimeEntity {
 
     @Column(name = "last_update_id", length = 20)
     private String lastUpdateId;
+
+    @Column(name = "last_update")
+    private LocalDateTime lastUpdate;
+
+    public void updatePeriodName(String name, String subName, String requestId) {
+        this.name = name;
+        this.subName = subName;
+        this.lastUpdateId = requestId;
+        this.lastUpdate = LocalDateTime.now();
+    }
 }

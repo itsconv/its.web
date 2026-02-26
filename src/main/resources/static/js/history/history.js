@@ -41,6 +41,7 @@ async function getTopHistory() {
 }
 
 function renderHistoryTable(res) {
+    const resList = res.data;
     const $head = $('#dataTableHead');
     const $body = $('#dataTableBody');
 
@@ -56,7 +57,7 @@ function renderHistoryTable(res) {
         `
     );
 
-    for (const history of res) {
+    for (const history of resList) {
         const subName = history.subName ?? '';
 
         $body.append(
