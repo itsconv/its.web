@@ -12,7 +12,10 @@ const pageInit = {
                 //수정완료
                 $('#btnConfirmModify').off('click').on('click', function() {
                     const targetId = $('#historyEditModal').attr('data-history-id');
-                    Executor.top.modify(targetId);
+                    Executor.top.modify(targetId, function(res) {
+                        console.log(res);
+                        alert(res.message);
+                    });
                 });
             }
         });
