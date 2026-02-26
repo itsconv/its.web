@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title layout:fragment="title">ITSConvergence 관리자</title>
 
-  <th:block th:insert="~{fragments/admin-resources :: resources}"></th:block>
+  <th:block th:insert="~{fragments/resources :: resources}"></th:block>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,12 +31,12 @@
             <span id="pageTitleBread">기본설정</span>
           </div>
 
-          <div class="dashboard-content">
+          <th:block layout:fragment="page-content"></th:block>
+          <!-- <div class="dashboard-content">
             <h3 id="pageTitleMain">관리자설정<span>관리자를 추가/수정/삭제 합니다.</span></h3>
             <div class="divider"></div>
 
-            <th:block layout:fragment="page-content"></th:block>
-          </div>
+          </div> -->
         </main>
       </div>
       <th:block th:replace="~{fragments/footer :: footer}"></th:block>
@@ -44,7 +44,7 @@
 
   </div>
 
-  <script th:src=""></script>
+  <script th:src="@{/js/history/history.js}"></script>
   <script src="/js/admin-shared-config.js"></script>
   <script src="/js/admin-common.js"></script>
   <th:block layout:fragment="scripts"></th:block>

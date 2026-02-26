@@ -28,6 +28,9 @@ public class History {
     @Column(name = "history_name", length = 50)
     private String historyName;
 
+    @Column(name = "history_sub_name", length = 50)
+    private String historySubName;
+
     @Column(name = "last_update_id", length = 20)
     private String lastUpdateId;
 
