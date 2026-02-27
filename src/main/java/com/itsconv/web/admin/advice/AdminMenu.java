@@ -10,6 +10,7 @@ import java.util.Arrays;
 public enum AdminMenu {
 
     ADMIN_LIST(new String[]{"/basic/admin_list"}, "admin-list", "basic", "기본설정", "관리자설정", "관리자를 추가, 수정, 삭제할 수 있습니다."),
+    ADMIN_EDIT(new String[]{"/basic/admin_edit"}, "admin-list", "basic", "기본설정", "관리자목록", "관리자를 추가/수정/삭제 합니다."),
     POPUP_LIST(new String[]{"/basic/popup_list"}, "popup-list", "basic", "기본설정", "팝업관리", "팝업을 등록, 수정, 삭제할 수 있습니다."),
 
     DATA(new String[]{"/bbs/data", "/bbs/bbs_list"}, "data", "posts", "게시판관리", "홍보자료", "홍보자료를 등록, 수정, 삭제할 수 있습니다."),

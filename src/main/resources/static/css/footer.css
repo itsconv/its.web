@@ -1,0 +1,18 @@
+.footer {
+  padding: 24px 32px;
+  border-top: 1px solid var(--gray-300);
+  text-align: center;
+  color: var(--gray-600);
+  font-size: 14px;
+}
+
+.footer p {
+  margin: 4px 0;
+}
+
+@media (max-width: 0px) {
+  .footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
