@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title layout:fragment="title">ITSConvergence 관리자</title>
+
+  <th:block th:insert="~{admin/fragments/resources :: resources}"></th:block>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin/css/common/styles.css" />
+</head>
+
+<body th:attr="data-page=${pageData}">
+  <div class="app">
+    <th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+
+    <section>
+      <div class="layout">
+        <th:block th:replace="~{admin/fragments/sidebar :: sidebar}"></th:block>
+
+        <main class="main">
+          <div id="location" class="breadcrumb">
+            <span class="home" aria-hidden="true"></span>
+            <span>›</span>
+            <span id="pageTitleBread" th:text="${breadcrumbTitle}"></span>
+          </div>
+
+          <div class="dashboard-content">
+            <h3>
+              <th:block th:text="${pageTitle}"></th:block>
+              <span th:text="${pageDescription}"></span>
+            </h3>
+          </div>
+
+          <div class="content-body">
+            <th:block layout:fragment="page-content"></th:block>
+          </div>
+        </main>
+      </div>
+      <th:block th:replace="~{admin/fragments/footer :: footer}"></th:block>
+    </section>
+
+  </div>
+
+  <th:block layout:fragment="scripts"></th:block>
+</body>
+
+</html>
