@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+local-run.sh
+dev-run.sh
+application-local.yml
