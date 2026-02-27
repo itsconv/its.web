@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
       contentType: 'application/json',
       data: JSON.stringify({
         password,
-        name,d
+        name,
         memo
       })
     })
