@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.3.0'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -53,6 +54,13 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+tasks.named('bootRun') {
+    jvmArgs += '-Dfile.encoding=UTF-8'
+    jvmArgs += '-Dsun.stdout.encoding=UTF-8'
+    jvmArgs += '-Dsun.stderr.encoding=UTF-8'
+}
+
 
 // QueryDSL Q클래스
 def querydslDir = "$buildDir/generated/querydsl"
