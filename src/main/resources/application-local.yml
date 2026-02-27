@@ -1,6 +1,8 @@
 spring:
   thymeleaf:
     cache: false
+    prefix: file:./src/main/resources/templates/
+    suffix: .html
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/its_web
@@ -17,7 +19,7 @@ spring:
 #        use_sql_comments: true
   sql:
     init:
-      mode: always
+      mode: never
       data-locations: classpath:init.sql
   web:
     resources:
