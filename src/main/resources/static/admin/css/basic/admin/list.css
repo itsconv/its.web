@@ -1,0 +1,49 @@
+.admin-list-page .table-wrap table {
+  min-width: 900px;
+}
+
+.admin-list-page .row-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-list-page .edit-btn,
+.admin-list-page .delete-btn {
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: NotoKR, Arial;
+  width: 56px;
+  height: 40px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  text-decoration: none;
+  line-height: normal;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.admin-list-page .edit-btn:link,
+.admin-list-page .edit-btn:visited,
+.admin-list-page .edit-btn:hover,
+.admin-list-page .edit-btn:active {
+  text-decoration: none;
+  color: #fff;
+}
+
+.admin-list-page .edit-btn {
+  background: #4999de;
+}
+
+.admin-list-page .delete-btn {
+  background: #323f6c;
+}

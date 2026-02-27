@@ -24,6 +24,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             Authentication authentication
     ) throws IOException, ServletException {
         userService.updateLastLogin(authentication.getName());
-        response.sendRedirect("/basic/admin_list");
+        response.sendRedirect("/admin/user/list");
     }
 }

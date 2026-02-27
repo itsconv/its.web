@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}"
+  th:with="pageData=${pageData}">
+
+<head>
+  <title>ITSConvergence 관리자</title>
+  <link rel="stylesheet" th:href="@{/admin/css/basic/popup/edit.css}" href="/admin/css/basic/popup/edit.css" />
+  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+</head>
+
+<body>
+  <div layout:fragment="page-content">
+    <div id="popupEditContent" class="admin-edit-content">
+      <div id="popupEditForm" th:data-seq="${popupSeq}" th:data-is-create="${isCreate}">
+        <div class="table-wrap">
+          <table class="admin-edit-table">
+            <colgroup>
+              <col class="popup-edit-th-col" />
+              <col />
+              <col class="popup-edit-th-col" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <th>제목 <span style="color: red;">*</span></th>
+                <td colspan="3">
+                  <input type="text" id="title" th:value="${popupForm.title}" class="input popup-title-input" />
+                </td>
+              </tr>
+              <tr>
+                <th>게시기간 <span style="color: red;">*</span></th>
+                <td colspan="3">
+                  <input type="date" id="startDate" th:value="${popupForm.startDate}" class="input" />
+                  <span>~</span>
+                  <input type="date" id="endDate" th:value="${popupForm.endDate}" class="input" />
+                </td>
+              </tr>
+              <tr>
+                <th>사용여부</th>
+                <td colspan="3">
+                  <label>
+                    <input type="radio" name="useYn" value="Y" th:checked="${popupForm.useYn == 'Y'}" />
+                    사용함
+                  </label>
+                  <label class="popup-radio-gap">
+                    <input type="radio" name="useYn" value="N" th:checked="${popupForm.useYn == 'N'}" />
+                    사용안함
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <th>위치</th>
+                <td class="popup-size-cell">
+                  X : <input type="number" id="positionX" th:value="${popupForm.positionX}" class="input popup-size-input" />
+                  Y : <input type="number" id="positionY" th:value="${popupForm.positionY}" class="input popup-size-input" />
+                </td>
+                <th>크기</th>
+                <td class="popup-size-cell">
+                  가로 : <input type="number" id="sizeW" th:value="${popupForm.sizeW}" class="input popup-size-input" />
+                  세로 : <input type="number" id="sizeH" th:value="${popupForm.sizeH}" class="input popup-size-input" />
+                </td>
+              </tr>
+              <tr>
+                <th>링크주소</th>
+                <td colspan="3">
+                  <input type="text" id="redirectUrl" th:value="${popupForm.redirectUrl}" class="input popup-link-input" />
+                </td>
+              </tr>
+              <tr>
+                <th>팝업내용</th>
+                <td colspan="3">
+                  <div id="popupEditor" class="popup-editor"></div>
+                  <textarea id="contents" class="popup-contents-source" th:text="${popupForm.contents}"></textarea>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="action-area">
+          <button type="button" id="popupSaveButton" class="add-btn confirm-btn">확인</button>
+          <a th:href="@{/admin/popup/list}" class="add-btn list-btn">목록</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block layout:fragment="scripts">
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script th:src="@{/admin/js/basic/popup/edit.js}"></script>
+  </th:block>
+</body>
+
+</html>

@@ -39,3 +39,4 @@ out/
 local-run.sh
 dev-run.sh
 application-local.yml
+src/main/resources/application-local.yml

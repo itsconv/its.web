@@ -1,0 +1,33 @@
+<aside xmlns:th="http://www.thymeleaf.org" th:fragment="sidebar" class="sidebar">
+
+  <th:block th:if="${activeTab == 'basic'}">
+    <h3 class="sidebar-title">기본설정</h3>
+    <nav class="submenu">
+      <a th:href="@{/admin/user/list}" class="submenu-btn"
+         th:classappend="${pageData == 'admin-list'} ? 'active'">관리자설정</a>
+      <a th:href="@{/admin/popup/list}" class="submenu-btn"
+         th:classappend="${pageData == 'popup-list'} ? 'active'">팝업관리</a>
+    </nav>
+  </th:block>
+
+  <th:block th:if="${activeTab == 'posts'}">
+    <h3 class="sidebar-title">게시판관리</h3>
+    <nav class="submenu">
+      <a th:href="@{/admin/bbs/data}" class="submenu-btn"
+         th:classappend="${#strings.equals(pageData, 'data') or #strings.equals(pageData, 'bbs-list')} ? 'active'">홍보자료</a>
+      <a th:href="@{/admin/bbs/its_notice}" class="submenu-btn"
+         th:classappend="${pageData == 'its_notice'} ? 'active'">공지사항</a>
+      <a th:href="@{/admin/bbs/download}" class="submenu-btn"
+         th:classappend="${pageData == 'download'} ? 'active'">자료실</a>
+      <a th:href="@{/admin/bbs/story}" class="submenu-btn"
+         th:classappend="${pageData == 'story'} ? 'active'">ITS Story</a>
+    </nav>
+  </th:block>
+
+  <th:block th:if="${activeTab == 'news'}">
+    <h3 class="sidebar-title">연혁관리</h3>
+    <nav class="submenu"></nav>
+  </th:block>
+
+  <button type="button" id="collapseBtn" class="collapse-btn" aria-label="사이드바 접기">◀</button>
+</aside>

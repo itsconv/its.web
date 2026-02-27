@@ -5,6 +5,7 @@ import com.itsconv.web.common.exception.ErrorCode;
 import com.itsconv.web.user.domain.User;
 import com.itsconv.web.user.repository.UserRepository;
 import com.itsconv.web.user.service.dto.command.UserDeleteCommand;
+import com.itsconv.web.user.service.dto.command.UserRegisterCommand;
 import com.itsconv.web.user.service.dto.command.UserUpdateCommand;
 import com.itsconv.web.user.service.dto.result.UserDetailView;
 import com.itsconv.web.user.service.dto.result.UserListView;
@@ -26,6 +27,22 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
+    public void registerUser(UserRegisterCommand command) {
+        boolean existsUser = userRepository.findByUserId(command.userId()).isPresent();
+        if (existsUser) {
+            throw new BusinessException(ErrorCode.COMMON_CONFLICT);
+        }
+
+        User user = User.create(
+                command.userId(),
+                command.name(),
+                passwordEncoder.encode(command.password()),
+                command.memo()
+        );
+        userRepository.save(user);
+    }
+
+    @Transactional
     public void updateUser(UserUpdateCommand command) {
         User user = findUserEntity(command.userId());
 
@@ -45,14 +62,16 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserListView findUserList() {
-        List<User> users = userRepository.findAll();
+        List<UserDetailView> users = userRepository.findAll().stream()
+                .map(UserDetailView::from)
+                .toList();
         return new UserListView(users);
     }
 
     @Transactional(readOnly = true)
     public UserDetailView findUser(String userId) {
         User user = findUserEntity(userId);
-        return new UserDetailView(user);
+        return UserDetailView.from(user);
     }
 
     @Transactional

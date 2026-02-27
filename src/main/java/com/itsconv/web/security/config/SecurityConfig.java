@@ -25,9 +25,10 @@ public class SecurityConfig {
             "/login",
             "/error",
             "/api/auth/status",
-            "/css/**",
-            "/js/**",
+            "/admin/css/**",
+            "/admin/js/**",
             "/asset/**",
+            "/front/**",
             "/favicon.ico"
     };
 

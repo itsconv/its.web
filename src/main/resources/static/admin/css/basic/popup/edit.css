@@ -1,0 +1,89 @@
+.popup-edit-th-col {
+  width: 200px;
+}
+
+.popup-radio-gap {
+  margin-left: 16px;
+}
+
+.popup-title-input {
+  width: 600px !important;
+  height: 40px !important;
+}
+
+.popup-link-input {
+  width: 450px !important;
+  height: 40px !important;
+}
+
+.popup-size-cell {
+  width: 700px;
+  height: 70px;
+}
+
+.popup-size-input {
+  width: 80px !important;
+  height: 40px !important;
+}
+
+.popup-editor {
+  width: 1130px;
+  height: 380px;
+  min-height: 380px;
+  resize: vertical;
+  overflow: auto;
+}
+
+.popup-contents-source {
+  display: none;
+}
+
+.admin-edit-table td {
+  text-align: left;
+}
+
+.row-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: NotoKR, Arial;
+  width: 56px;
+  height: 40px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  text-decoration: none;
+  line-height: normal;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.edit-btn:link,
+.edit-btn:visited,
+.edit-btn:hover,
+.edit-btn:active {
+  text-decoration: none;
+  color: #fff;
+}
+
+.edit-btn {
+  background: #4999de;
+}
+
+.delete-btn {
+  background: #323f6c;
+}

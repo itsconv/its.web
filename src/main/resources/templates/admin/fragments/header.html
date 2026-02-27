@@ -1,0 +1,39 @@
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">ITSConvergence</div>
+      <nav class="header-nav">
+        <a href="#" class="header-link">내홈페이지</a>
+        <a th:href="@{/admin/user/list}" href="/admin/user/list" id="adminHomeLink" class="header-link">관리자홈</a>
+        <button type="button" class="logout-btn">
+          <span class="icon">↪</span>
+          로그아웃
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <a th:href="@{/admin/user/list}"
+       href="/admin/user/list"
+       class="tab-btn"
+       th:classappend="${pageData == 'admin-list' or pageData == 'popup-list'} ? ' active' : ''">
+      <span class="tab-icon"><img th:src="@{/asset/img/icon2.png}" src="/asset/img/icon2.png" alt="기본설정 아이콘" /></span>
+      <span class="tab-label">기본설정</span>
+    </a>
+    <a th:href="@{/admin/bbs/data}"
+       href="/admin/bbs/data"
+       class="tab-btn"
+       th:classappend="${pageData == 'data' or pageData == 'bbs-list' or pageData == 'its_notice' or pageData == 'download' or pageData == 'story'} ? ' active' : ''">
+      <span class="tab-icon"><img th:src="@{/asset/img/icon3.png}" src="/asset/img/icon3.png" alt="게시판관리 아이콘" /></span>
+      <span class="tab-label">게시판관리</span>
+    </a>
+    <a th:href="@{/admin/history/history}"
+       href="/admin/history/history"
+       class="tab-btn"
+       th:classappend="${pageData == 'history'} ? ' active' : ''">
+      <span class="tab-icon"><img th:src="@{/asset/img/icon11.png}" src="/asset/img/icon11.png" alt="연혁관리 아이콘" /></span>
+      <span class="tab-label">연혁관리</span>
+    </a>
+  </div>
+</th:block>

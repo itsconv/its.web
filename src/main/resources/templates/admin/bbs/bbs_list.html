@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}">
+
+<head>
+  <title>ITSConvergence 관리자</title>
+</head>
+
+<body>
+  <div layout:fragment="page-content">
+    <div class="table-wrap">
+      <table>
+        <thead id="dataTableHead"></thead>
+        <tbody id="dataTableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <div class="action-area">
+        <button type="button" id="tableActionBtn" class="add-btn">
+          <span class="icon"><img src="/asset/img/plus.gif" alt="" /></span>
+          관리자등록
+        </button>
+      </div>
+      <div class="pagination-controls">
+        <button type="button" class="page-arrow page-arrow-l2">
+          <span class="sr-only">맨 앞 페이지</span>
+        </button>
+        <button type="button" class="page-arrow page-arrow-l1">
+          <span class="sr-only">이전 페이지</span>
+        </button>
+        <span class="page-current-box">
+          <button type="button" class="page-current">1</button>
+        </span>
+        <button type="button" class="page-arrow page-arrow-r1">
+          <span class="sr-only">다음 페이지</span>
+        </button>
+        <button type="button" class="page-arrow page-arrow-r2">
+          <span class="sr-only">맨 뒤 페이지</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <th:block layout:fragment="scripts">
+  </th:block>
+</body>
+</html>
