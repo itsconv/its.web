@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin-layout}"
+  th:with="pageData=${pageData}">
+
+<head>
+  <title>ITSConvergence 관리자</title>
+</head>
+
+<body>
+    <div layout:fragment="page-content">
+    <div id="adminEditContent" class="admin-edit-content">
+      <div id="adminEditForm" th:data-user-id="${userId}">
+        <div class="table-wrap">
+          <table class="admin-edit-table">
+            <tbody>
+              <tr>
+                <th>아이디 <font color="red">*</font></th>
+                <td><input type="text" th:value="${userId}" readonly="readonly" class="input" /></td>
+              </tr>
+              <tr>
+                <th>비밀번호 <font color="red">*</font></th>
+                <td><input type="password" id="password" th:value="${adminUserForm.password}" placeholder="변경 시 입력" class="input" /></td>
+              </tr>
+              <tr>
+                <th>이름 <font color="red">*</font></th>
+                <td><input type="text" id="name" th:value="${adminUserForm.name}" required class="input" /></td>
+              </tr>
+              <tr>
+                <th>메모</th>
+                <td><textarea id="memo" rows="3" cols="60" class="input" th:text="${adminUserForm.memo}"></textarea></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="action-area">
+          <button type="button" id="adminUpdateButton" class="add-btn confirm-btn">확인</button>
+          <a th:href="@{/basic/admin_list}" class="add-btn list-btn">목록</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block layout:fragment="scripts">
+    <script th:src="@{/js/basic/admin_edit.js}"></script>
+  </th:block>
+</body>
+</html>
