@@ -16,7 +16,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
     USER_DELETED(HttpStatus.FORBIDDEN, "삭제된 사용자입니다."),
     USER_DISABLED(HttpStatus.FORBIDDEN, "사용 중지된 사용자입니다."),
-    USER_LOCKED(HttpStatus.LOCKED, "잠금된 사용자입니다."),
+    USER_LOCKED(HttpStatus.LOCKED, "해당 계정은 잠금 처리되었습니다."),
     ;
 
     private final HttpStatus status;

@@ -4,6 +4,7 @@ import com.itsconv.web.common.exception.ErrorCode;
 import com.itsconv.web.user.domain.User;
 import com.itsconv.web.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +20,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUserId(username)
                 .orElseThrow(() -> new UsernameNotFoundException(ErrorCode.USER_NOT_FOUND.getMessage()));
+
+        if (user.isLocked()) {
+            throw new LockedException(ErrorCode.USER_LOCKED.getMessage());
+        }
 
         return UserPrincipal.builder()
                 .userSeq(user.getSeq())

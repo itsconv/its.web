@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
                 @UniqueConstraint(name = "uk_user_id", columnNames = "user_id")
         }
 )
+@SQLRestriction("del_yn = 'N'")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
@@ -125,5 +127,18 @@ public class User extends BaseTimeEntity {
     public void clearFailCountAndUpdateLastLogin(LocalDateTime loginAt) {
         this.failCount = 0;
         this.lastLogin = loginAt;
+    }
+
+    public void updateProfile(String name, String memo) {
+        this.name = name;
+        this.memo = memo;
+    }
+
+    public void updatePassword(String encodedPassword) {
+        this.pw = encodedPassword;
+    }
+
+    public void delete() {
+        this.delYn = "Y";
     }
 }
