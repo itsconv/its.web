@@ -5,3 +5,255 @@
 .table-wrap td {
     padding: 12px 0px !important;
 }
+
+/* History detail modal table */
+#historyDetailModal .modal {
+    max-width: 760px;
+}
+
+#historyDetailModal .modal-body.modal-type-table {
+    max-height: 62vh;
+    overflow: auto;
+    padding: 0;
+    background: linear-gradient(180deg, #f9fbff 0%, #f5f7fb 100%);
+}
+
+#historyDetailModal #tblHistoryDetail {
+    min-width: 0;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#historyDetailModal #tblHistoryDetail tbody tr {
+    background: #ffffff;
+}
+
+#historyDetailModal #tblHistoryDetail tbody tr + tr td {
+    border-top: 1px solid #eef1f6;
+}
+
+#historyDetailModal #tblHistoryDetail td {
+    height: auto;
+    padding: 14px 16px !important;
+    border-bottom: 1px solid #e8ebf1;
+}
+
+#historyDetailModal #tblHistoryDetail td:first-child {
+    width: 136px !important;
+    min-width: 136px !important;
+    max-width: 136px !important;
+    text-align: center;
+    font-weight: 700;
+    color: #2f3b57;
+    background: #f7f9fc;
+    border-right: 1px solid #e7ebf3;
+}
+
+#historyDetailModal .td-detail-item {
+    background: #ffffff;
+}
+
+#historyDetailModal .detail-item-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#historyDetailModal .detail-item-row input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    height: 38px;
+    border: 1px solid #d9e0ea;
+    border-radius: 8px;
+    background: #fbfcfe;
+    color: #2f3342;
+    padding: 0 12px;
+}
+
+#historyDetailModal .detail-item-row input[type="text"]:focus {
+    outline: none;
+    border-color: #5a8fdd;
+    box-shadow: 0 0 0 3px rgba(73, 153, 222, 0.15);
+}
+
+#historyDetailModal .btn-icon-delete {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border: 1px solid #d5dbe6;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #5c6578;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.16s ease;
+}
+
+#historyDetailModal .btn-icon-delete::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    background-color: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0A.5.5 0 0 1 8.5 6v6a.5.5 0 0 1-1 0V6A.5.5 0 0 1 8 5.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z'/%3E%3Cpath fill='black' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 1 1 0-2H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1M4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM7 2h2v1H7z'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0A.5.5 0 0 1 8.5 6v6a.5.5 0 0 1-1 0V6A.5.5 0 0 1 8 5.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z'/%3E%3Cpath fill='black' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 1 1 0-2H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1M4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM7 2h2v1H7z'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+}
+
+#historyDetailModal .btn-icon-delete:hover {
+    border-color: #f0b9c1;
+    color: #c83f5a;
+    background: #fff7f8;
+}
+
+#historyDetailModal .btn-icon-delete:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(200, 63, 90, 0.2);
+}
+
+#historyDetailModal .btn-item-edit,
+#historyDetailModal .btn-item-save,
+#historyDetailModal .btn-item-cancel-edit,
+#historyDetailModal .btn-item-cancel-create {
+    height: 36px;
+    min-width: 56px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 0 12px;
+    white-space: nowrap;
+}
+
+#historyDetailModal .btn-item-edit {
+    color: #204a86;
+    background: #edf4ff;
+    border-color: #b8d0f3;
+}
+
+#historyDetailModal .btn-item-edit:hover {
+    background: #dfeeff;
+    border-color: #8eb5ea;
+}
+
+#historyDetailModal .btn-item-save {
+    color: #ffffff;
+    background: #5669b3;
+    border-color: #425293;
+}
+
+#historyDetailModal .btn-item-save:hover {
+    background: #495b9f;
+    border-color: #394880;
+}
+
+#historyDetailModal .btn-item-cancel-edit,
+#historyDetailModal .btn-item-cancel-create {
+    color: #59657d;
+    background: #f3f6fb;
+    border-color: #cfd8e6;
+}
+
+#historyDetailModal .btn-item-cancel-edit:hover,
+#historyDetailModal .btn-item-cancel-create:hover {
+    background: #e8edf6;
+    border-color: #bcc8da;
+}
+
+#historyDetailModal .is-hidden {
+    display: none !important;
+}
+
+#historyDetailModal .td-detail-add {
+    background: #ffffff;
+    text-align: left;
+    padding-top: 10px !important;
+    padding-bottom: 14px !important;
+}
+
+#historyDetailModal .td-detail-add .detail-add-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#historyDetailModal .btn-delete-year {
+    height: 36px;
+    min-width: 104px;
+    padding: 0 10px;
+    border: 1px solid #d5dbe6;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #5c6578;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.16s ease;
+}
+
+#historyDetailModal .btn-delete-year .trash-icon {
+    width: 18px;
+    height: 18px;
+    background-color: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0A.5.5 0 0 1 8.5 6v6a.5.5 0 0 1-1 0V6A.5.5 0 0 1 8 5.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z'/%3E%3Cpath fill='black' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 1 1 0-2H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1M4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM7 2h2v1H7z'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0A.5.5 0 0 1 8.5 6v6a.5.5 0 0 1-1 0V6A.5.5 0 0 1 8 5.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z'/%3E%3Cpath fill='black' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 1 1 0-2H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1M4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM7 2h2v1H7z'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+}
+
+#historyDetailModal .btn-delete-year .action-text {
+    white-space: nowrap;
+    border-left: 1px solid #d7dee9;
+    padding-left: 8px;
+    margin-left: 2px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+}
+
+#historyDetailModal .btn-delete-year:hover {
+    border-color: #f0b9c1;
+    color: #c83f5a;
+    background: #fff7f8;
+}
+
+#historyDetailModal .add-item-btn {
+    height: 36px;
+    min-width: 96px;
+    border-radius: 8px;
+    border-color: #d5dbe6;
+    background: #f9fbff;
+    color: #3f4f76;
+}
+
+#historyDetailModal .add-item-btn:hover {
+    border-color: #9fb9e2;
+    background: #eef4ff;
+    color: #27467a;
+}
+
+#historyDetailModal .row-item-add td {
+    border-top: 0 !important;
+}
+
+#historyDetailModal .modal-footer .btn-add-year {
+    margin-right: auto;
+    min-width: 128px;
+    width: 128px;
+}
+
+#historyDetailModal .modal-footer .btn-add-year .action-text {
+    white-space: nowrap;
+    letter-spacing: 0;
+}

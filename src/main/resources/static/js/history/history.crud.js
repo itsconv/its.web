@@ -11,7 +11,7 @@
             const paylod = {...getPeriodParam(), id};
 
             $.ajax({
-                url: `/api/history/${id}/modify`,
+                url: `/api/history/${id}`,
                 type: 'PUT',
                 contentType: 'application/json; charset=UTF-8',
                 data: JSON.stringify(paylod),
@@ -43,7 +43,7 @@
         },
         remove(id, callback) {
             $.ajax({
-                url: `/api/history/${id}/remove`,
+                url: `/api/history/${id}`,
                 type: 'DELETE',
                 contentType: 'application/json; charset=UTF-8',
                 dataType: 'JSON'
@@ -58,11 +58,104 @@
         }
     };
 
-    const detail = {
-        modify() {
-            console.log("Detail 수정");
+    const year = {
+        getList(id, callback) {
+            $.ajax({
+                url: `/api/history/year/${id}`,
+                type: 'GET',
+                contentType: 'application/json; charset=UTF-8',
+                dataType: 'JSON'
+            })
+            .then(function(res) {
+                if (typeof callback === 'function') callback(res);
+            })
+            .catch(function(error) {
+                console.log('Ajax error :', error);
+                alert(error.responseJSON.message);
+            });   
+        },
+        create(payload, callback) {
+            $.ajax({
+                url: `/api/history/year`,
+                type: 'POST',
+                contentType: 'application/json; charset=UTF-8',
+                dataType: 'JSON',
+                data: JSON.stringify(payload)
+            })
+            .then(function() {
+                if (typeof callback === 'function') callback();
+            })
+            .catch(function(error) {
+                console.log('Ajax error :', error);
+                alert(error.responseJSON.message);
+            });   
+        },
+        remove(yearId, callback) {
+            $.ajax({
+                url: `/api/history/year/${yearId}`,
+                type: 'DELETE',
+                contentType: 'application/json; charset=UTF-8',
+                dataType: 'JSON'
+            })
+            .then(function() {
+                if (typeof callback === 'function') callback();
+            })
+            .catch(function(error) {
+                console.log('Ajax error :', error);
+                alert(error.responseJSON.message);
+            });  
         }
     }
 
-    return {period, detail};
+    const item = {
+        modify(payload, callback) {
+            $.ajax({
+                url: `/api/history/item/${payload.itemId}`,
+                type: 'PUT',
+                contentType: 'application/json; charset=UTF-8',
+                dataType: 'JSON',
+                data: JSON.stringify(payload)
+            })
+            .then(function(res) {
+                if (typeof callback === 'function') callback(res);
+            })
+            .catch(function(error) {
+                console.log('Ajax error :', error);
+                alert(error.responseJSON.message);
+            });  
+        },
+        create(payload, callback) {
+            $.ajax({
+                url: `/api/history/item`,
+                type: 'POST',
+                contentType: 'application/json; charset=UTF-8',
+                dataType: 'JSON',
+                data: JSON.stringify(payload)
+            })
+            .then(function(res) {
+                if (typeof callback === 'function') callback(res);
+            })
+            .catch(function(error) {
+                console.log('Ajax error :', error);
+                alert(error.responseJSON.message);
+            });  
+        },
+        remove(itemId, callback) {
+            $.ajax({
+                url: `/api/history/item/${itemId}`,
+                type: 'DELETE',
+                contentType: 'application/json; charset=UTF-8',
+                dataType: 'JSON'
+            })
+            .then(function(res) {
+                if (typeof callback === 'function') callback(res);
+            })
+            .catch(function(error) {
+                console.log('Ajax error :', error);
+                alert(error.responseJSON.message);
+            });  
+        }
+    }
+
+    return {period, year, item};
 })();
