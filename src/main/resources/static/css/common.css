@@ -1399,3 +1399,11 @@ padding: 12px 15px;
   min-width: 0 !important;
   max-width: none !important;
 }
+
+input[type="text"]:disabled {
+    background: #eef2f7 !important;
+    border-color: #d5dce8 !important;
+    color: #2f3b57 !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #2f3b57 !important;
+}

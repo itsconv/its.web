@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.itsconv.web.common.domain.BaseTimeEntity;
+import com.itsconv.web.history.service.dto.command.HistoryYearCreateCommand;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +40,20 @@ public class HistoryYear extends BaseTimeEntity {
     @Column(name = "display_order", nullable = false)
     private Integer sortOrder;
 
+    @Column(name = "last_update_id", length = 20)
+    private String lastUpdateId;
+
+    @Column(name = "create_id", length = 20)
+    private String createId;
+
     @OneToMany(mappedBy = "year", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistoryItem> items = new ArrayList<>();
+
+    public void saveYear(HistoryYearCreateCommand command) {
+        this.period = command.period();
+        this.year = command.year();
+        this.sortOrder = command.nextOrder();
+        this.createId = command.requestId();
+        this.lastUpdateId = command.requestId();
+    }
 }
