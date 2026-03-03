@@ -80,8 +80,8 @@
 ```
 
 ### 예외 처리 전략
-- Hierarchy: `BusinessException`을 상속받는 도메인별 예외(`UserException` 등) 구조를 가집니다.
-- Error Code: Enum 형식을 사용하여 에러 코드를 관리하며, Enum 이름을 `code`로 사용합니다.
+- 전역 예외 처리 정책은 `BusinessException`을 공통으로 사용합니다. 
+- `ErrorCode`는 공통 enum으로 운영하며, `code`는 `ErrorCode`의 enum 이름을 그대로 사용합니다.
 
 ---
 

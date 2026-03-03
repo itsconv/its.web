@@ -3,21 +3,27 @@ package com.itsconv.web.board.domain;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
+
 @Getter
 @RequiredArgsConstructor
 public enum BoardType {
-    DATA("bbs/data"),
-    DOWNLOAD("bbs/download"),
-    NOTICE("bbs/notice"),
-    STORY("bbs/story");
+    DATA("data", "admin/bbs/data"),
+    DOWNLOAD("download", "admin/bbs/download"),
+    NOTICE("its_notice", "admin/bbs/its_notice"),
+    STORY("story", "admin/bbs/story");
 
     private final String path;
+    private final String viewPath;
 
     public static BoardType from(String value) {
-        return BoardType.valueOf(value.toUpperCase());
+        return Arrays.stream(values())
+                .filter(type -> type.path.equals(value))
+                .findFirst()
+                .orElseGet(() -> BoardType.valueOf(value.toUpperCase()));
     }
 
     public String listView() {
-        return this.getPath();
+        return this.getViewPath();
     }
 }

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}">
+
+<head>
+  <title>ITSConvergence 관리자</title>
+  <link rel="stylesheet" th:href="@{/admin/css/basic/popup/list.css}" href="/admin/css/basic/popup/list.css" />
+</head>
+
+<body>
+  <div layout:fragment="page-content">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>공지기간</th>
+            <th>등록일</th>
+            <th>기능</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="popup, iterStat : ${popupList}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${popup.title}">제목</td>
+            <td th:text="${#temporals.format(popup.startDate, 'yyyy-MM-dd')} + ' ~ ' + ${#temporals.format(popup.endDate, 'yyyy-MM-dd')}">2026-01-01 ~ 2026-01-31</td>
+            <td th:text="${popup.createDate != null ? #temporals.format(popup.createDate, 'yyyy-MM-dd HH:mm:ss') : '-'}">-</td>
+            <td>
+              <div class="row-actions">
+                <a th:href="@{/admin/popup/edit/{seq}(seq=${popup.seq})}" class="edit-btn">수정</a>
+                <button type="button" class="delete-btn" th:data-seq="${popup.seq}" data-popup-delete="true">삭제</button>
+              </div>
+            </td>
+          </tr>
+          <tr th:if="${popupList == null or #lists.isEmpty(popupList)}">
+            <td colspan="5">등록된 팝업이 없습니다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <th:block th:replace="~{admin/fragments/pagination :: adminPagination}"></th:block>
+    <div class="page-action-left">
+      <button type="button" id="popupRegisterBtn" class="add-btn">
+        <span class="icon"><img src="/asset/img/plus.gif" alt="" /></span>
+        <span class="action-text">팝업등록</span>
+      </button>
+    </div>
+  </div>
+
+  <th:block layout:fragment="scripts">
+    <script th:src="@{/admin/js/basic/popup/list.js}"></script>
+  </th:block>
+</body>
+</html>

@@ -1,0 +1,39 @@
+.admin-edit-table .input,
+.admin-edit-table .input::placeholder {
+  text-align: left;
+}
+
+.admin-edit-table {
+  min-width: auto;
+}
+
+.admin-edit-table tr,
+.admin-edit-table th,
+.admin-edit-table td {
+  text-align: left;
+}
+
+.admin-edit-table input,
+.admin-edit-table textarea {
+  text-align: left;
+}
+
+.admin-edit-table input.input,
+.admin-edit-table textarea.input {
+  width: 178px;
+  height: 40px;
+}
+
+.admin-edit-table textarea.input {
+  width: 677px;
+  height: 97px;
+  font-size: 14px;
+  color: #555555;
+}
+
+.admin-edit-table th:first-child,
+.admin-edit-table td:first-child {
+  width: auto;
+  min-width: auto;
+  max-width: none;
+}

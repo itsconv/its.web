@@ -56,7 +56,7 @@
     <logger name="com.ulisesbocchio.jasypt" level="WARN"/>
     <logger name="org.springframework.web" level="WARN"/>
 
-    <logger name="com.itsconv.web" level="INFO"/>
+    <logger name="com.itsconv" level="INFO"/>
 
     <!-- ========================= 개발(dev, local) ========================= -->
     <springProfile name="dev,local">

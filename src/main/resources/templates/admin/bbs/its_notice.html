@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}">
+
+<head>
+  <title>ITSConvergence 관리자</title>
+</head>
+
+<body>
+  <div layout:fragment="page-content">
+    <div class="table-wrap">
+      <table>
+        <thead id="dataTableHead"></thead>
+        <tbody id="dataTableBody"></tbody>
+      </table>
+    </div>
+    <th:block th:replace="~{admin/fragments/pagination :: adminPagination}"></th:block>
+  </div>
+
+  <th:block layout:fragment="scripts">
+  </th:block>
+</body>
+</html>

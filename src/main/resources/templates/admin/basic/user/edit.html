@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}"
+  th:with="pageData=${pageData}">
+
+<head>
+  <title>ITSConvergence 관리자</title>
+  <link rel="stylesheet" th:href="@{/admin/css/basic/admin/edit.css}" href="/admin/css/basic/admin/edit.css" />
+</head>
+
+<body>
+    <div layout:fragment="page-content">
+    <div id="adminEditContent" class="admin-edit-content">
+      <div id="adminEditForm" th:data-user-id="${userId}" th:data-is-create="${isCreate}">
+        <div class="table-wrap">
+          <table class="admin-edit-table">
+            <tbody>
+              <tr>
+                <th>아이디 <span style="color: red;">*</span></th>
+                <td>
+                  <input
+                    type="text"
+                    id="userId"
+                    th:value="${userId}"
+                    th:readonly="${!isCreate}"
+                    class="input"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th>비밀번호 <span style="color: red;">*</span></th>
+                <td>
+                  <input
+                    type="password"
+                    id="password"
+                    th:value="${adminUserForm.password}"
+                    th:placeholder="${isCreate} ? '비밀번호 입력' : '변경 시 입력'"
+                    class="input"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th>이름 <span style="color: red;">*</span></th>
+                <td><input type="text" id="name" th:value="${adminUserForm.name}" required class="input" /></td>
+              </tr>
+              <tr>
+                <th>메모</th>
+                <td><textarea id="memo" rows="3" cols="60" class="input" th:text="${adminUserForm.memo}"></textarea></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="action-area">
+          <button type="button" id="adminUpdateButton" class="add-btn confirm-btn">확인</button>
+          <a th:href="@{/admin/user/list}" class="add-btn list-btn">목록</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block layout:fragment="scripts">
+    <script th:src="@{/admin/js/basic/admin/edit.js}"></script>
+  </th:block>
+</body>
+</html>
