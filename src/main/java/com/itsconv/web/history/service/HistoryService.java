@@ -41,7 +41,7 @@ public class HistoryService {
     private final HistoryItemQueryRepository historyItemQueryRepository;
 
     @Transactional(readOnly = true)
-    public List<HistoryPeriodResponse> findPeriod(String parent) {
+    public List<HistoryPeriodResponse> findPeriod() {
         List<HistoryPeriod> periodList = historyPeriodRepository.findAll(Sort.by("sortOrder").ascending());
         return periodList.stream()
                 .map(m -> HistoryPeriodResponse.builder()
