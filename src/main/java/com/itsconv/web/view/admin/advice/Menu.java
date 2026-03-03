@@ -19,7 +19,7 @@ public enum Menu {
     DOWNLOAD(new String[]{"/admin/bbs/download"}, "download", "posts", "게시판관리", "자료실", "자료실 게시물을 등록, 수정, 삭제할 수 있습니다."),
     STORY(new String[]{"/admin/bbs/story"}, "story", "posts", "게시판관리", "ITS Story", "ITS Story 게시물을 등록, 수정, 삭제할 수 있습니다."),
 
-    HISTORY(new String[]{"/admin/history/history"}, "history", "news", "연혁관리", "연혁관리", "연혁 항목을 등록, 수정, 삭제할 수 있습니다.");
+    HISTORY(new String[]{"/admin/history/list"}, "history", "news", "연혁관리", "연혁관리", "연혁 항목을 등록, 수정, 삭제할 수 있습니다.");
 
     private final String[] uris;
     private final String pageData;

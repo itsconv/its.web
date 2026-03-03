@@ -5,7 +5,7 @@ $(function() {
 
 const pageInit = {
     load: function() {
-        AdminLayout.createModal({
+        createModal({
             id: 'historyEditModal',
             title: '연혁관리',
             evt: function() {

@@ -6,14 +6,11 @@
 <head>
   <title>ITSConvergence 관리자</title>
 
-  <link rel="stylesheet" th:href="@{/admin/css/history/history.css}" />
+  <link rel="stylesheet" th:href="@{/admin/css/history/list.css}" />
 </head>
 
 <body>
   <div class="dashboard-content" layout:fragment="page-content">
-    <h3 id="pageTitleMain">연혁 관리<span>연혁을 추가/수정 관리합니다.</span></h3>
-    <div class="divider"></div>
-
     <div class="table-wrap">
       <table>
         <thead id="dataTableHead"></thead>
@@ -65,8 +62,8 @@
 
 
   <th:block layout:fragment="scripts">
-    <script th:src="@{/admin/js/history/history.js}"></script>
-    <script th:src="@{/admin/js/history/history.crud.js}"></script>
+    <script th:src="@{/admin/js/history/list.js}"></script>
+    <script th:src="@{/admin/js/history/list.crud.js}"></script>
   </th:block>
 </body>
 </html>

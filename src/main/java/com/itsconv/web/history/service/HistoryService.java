@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itsconv.web.common.exception.BusinessException;
 import com.itsconv.web.common.exception.ErrorCode;
-import com.itsconv.web.history.controller.dto.HistoryTopCreateRequest;
-import com.itsconv.web.history.controller.dto.HistoryTopModifyRequest;
+import com.itsconv.web.history.controller.dto.request.HistoryPeriodCreateRequest;
+import com.itsconv.web.history.controller.dto.request.HistoryPeriodModifyRequest;
 import com.itsconv.web.history.domain.HistoryPeriod;
 import com.itsconv.web.history.repository.HistoryPeriodRepository;
 import com.itsconv.web.security.service.UserPrincipal;
@@ -27,7 +27,7 @@ public class HistoryService {
     }
 
     @Transactional
-    public void updateName(HistoryTopModifyRequest request, UserPrincipal userPrincipal) {
+    public void updateName(HistoryPeriodModifyRequest request, UserPrincipal userPrincipal) {
         if (request.id() == null) {
             throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
         }
@@ -43,7 +43,7 @@ public class HistoryService {
     }
 
     @Transactional
-    public void createTop(HistoryTopCreateRequest request, UserPrincipal userPrincipal) {
+    public void createTop(HistoryPeriodCreateRequest request, UserPrincipal userPrincipal) {
         HistoryPeriod historyPeriod = new HistoryPeriod();
 
         Integer nextOrder = historyPeriodRepository.findMaxSortOrder() + 1;

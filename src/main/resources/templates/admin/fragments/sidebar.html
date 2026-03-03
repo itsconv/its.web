@@ -26,7 +26,10 @@
 
   <th:block th:if="${activeTab == 'news'}">
     <h3 class="sidebar-title">연혁관리</h3>
-    <nav class="submenu"></nav>
+    <nav class="submenu">
+      <a th:href="@{/admin/history/list}" class="submenu-btn"
+         th:classappend="${pageData == 'history'} ? 'active'">연혁관리</a>
+    </nav>
   </th:block>
 
   <button type="button" id="collapseBtn" class="collapse-btn" aria-label="사이드바 접기">◀</button>

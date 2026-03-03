@@ -1,6 +1,8 @@
 package com.itsconv.web.view.admin.advice;
 
 import com.itsconv.web.view.admin.PopupViewController;
+import com.itsconv.web.view.admin.HistoryViewController;
+import com.itsconv.web.view.admin.BoardViewController;
 import com.itsconv.web.view.admin.UserViewController;
 import com.itsconv.web.view.admin.ViewController;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @ControllerAdvice(assignableTypes = {
         ViewController.class,
         UserViewController.class,
-        PopupViewController.class
+        PopupViewController.class,
+        BoardViewController.class,
+        HistoryViewController.class
 })
 public class PageDataAdvice {
 
