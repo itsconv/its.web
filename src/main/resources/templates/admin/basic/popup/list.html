@@ -21,8 +21,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="popup, iterStat : ${popupList}">
-            <td th:text="${iterStat.count}">1</td>
+          <tr th:each="popup, iterStat : ${adminPopupPage.content}">
+            <td th:text="${adminPopupPage.number * adminPopupPage.size + iterStat.index + 1}">1</td>
             <td th:text="${popup.title}">제목</td>
             <td th:text="${#temporals.format(popup.startDate, 'yyyy-MM-dd')} + ' ~ ' + ${#temporals.format(popup.endDate, 'yyyy-MM-dd')}">2026-01-01 ~ 2026-01-31</td>
             <td th:text="${popup.createDate != null ? #temporals.format(popup.createDate, 'yyyy-MM-dd HH:mm:ss') : '-'}">-</td>
@@ -33,13 +33,19 @@
               </div>
             </td>
           </tr>
-          <tr th:if="${popupList == null or #lists.isEmpty(popupList)}">
+          <tr th:if="${adminPopupPage == null or adminPopupPage.empty}">
             <td colspan="5">등록된 팝업이 없습니다.</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <th:block th:replace="~{admin/fragments/pagination :: adminPagination}"></th:block>
+    <th:block th:with="
+      paginationPage=${adminPopupPage},
+      paginationAction=@{/admin/popup/list},
+      paginationFormId='frmAdminPopupPage'
+    ">
+      <th:block th:replace="~{admin/fragments/pagination :: adminPagination}"></th:block>
+    </th:block>
     <div class="page-action-left">
       <button type="button" id="popupRegisterBtn" class="add-btn">
         <span class="icon"><img src="/asset/img/plus.gif" alt="" /></span>

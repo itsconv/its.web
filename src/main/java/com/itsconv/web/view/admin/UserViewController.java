@@ -2,16 +2,15 @@ package com.itsconv.web.view.admin;
 
 import com.itsconv.web.user.service.UserService;
 import com.itsconv.web.user.service.dto.result.UserDetailView;
-import com.itsconv.web.user.service.dto.result.UserListView;
 import com.itsconv.web.view.admin.dto.UserFormView;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,10 +20,13 @@ public class UserViewController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public String getAdminList(Model model) {
-        UserListView userListView = userService.findUserList();
-        List<UserDetailView> adminUserList = userListView.users();
-        model.addAttribute("adminUserList", adminUserList);
+    public String getAdminList(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model
+    ) {
+        Page<UserDetailView> adminUserPage = userService.findUserList(page, size);
+        model.addAttribute("adminUserPage", adminUserPage);
         return "admin/basic/user/list";
     }
 

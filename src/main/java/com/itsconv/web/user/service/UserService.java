@@ -8,14 +8,16 @@ import com.itsconv.web.user.service.dto.command.UserDeleteCommand;
 import com.itsconv.web.user.service.dto.command.UserRegisterCommand;
 import com.itsconv.web.user.service.dto.command.UserUpdateCommand;
 import com.itsconv.web.user.service.dto.result.UserDetailView;
-import com.itsconv.web.user.service.dto.result.UserListView;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -61,11 +63,11 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserListView findUserList() {
-        List<UserDetailView> users = userRepository.findAll().stream()
-                .map(UserDetailView::from)
-                .toList();
-        return new UserListView(users);
+    public Page<UserDetailView> findUserList(int page, int size) {
+        int safePage = Math.max(1, page) - 1;
+        int safeSize = Math.max(1, Math.min(size, 100));
+        Pageable pageable = PageRequest.of(safePage, safeSize, Sort.by(Sort.Direction.DESC, "createDate"));
+        return userRepository.findAll(pageable).map(UserDetailView::from);
     }
 
     @Transactional(readOnly = true)
