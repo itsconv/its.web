@@ -20,7 +20,6 @@ import com.itsconv.web.history.controller.dto.request.HistoryItemModifyRequest;
 import com.itsconv.web.history.controller.dto.request.HistoryPeriodCreateRequest;
 import com.itsconv.web.history.controller.dto.request.HistoryPeriodModifyRequest;
 import com.itsconv.web.history.controller.dto.request.HistoryYearCreateRequest;
-import com.itsconv.web.history.controller.dto.response.HistoryPeriodResponse;
 import com.itsconv.web.history.service.HistoryService;
 import com.itsconv.web.history.service.dto.result.HistoryYearGroup;
 import com.itsconv.web.security.service.UserPrincipal;
@@ -33,11 +32,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HistoryController {
     private final HistoryService historyService;
-
-    @GetMapping("/period")
-    public ResponseEntity<ApiResponse<List<HistoryPeriodResponse>>> getPeriod() {
-        return ResponseEntity.ok(ApiResponse.success(historyService.findPeriod(null)));
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> modifyTopName(@Valid @RequestBody HistoryPeriodModifyRequest request,

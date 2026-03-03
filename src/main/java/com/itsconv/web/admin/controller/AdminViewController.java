@@ -50,33 +50,33 @@ public class AdminViewController {
         return "basic/popup_list";
     }
 
-    @GetMapping("/bbs/data")
-    public String bbsData() {
-        return "bbs/data";
-    }
+    // @GetMapping("/bbs/data")
+    // public String bbsData() {
+    //     return "bbs/data";
+    // }
 
-    @GetMapping("/bbs/its_notice")
-    public String itsNotice() {
-        return "bbs/its_notice";
-    }
+    // @GetMapping("/bbs/its_notice")
+    // public String itsNotice() {
+    //     return "bbs/its_notice";
+    // }
 
-    @GetMapping("/bbs/download")
-    public String download() {
-        return "bbs/download";
-    }
+    // @GetMapping("/bbs/download")
+    // public String download() {
+    //     return "bbs/download";
+    // }
 
-    @GetMapping("/bbs/story")
-    public String story() {
-        return "bbs/story";
-    }
+    // @GetMapping("/bbs/story")
+    // public String story() {
+    //     return "bbs/story";
+    // }
 
-    @GetMapping("/bbs/bbs_list")
-    public String bbsList() {
-        return "bbs/bbs_list";
-    }
+    // @GetMapping("/bbs/bbs_list")
+    // public String bbsList() {
+    //     return "bbs/bbs_list";
+    // }
 
-    @GetMapping("/history/history")
-    public String historyList() {
-        return "history/history";
-    }
+    // @GetMapping("/history/history")
+    // public String historyList() {
+    //     return "history/history";
+    // }
 }

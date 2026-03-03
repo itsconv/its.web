@@ -6,9 +6,7 @@ $(function() {
 const pageInit = {
     load: function() {
         setModal();
-
-        getHistoryPeriod();
-
+        tableRowEvt();
         detailBtnEvt();
     },
     button: function() {
@@ -221,55 +219,6 @@ function setModal() {
             });
         }
     });
-}
-
-async function getHistoryPeriod() {
-    try {
-        const result = await $.ajax({
-            url: `/api/history/period`,
-            type: `GET`,
-            dataType: `JSON`,
-        })
-    
-        renderHistoryTable(result);
-    } catch (error) {
-        console.log("Error : ", error);  
-    }
-}
-
-function renderHistoryTable(res) {
-    const resList = res.data;
-    const $head = $('#dataTableHead');
-    const $body = $('#dataTableBody');
-
-    $head.empty();
-    $body.empty();
-
-    $head.append(
-        `<tr>
-            <td>시작구간</td>
-            <td>종료구간</td>
-            <td>기능</td>
-        </tr>
-        `
-    );
-
-    for (const period of resList) {
-        $body.append(
-            `<tr>
-                <td align="center" class="start-period">${period.startPeriod}</td>
-                <td align="center" class="end-period">${period.endPeriod}</td>
-                <td align="center" data-history-id="${period.id}">
-                    <button class="h18 red_s history-edit">수정</button>
-                    <button class="h18 blue_s history-detail-open">상세</button>
-                    <button class="h18 blue_s history-delete">삭제</button>
-                </td>
-            </tr>
-            `
-        );
-    }
-
-    tableRowEvt();
 }
 
 function tableRowEvt() {
