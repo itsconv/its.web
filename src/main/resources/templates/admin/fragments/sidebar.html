@@ -32,5 +32,19 @@
     </nav>
   </th:block>
 
+  <th:block th:if="${activeTab == 'media'}">
+    <h3 class="sidebar-title">이미지관리</h3>
+    <nav class="submenu">
+      <a th:href="@{/admin/image/trading-room}" class="submenu-btn"
+         th:classappend="${pageData == 'image-trading-room'} ? 'active'">통합트레이딩룸</a>
+      <a th:href="@{/admin/image/ai-monitoring-center}" class="submenu-btn"
+         th:classappend="${pageData == 'image-ai-monitoring-center'} ? 'active'">AI관제센터</a>
+      <a th:href="@{/admin/image/ai-contact-center}" class="submenu-btn"
+         th:classappend="${pageData == 'image-ai-contact-center'} ? 'active'">AI컨텍센터</a>
+      <a th:href="@{/admin/image/uc-solution}" class="submenu-btn"
+         th:classappend="${pageData == 'image-uc-solution'} ? 'active'">UC솔루션</a>
+    </nav>
+  </th:block>
+
   <button type="button" id="collapseBtn" class="collapse-btn" aria-label="사이드바 접기">◀</button>
 </aside>

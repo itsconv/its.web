@@ -35,5 +35,12 @@
       <span class="tab-icon"><img th:src="@{/asset/img/icon11.png}" src="/asset/img/icon11.png" alt="연혁관리 아이콘" /></span>
       <span class="tab-label">연혁관리</span>
     </a>
+    <a th:href="@{/admin/image}"
+       href="/admin/image"
+       class="tab-btn tab-image"
+       th:classappend="${pageData == 'image-management' or pageData == 'image-trading-room' or pageData == 'image-ai-monitoring-center' or pageData == 'image-ai-contact-center' or pageData == 'image-uc-solution'} ? ' active' : ''">
+      <span class="tab-icon"></span>
+      <span class="tab-label">이미지관리</span>
+    </a>
   </div>
 </th:block>

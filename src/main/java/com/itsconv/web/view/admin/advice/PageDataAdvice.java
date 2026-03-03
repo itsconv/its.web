@@ -1,6 +1,7 @@
 package com.itsconv.web.view.admin.advice;
 
 import com.itsconv.web.view.admin.PopupViewController;
+import com.itsconv.web.view.admin.ImageViewController;
 import com.itsconv.web.view.admin.HistoryViewController;
 import com.itsconv.web.view.admin.BoardViewController;
 import com.itsconv.web.view.admin.UserViewController;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
         UserViewController.class,
         PopupViewController.class,
         BoardViewController.class,
-        HistoryViewController.class
+        HistoryViewController.class,
+        ImageViewController.class
 })
 public class PageDataAdvice {
 
