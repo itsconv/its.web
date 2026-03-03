@@ -1,14 +1,16 @@
 package com.itsconv.web.view.admin;
 
-import com.itsconv.web.history.domain.HistoryPeriod;
-import com.itsconv.web.history.service.HistoryService;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import com.itsconv.web.history.controller.dto.response.HistoryPeriodResponse;
+import com.itsconv.web.history.service.HistoryService;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * 충돌 방지를 위한 임시 뷰 컨트롤러
@@ -21,7 +23,7 @@ public class HistoryViewController {
 
     @GetMapping("/list")
     public String historyView(Model model) {
-        List<HistoryPeriod> period = historyService.findPeriod(null);
+        List<HistoryPeriodResponse> period = historyService.findPeriod();
 
         model.addAttribute("period", period);
 

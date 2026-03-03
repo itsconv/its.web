@@ -11,16 +11,35 @@
 
 <body>
   <div class="dashboard-content" layout:fragment="page-content">
+    <h3 id="pageTitleMain">연혁 관리<span>연혁을 추가/수정 관리합니다.</span></h3>
+    <div class="divider"></div>
+
     <div class="table-wrap">
       <table>
-        <thead id="dataTableHead"></thead>
-        <tbody id="dataTableBody"></tbody>
+        <thead id="dataTableHead">
+          <tr>
+              <td>시작구간</td>
+              <td>종료구간</td>
+              <td>기능</td>
+          </tr>
+        </thead>
+        <tbody id="dataTableBody">
+          <tr th:each="period : ${period}">
+            <td align="center" class="start-period" th:text="${period.startPeriod}"></td>
+            <td align="center" class="end-period" th:text="${period.endPeriod}"></td>
+            <td align="center" th:attr="data-history-id=${period.id}" >
+                <button class="h18 red_s history-edit">수정</button>
+                <button class="h18 blue_s history-detail-open">상세</button>
+                <button class="h18 blue_s history-delete">삭제</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
     <div class="pagination">
       <div class="action-area">
-        <button type="button" id="tableActionBtn" class="add-btn">
+        <button type="button" id="btnAddHistory" class="add-btn">
           <span class="icon"><img src="/asset/img/plus.gif" alt="" /></span>
           연혁 추가
         </button>
@@ -54,6 +73,27 @@
           </div>
           <div class="modal-footer">
               <button id="btnConfirmModify" type="button" class="h18 red_s js-modal-submit">수정완료</button>
+              <button id="btnConfirmCreate" type="button" class="h18 red_s js-modal-submit">저장</button>
+              <button type="button" class="h18 blue_s js-modal-close">닫기</button>
+          </div>
+      </div>
+    </div>
+
+    <!-- 상세 Modal -->
+    <div id="historyDetailModal" class="modal-backdrop" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="historyDetailModalTitle">
+          <div class="modal-header">
+              <h3 class="modal-title"></h3>
+              <button type="button" class="modal-close js-modal-close" aria-label="close">x</button>
+          </div>
+          <div class="modal-body modal-type-table">
+              <table id="tblHistoryDetail"></table>
+          </div>
+          <div class="modal-footer">
+              <button id="btnAddHistoryYear" type="button" class="add-btn year-action btn-add-year">
+                  <span class="icon"><img src="/asset/img/plus.gif" alt="" /></span>
+                  <span class="action-text">연도추가</span>
+              </button>
               <button type="button" class="h18 blue_s js-modal-close">닫기</button>
           </div>
       </div>

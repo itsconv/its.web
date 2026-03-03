@@ -37,6 +37,9 @@ public class HistoryPeriod extends BaseTimeEntity {
     @Column(name = "last_update_id", length = 20)
     private String lastUpdateId;
 
+    @Column(name = "create_id", length = 20)
+    private String createId;
+
     @OneToMany(mappedBy = "period", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistoryYear> years = new ArrayList<>();
 
@@ -50,6 +53,7 @@ public class HistoryPeriod extends BaseTimeEntity {
         this.startPeriod = startPeriod;
         this.endPeriod = endPeriod;
         this.sortOrder = sortOrder;
+        this.createId = requestId;
         this.lastUpdateId = requestId;
     }
 }

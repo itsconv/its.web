@@ -105,18 +105,52 @@ WHERE NOT EXISTS (
       AND end_date = '2025-02-03'
 );
 
--- INSERT INTO history_period (
---     display_order,
---     end_period,
---     start_period,
---     create_date,
---     id,
---     last_update,
---     last_update_id
--- ) VALUES
--- (0, '2010', '1999', NOW(), 1, NOW(),'admin'),
--- (1, '2020', '2011', NOW(), 2, NOW(), 'admin'),
--- (2, 'Now', '2021', NOW(), 3, NOW(), 'admin');
+--- 연혁 
+INSERT INTO history_period (
+    display_order,
+    end_period,
+    start_period,
+    create_date,
+    id,
+    last_update,
+    last_update_id
+) VALUES
+(0, '2010', '1999', NOW(), 1, NOW(),'admin'),
+(1, '2020', '2011', NOW(), 2, NOW(), 'admin'),
+(2, 'Now', '2021', NOW(), 3, NOW(), 'admin');
+
+INSERT INTO history_year (
+	display_order,
+	history_year, 
+	create_date, 
+	id, 
+	last_update, 
+	period_id, 
+	create_id, 
+	last_update_id
+) VALUES 
+(0, '1999', '2026-02-28 12:38:01', 1, '2026-02-28 12:38:07', 1, NULL, NULL),
+(1, '2002', '2026-02-28 12:40:29', 2, '2026-02-28 12:40:31', 1, NULL, NULL),
+(2, '2003', '2026-02-28 12:40:48', 3, '2026-02-28 12:40:49', 1, NULL, NULL),
+(3, '2005', '2026-02-28 12:41:07', 4, '2026-02-28 12:41:08', 1, NULL, NULL),
+(4, '2006', '2026-02-28 12:41:15', 5, '2026-02-28 12:41:16', 1, NULL, NULL);
+
+
+INSERT INTO history_item (
+	display_order, 
+	create_date, 
+	id, 
+	last_update, 
+	year_id, 
+	content, 
+	create_id, 
+	last_update_id
+) VALUES 
+(0, '2026-02-28 12:41:31', 1, '2026-02-28 12:41:33', 1, '아이티에스정보통신 설립', NULL, NULL),
+(1, '2026-02-28 12:43:42', 2, '2026-02-28 12:43:42', 1, 'Nortel 교환기 비즈니스 오픈', NULL, NULL),
+(2, '2026-02-28 12:43:58', 3, '2026-02-28 12:43:58', 1, 'BT(British Telecom) 딜링 시스템 오픈', NULL, NULL),
+(0, '2026-02-28 12:44:20', 4, '2026-03-01 00:06:24', 2, 'The Executive Centre Korea PBX 구축 및 운영 유지보수', NULL, 'admin');
+
 
 -- BOARD_TYPE = DATA 더미 데이터 20건
 INSERT INTO its_board (
