@@ -10,7 +10,7 @@
 
 <body>
   <div layout:fragment="page-content" class="admin-list-page">
-    <div class="table-wrap">
+        <div class="table-wrap">
       <table>
         <thead>
           <tr>
@@ -23,8 +23,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="user, iterStat : ${adminUserList}">
-            <td th:text="${iterStat.count}">1</td>
+          <tr th:each="user, iterStat : ${adminUserPage.content}">
+            <td th:text="${adminUserPage.number * adminUserPage.size + iterStat.index + 1}">1</td>
             <td th:text="${user.userId}">admin</td>
             <td th:text="${user.name}">관리자</td>
             <td th:text="${user.lastLogin != null ? #temporals.format(user.lastLogin, 'yyyy-MM-dd HH:mm:ss') : '-'}">-</td>
@@ -44,13 +44,19 @@
               </div>
             </td>
           </tr>
-          <tr th:if="${adminUserList == null or #lists.isEmpty(adminUserList)}">
+          <tr th:if="${adminUserPage == null or adminUserPage.empty}">
             <td colspan="6">등록된 관리자가 없습니다.</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <th:block th:replace="~{admin/fragments/pagination :: adminPagination}"></th:block>
+    <th:block th:with="
+      paginationPage=${adminUserPage},
+      paginationAction=@{/admin/user/list},
+      paginationFormId='frmAdminUserPage'
+    ">
+      <th:block th:replace="~{admin/fragments/pagination :: adminPagination}"></th:block>
+    </th:block>
     <div class="page-action-left">
       <button type="button" id="adminRegisterBtn" class="add-btn">
         <span class="icon"><img src="/asset/img/plus.gif" alt="" /></span>

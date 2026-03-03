@@ -1,21 +1,86 @@
-<div th:fragment="adminPagination">
-  <div class="pagination">
-    <div class="pagination-controls">
-      <button type="button" class="page-arrow page-arrow-l2">
-        <span class="sr-only">맨 앞 페이지</span>
-      </button>
-      <button type="button" class="page-arrow page-arrow-l1">
-        <span class="sr-only">이전 페이지</span>
-      </button>
-      <span class="page-current-box">
-        <button type="button" class="page-current">1</button>
-      </span>
-      <button type="button" class="page-arrow page-arrow-r1">
-        <span class="sr-only">다음 페이지</span>
-      </button>
-      <button type="button" class="page-arrow page-arrow-r2">
-        <span class="sr-only">맨 뒤 페이지</span>
-      </button>
+<div th:fragment="adminPagination"
+  th:with="
+      p=${paginationPage},
+      action=${paginationAction},
+      formId=${paginationFormId != null and !#strings.isEmpty(paginationFormId) ? paginationFormId : 'frmAdminPagination'},
+      blockSize=5,
+      currentPage=${p != null ? p.number + 1 : 1},
+      totalPages=${p != null ? p.totalPages : 0},
+      startPage=${((currentPage - 1) / blockSize) * blockSize + 1},
+      endPage=${(startPage + blockSize - 1) < totalPages ? (startPage + blockSize - 1) : totalPages}
+  ">
+  <div th:if="${p != null and totalPages > 1}">
+    <form th:id="${formId}" method="get" th:action="${action != null ? action : '#'}">
+      <input type="hidden" name="page" th:value="${currentPage}" />
+      <input type="hidden" name="size" th:value="${p.size}" />
+    </form>
+
+    <div class="pagination">
+      <div class="pagination-controls">
+        <button type="button"
+                class="page-arrow page-arrow-l2 page-control admin-page-control"
+                th:data-target="${formId}"
+                data-page="1"
+                th:disabled="${currentPage <= 1}">
+          <span class="sr-only">맨 앞 페이지</span>
+        </button>
+        <button type="button"
+                class="page-arrow page-arrow-l1 page-control admin-page-control"
+                th:data-target="${formId}"
+                th:data-page="${currentPage - 1}"
+                th:disabled="${p.first}">
+          <span class="sr-only">이전 페이지</span>
+        </button>
+
+        <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
+          <button type="button"
+                  th:if="${i != currentPage}"
+                  class="page-number page-control admin-page-control"
+                  th:text="${i}"
+                  th:data-target="${formId}"
+                  th:data-page="${i}">
+          </button>
+          <span th:if="${i == currentPage}" class="page-current-box">
+            <button type="button"
+                    class="page-current"
+                    th:text="${i}">
+            </button>
+          </span>
+        </span>
+
+        <button type="button"
+                class="page-arrow page-arrow-r1 page-control admin-page-control"
+                th:data-target="${formId}"
+                th:data-page="${endPage < totalPages ? endPage + 1 : endPage}"
+                th:disabled="${p.last}">
+          <span class="sr-only">다음 페이지</span>
+        </button>
+        <button type="button"
+                class="page-arrow page-arrow-r2 page-control admin-page-control"
+                th:data-target="${formId}"
+                th:data-page="${totalPages}"
+                th:disabled="${currentPage >= totalPages}">
+          <span class="sr-only">맨 뒤 페이지</span>
+        </button>
+      </div>
     </div>
   </div>
+
+  <script>
+    $(document).off('click.adminPagination', '.admin-page-control');
+    $(document).on('click.adminPagination', '.admin-page-control', function() {
+      const $this = $(this);
+      if ($this.prop('disabled')) {
+        return;
+      }
+
+      const $form = $('#' + $this.data('target'));
+      if (!$form.length) {
+        return;
+      }
+
+      $form.find('input[name="page"]').val($this.data('page'));
+      $form.trigger('submit');
+    });
+  </script>
 </div>

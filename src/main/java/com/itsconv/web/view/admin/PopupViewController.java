@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -18,8 +19,12 @@ public class PopupViewController {
     private final PopupService popupService;
 
     @GetMapping("/list")
-    public String popupList(Model model) {
-        model.addAttribute("popupList", popupService.findPopupList().popups());
+    public String popupList(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model
+    ) {
+        model.addAttribute("adminPopupPage", popupService.findPopupList(page, size));
         return "admin/basic/popup/list";
     }
 
