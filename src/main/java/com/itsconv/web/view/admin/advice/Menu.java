@@ -15,7 +15,7 @@ public enum Menu {
     POPUP_EDIT(new String[]{"/admin/popup/edit"}, "popup-list", "basic", "기본설정", "팝업관리", "팝업을 등록, 수정, 삭제할 수 있습니다."),
 
     DATA(new String[]{"/admin/bbs/data", "/admin/bbs/bbs_list"}, "data", "posts", "게시판관리", "홍보자료", "홍보자료를 등록, 수정, 삭제할 수 있습니다."),
-    NOTICE(new String[]{"/admin/bbs/its_notice"}, "its_notice", "posts", "게시판관리", "공지사항", "공지사항을 등록, 수정, 삭제할 수 있습니다."),
+    NOTICE(new String[]{"/admin/bbs/notice"}, "notice", "posts", "게시판관리", "공지사항", "공지사항을 등록, 수정, 삭제할 수 있습니다."),
     DOWNLOAD(new String[]{"/admin/bbs/download"}, "download", "posts", "게시판관리", "자료실", "자료실 게시물을 등록, 수정, 삭제할 수 있습니다."),
     STORY(new String[]{"/admin/bbs/story"}, "story", "posts", "게시판관리", "ITS Story", "ITS Story 게시물을 등록, 수정, 삭제할 수 있습니다."),
 

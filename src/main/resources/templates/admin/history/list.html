@@ -46,64 +46,13 @@
       </div>
     </div>
 
-    <!-- 수정 Modal -->
-    <div id="historyEditModal" class="modal-backdrop" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="historyEditModalTitle">
-          <div class="modal-header">
-              <h3 class="modal-title"></h3>
-              <button type="button" class="modal-close js-modal-close" aria-label="close">x</button>
-          </div>
-          <div class="modal-body modal-type-table">
-              <table>
-                <tbody>
-                  <tr>
-                    <td class="td-label">시작구간</td>
-                    <td class="td-input">
-                      <input type="text" id="startPeriod"/>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="td-label">종료구간</td>
-                    <td class="td-input">
-                      <input type="text" id="endPeriod"/>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-          </div>
-          <div class="modal-footer">
-              <button id="btnConfirmModify" type="button" class="h18 red_s js-modal-submit">수정완료</button>
-              <button id="btnConfirmCreate" type="button" class="h18 red_s js-modal-submit">저장</button>
-              <button type="button" class="h18 blue_s js-modal-close">닫기</button>
-          </div>
-      </div>
-    </div>
-
-    <!-- 상세 Modal -->
-    <div id="historyDetailModal" class="modal-backdrop" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="historyDetailModalTitle">
-          <div class="modal-header">
-              <h3 class="modal-title"></h3>
-              <button type="button" class="modal-close js-modal-close" aria-label="close">x</button>
-          </div>
-          <div class="modal-body modal-type-table">
-              <table id="tblHistoryDetail"></table>
-          </div>
-          <div class="modal-footer">
-              <button id="btnAddHistoryYear" type="button" class="add-btn year-action btn-add-year">
-                  <span class="icon"><img src="/asset/img/plus.gif" alt="" /></span>
-                  <span class="action-text">연도추가</span>
-              </button>
-              <button type="button" class="h18 blue_s js-modal-close">닫기</button>
-          </div>
-      </div>
-    </div>
+    <th:block th:replace="~{admin/history/modal :: history-modal}"></th:block>
   </div>
 
 
   <th:block layout:fragment="scripts">
     <script th:src="@{/admin/js/history/list.js}"></script>
-    <script th:src="@{/admin/js/history/list.crud.js}"></script>
+    <script th:src="@{/admin/js/history/crud.js}"></script>
   </th:block>
 </body>
 </html>

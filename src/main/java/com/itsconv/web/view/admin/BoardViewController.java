@@ -7,6 +7,9 @@ import com.itsconv.web.board.service.BoardService;
 import com.itsconv.web.common.exception.BusinessException;
 import com.itsconv.web.common.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,9 +36,10 @@ public class BoardViewController {
 
         Page<BoardListResponse> page = boardService.findBoardList(request);
 
-        model.addAttribute("page", page);
-        model.addAttribute("req", request);
-
+        model.addAttribute("boardPage", page);
+        model.addAttribute("boardRequest", request);
+        model.addAttribute("boardTypes", List.of(BoardType.values()));
+        
         return boardType.listView();
     }
 }

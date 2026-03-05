@@ -3,6 +3,8 @@ package com.itsconv.web.board.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.itsconv.web.board.service.dto.command.BoardCopyCommand;
+import com.itsconv.web.board.service.dto.command.BoardMoveCommand;
 import com.itsconv.web.common.domain.BaseTimeEntity;
 import com.itsconv.web.file.domain.FileDetail;
 
@@ -55,8 +57,33 @@ public class Board extends BaseTimeEntity {
     private String lastUpdateName;
 
     @Column(name = "view_count")
-    private Integer viewCount;
+    private Integer viewCount = 0;
+
+    @Column(name = "sort_order")
+    private Integer sortOrder;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FileDetail> files = new ArrayList<>();
+
+    public void changeBoardType(BoardMoveCommand command) {
+        this.type = command.targetType();
+        this.lastUpdateId = command.requestId();
+        this.lastUpdateName = command.requestName();
+        this.sortOrder = command.nextOrder();
+    }
+
+    public void saveCopiedBoard(BoardCopyCommand command) {
+        this.type = command.type();
+        this.title = command.title();
+        this.contents = command.contents();
+        this.createId = command.createId();
+        this.createName = command.createName();
+        this.lastUpdateId = command.lastUpdateId();
+        this.lastUpdateName = command.lastUpdateName();
+        this.sortOrder = command.sortOrder();
+    }
+
+    public void updateOrder(Integer reqOrder) {
+        this.sortOrder = reqOrder;
+    }
 }

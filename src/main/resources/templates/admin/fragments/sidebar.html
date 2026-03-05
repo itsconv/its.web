@@ -15,8 +15,8 @@
     <nav class="submenu">
       <a th:href="@{/admin/bbs/data}" class="submenu-btn"
          th:classappend="${#strings.equals(pageData, 'data') or #strings.equals(pageData, 'bbs-list')} ? 'active'">홍보자료</a>
-      <a th:href="@{/admin/bbs/its_notice}" class="submenu-btn"
-         th:classappend="${pageData == 'its_notice'} ? 'active'">공지사항</a>
+      <a th:href="@{/admin/bbs/notice}" class="submenu-btn"
+         th:classappend="${pageData == 'notice'} ? 'active'">공지사항</a>
       <a th:href="@{/admin/bbs/download}" class="submenu-btn"
          th:classappend="${pageData == 'download'} ? 'active'">자료실</a>
       <a th:href="@{/admin/bbs/story}" class="submenu-btn"

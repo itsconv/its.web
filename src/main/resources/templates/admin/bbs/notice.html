@@ -57,7 +57,7 @@
     <!--공통 페이징 -->
     <th:block th:with="
       paginationPage=${boardPage},
-      paginationAction=@{/admin/bbs/data},
+      paginationAction=@{/admin/bbs/notice},
       paginationFormId='frmAdminBoardPage',
       paginationReq=${boardRequest}">
       <th:block th:replace="~{admin/fragments/pagination_board :: boardPagination}"></th:block>

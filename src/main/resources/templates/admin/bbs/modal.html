@@ -1,0 +1,65 @@
+<div th:fragment="bbs-modal">
+    <!--이동/복사-->
+    <div id="boardListModal" class="modal-backdrop" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="boardListModalTitle">
+            <div class="modal-header">
+                <h3 class="modal-title"></h3>
+                <button type="button" class="modal-close js-modal-close" aria-label="close">x</button>
+            </div>
+            <div class="modal-body modal-type-table">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="td-label">게시판 선택</td>
+                            <td class="td-input">
+                                <select id="boardSelect" class="common-select-type">
+                                    <option 
+                                        value=""
+                                        th:text="선택해주세요."
+                                        selected>
+                                    </option>
+                                    <option
+                                        th:each="type : ${boardTypes}"
+                                        th:value="${type.name()}"
+                                        th:text="${type.menu}"
+                                    ></option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="btnConfirmMove" type="button" class="add-btn confirm-btn">이동</button>
+                <button id="btnConfirmCopy" type="button" class="add-btn confirm-btn">복사</button>
+                <button type="button" class="modal-btn-eq js-modal-close">닫기</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="boardOrderModal" th:attr="data-board-type=${boardRequest.type.name()}" class="modal-backdrop" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="boardOrderModalTitle">
+            <div class="modal-header">
+                <h3 class="modal-title"></h3>
+                <button type="button" class="modal-close js-modal-close" aria-label="close">x</button>
+            </div>
+            <div class="modal-body modal-type-table">
+                <table id="tblManageOrder">
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>순서</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="btnConfirmOrder" type="button" class="add-btn confirm-btn">저장</button>
+                <button type="button" class="modal-btn-eq js-modal-close">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>

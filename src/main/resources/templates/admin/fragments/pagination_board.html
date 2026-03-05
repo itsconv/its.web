@@ -1,32 +1,72 @@
-<div th:fragment="boardPagination" class="board-pagination-fragment">
-  <div class="pagination">
-    <form id="frmBoardPage" method="get" th:action="@{/admin/bbs/data}">
-      <input type="hidden" name="page" th:value="${page.number + 1}" />
-      <input type="hidden" name="size" th:value="${req.size}" />
+<div th:fragment="boardPagination" class="board-pagination-fragment"
+  th:with="
+      p=${paginationPage},
+      req=${paginationReq},
+      action=${paginationAction},
+      formId=${paginationFormId != null and !#strings.isEmpty(paginationFormId) ? paginationFormId : 'frmAdminPagination'},
+      blockSize=5,
+      currentPage=${p != null ? p.number + 1 : 1},
+      totalPages=${p != null ? p.totalPages : 0},
+      startPage=${((currentPage - 1) / blockSize) * blockSize + 1},
+      endPage=${(startPage + blockSize - 1) < totalPages ? (startPage + blockSize - 1) : totalPages}
+  ">
+  <div th:if="${p != null}">
+    <form th:id="${formId}" method="get" th:action="${action != null ? action : '#'}">
+      <input type="hidden" name="page" th:value="${currentPage}" />
+      <input type="hidden" name="size" th:value="${p.size}" />
       <input type="hidden" name="keyword" th:value="${req.keyword}" />
+      <input type="hidden" name="searchType" th:value="${req.searchType}" />
     </form>
 
-    <div class="pagination-controls">
-      <button type="button" class="page-arrow page-arrow-l2 page-control"
-              th:disabled="${page.first}" data-page="1">
-        <span class="sr-only">맨 앞 페이지</span>
-      </button>
-      <button type="button" class="page-arrow page-arrow-l1 page-control"
-              th:disabled="${page.first}" th:attr="data-page=${page.number}">
-        <span class="sr-only">이전 페이지</span>
-      </button>
-      <span class="page-current-box">
-        <button type="button" class="page-current"
-                th:text="${page.number + 1}" disabled>1</button>
-      </span>
-      <button type="button" class="page-arrow page-arrow-r1 page-control"
-              th:disabled="${page.last}" th:attr="data-page=${page.number + 2}">
-        <span class="sr-only">다음 페이지</span>
-      </button>
-      <button type="button" class="page-arrow page-arrow-r2 page-control"
-              th:disabled="${page.last}" th:attr="data-page=${page.totalPages}">
-        <span class="sr-only">맨 뒤 페이지</span>
-      </button>
+    <div class="pagination">
+      <div class="pagination-controls">
+        <button type="button"
+                class="page-arrow page-arrow-l2 page-control admin-page-control"
+                th:data-target="${formId}"
+                data-page="1"
+                th:disabled="${currentPage <= 1}">
+          <span class="sr-only">맨 앞 페이지</span>
+        </button>
+        <button type="button"
+                class="page-arrow page-arrow-l1 page-control admin-page-control"
+                th:data-target="${formId}"
+                th:data-page="${currentPage - 1}"
+                th:disabled="${p.first}">
+          <span class="sr-only">이전 페이지</span>
+        </button>
+
+        <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
+          <button type="button"
+                  th:if="${i != currentPage}"
+                  class="page-number page-control admin-page-control"
+                  th:text="${i}"
+                  th:data-target="${formId}"
+                  th:data-page="${i}">
+          </button>
+          <span th:if="${i == currentPage}" class="page-current-box">
+            <button type="button"
+                    class="page-current"
+                    th:text="${i}"
+                    disabled>
+            </button>
+          </span>
+        </span>
+
+        <button type="button"
+                class="page-arrow page-arrow-r1 page-control admin-page-control"
+                th:data-target="${formId}"
+                th:data-page="${endPage < totalPages ? endPage + 1 : endPage}"
+                th:disabled="${p.last}">
+          <span class="sr-only">다음 페이지</span>
+        </button>
+        <button type="button"
+                class="page-arrow page-arrow-r2 page-control admin-page-control"
+                th:data-target="${formId}"
+                th:data-page="${totalPages}"
+                th:disabled="${currentPage >= totalPages}">
+          <span class="sr-only">맨 뒤 페이지</span>
+        </button>
+      </div>
     </div>
   </div>
   <div class="action-area">
@@ -43,23 +83,23 @@
         <span
           class="action-text">선택이동</span>
       </button>
-      <button type="button" class="h18 blue_s btn-move-order">
+      <button type="button" class="h18 blue_s btn-update-order">
         <span
           class="action-text">순서변경</span>
       </button>
     </div>
     <div class="action-area-middle">
-      <form id="frmBbsData" method="get" th:action="@{/admin/bbs/data}">
+      <form id="frmBbsData" method="get" th:action="${action}" th:object="${boardRequest}">
           <!-- <input type="hidden" name="type" th:value="${req.type.name().toLowerCase()}" /> -->
           <input type="hidden" name="size" th:value="${req.size}" />
-          <select class="search-type">
+          <select class="common-select-type search-type" name="searchType" th:field="*{searchType}">
             <option value="TITLE">제목</option>
             <option value="CONTENT">내용</option>
             <option value="TITLE_CONTENT">제목+내용</option>
             <option value="NAME">작성자명</option>
             <option value="ID">작성자ID</option>
           </select>
-          <input type="text" class="search-keyword" th:value="${req.keyword}" />
+          <input type="text" class="common-input-type search-keyword" name="keyword" th:value="${req.keyword}" />
           <button type="submit" class="btn-search h18 red_s">검색</button>
       </form>
     </div>
@@ -70,18 +110,11 @@
       </button>
     </div>
   </div>
+
+  <script th:inline="javascript">
+    const BOARD_TYPE = /*[[${req != null ? req.type.name() : ''}]]*/ '';
+  </script>
+  <script th:src="@{/admin/js/board/list.js}"></script>
+  <script th:src="@{/admin/js/board/crud.js}"></script>
 </div>
 
-<script>
-  $('.page-control').on('click', function() {
-    const $this = $(this);
-
-    if ($this.attr('disabled')) return;
-
-    const $form = $('#frmBoardPage');
-    const page = $this.data('page');
-
-    $form.find('input[name="page"]').val(page);
-    $form.submit();
-  });
-</script>

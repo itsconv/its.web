@@ -9,13 +9,13 @@
 
     const period = {
         modify(id, callback) {
-            const paylod = {...getPeriodParam(), id};
+            const payload = {...getPeriodParam(), id};
 
             $.ajax({
                 url: `/api/history/${id}`,
                 type: 'PUT',
                 contentType: 'application/json; charset=UTF-8',
-                data: JSON.stringify(paylod),
+                data: JSON.stringify(payload),
                 dataType: 'JSON'
             })
             .then(function(res) {
