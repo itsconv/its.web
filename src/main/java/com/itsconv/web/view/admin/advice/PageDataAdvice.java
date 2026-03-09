@@ -1,5 +1,7 @@
 package com.itsconv.web.view.admin.advice;
 
+import com.itsconv.web.menu.domain.MenuDepth;
+import com.itsconv.web.menu.repository.MenuRepository;
 import com.itsconv.web.view.admin.PopupViewController;
 import com.itsconv.web.view.admin.ImageViewController;
 import com.itsconv.web.view.admin.HistoryViewController;
@@ -7,6 +9,7 @@ import com.itsconv.web.view.admin.BoardViewController;
 import com.itsconv.web.view.admin.UserViewController;
 import com.itsconv.web.view.admin.ViewController;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +22,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
         HistoryViewController.class,
         ImageViewController.class
 })
+@RequiredArgsConstructor
 public class PageDataAdvice {
+
+    private final MenuRepository menuRepository;
 
     @ModelAttribute
     public void addPageData(HttpServletRequest request, Model model) {
@@ -33,5 +39,12 @@ public class PageDataAdvice {
         model.addAttribute("breadcrumbTitle", currentMenu.getBreadcrumbTitle());
         model.addAttribute("pageTitle", currentMenu.getPageTitle());
         model.addAttribute("pageDescription", currentMenu.getPageDescription());
+
+        if ("media".equals(currentMenu.getActiveTab())) {
+            model.addAttribute(
+                    "mainMenus",
+                    menuRepository.findByDepthAndUseYnOrderBySortOrderAsc(MenuDepth.MAIN, "Y")
+            );
+        }
     }
 }
