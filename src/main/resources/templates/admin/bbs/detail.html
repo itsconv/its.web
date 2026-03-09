@@ -1,0 +1,81 @@
+﻿<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}">
+
+<head>
+  <title>ITSConvergence 관리자</title>
+  <link rel="stylesheet" th:href="@{/admin/css/bbs/detail.css}" href="/admin/css/bbs/detail.css" />
+</head>
+
+<body>
+  <div layout:fragment="page-content" class="board-detail-page">
+    <article class="board-detail-card">
+      <header class="board-detail-header">
+        <h4 class="board-detail-title" th:text="${boardDetail.title}"></h4>
+        <div class="board-detail-meta">
+          <span>작성자 <strong th:text="${boardDetail.createName}"></strong></span>
+          <span>작성일시 <strong th:text="${boardDetail.createDate != null ? #temporals.format(boardDetail.createDate, 'yyyy-MM-dd HH:mm:ss') : ''}"></strong></span>
+          <span>조회수 <strong th:text="${boardDetail.viewCount}"></strong></span>
+        </div>
+      </header>
+
+      <section class="board-detail-body">
+        <div class="board-detail-content" th:utext="${boardDetail.contents}"></div>
+      </section>
+    </article>
+
+    <section class="board-detail-nav">
+      <div class="nav-row">
+        <span class="nav-label">이전글</span>
+        <div class="nav-value">
+          <a th:if="${boardDetail.prevPost != null}"
+             th:href="@{/admin/bbs/detail/{id}(id=${boardDetail.prevPost.id})}"
+             th:text="${boardDetail.prevPost.title}"></a>
+          <span th:if="${boardDetail.prevPost == null}" class="nav-empty">이전글이 없습니다.</span>
+        </div>
+      </div>
+      <div class="nav-row">
+        <span class="nav-label">다음글</span>
+        <div class="nav-value">
+          <a th:if="${boardDetail.nextPost != null}"
+             th:href="@{/admin/bbs/detail/{id}(id=${boardDetail.nextPost.id})}"
+             th:text="${boardDetail.nextPost.title}"></a>
+          <span th:if="${boardDetail.nextPost == null}" class="nav-empty">다음글이 없습니다.</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="action-area board-detail-actions">
+      <a th:href="@{/admin/bbs/{type}(type=${boardDetail.type.path})}" class="add-btn list-btn">목록</a>
+      <a th:href="@{/admin/bbs/edit/{id}(id=${boardDetail.id})}" class="add-btn confirm-btn">수정</a>
+      <button type="button" id="btnDeleteBoard" class="add-btn">삭제</button>
+    </div>
+  </div>
+
+  <th:block layout:fragment="scripts">
+    <script th:inline="javascript">
+      $('#btnDeleteBoard').on('click', function() {
+        if (!confirm('삭제하시겠습니까?')) return;
+
+        const boardId = /*[[${boardDetail.id}]]*/ 0;
+        const boardType = /*[[${boardDetail.type.path}]]*/ '';
+
+        $.ajax({
+          url: `/api/bbs/${boardId}`,
+          type: 'DELETE',
+          dataType: 'JSON',
+        })
+        .then(function(res) {
+          alert("삭제되었습니다");
+          window.location.href=`/admin/bbs/${boardType}`;
+        })
+        .catch(function(error){
+            console.log('Ajax error :', error);
+            alert(error.responseJSON.message);
+        });
+      });
+    </script>
+  </th:block>
+</body>
+
+</html>

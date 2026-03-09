@@ -16,7 +16,36 @@ $(function () {
       ['table', 'image', 'link'],
       ['code', 'codeblock']
     ],
-    initialValue: contentsSource.value || ''
+    initialValue: contentsSource.value || '',
+    hooks: {
+        addImageBlobHook: async function(file, callback){
+            try {
+                const frm = new FormData();
+                frm.append('file', file, file.name || 'image.png');
+
+                $.ajax({
+                    url: '/api/file/upload',
+                    type: 'POST',
+                    data: frm,
+                    processData: false,
+                    contentType: false
+                })
+                .then(function(res) {
+                    const detailId = res.data.detailId;
+                    const url = res.data.url;
+
+                    callback(url, detailId);
+                })
+                .catch(function(error){
+                    console.log('Ajax error :', error);
+                    alert(error.responseJSON.message);
+                });
+            } catch (error) {
+                console.log("Failed to upload file:", error);
+                alert("이미지 업로드에 실패했습니다.");
+            }
+        }
+    }
   });
 
   if (window.ResizeObserver) {

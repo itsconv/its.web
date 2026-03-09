@@ -6,7 +6,7 @@ import com.itsconv.web.board.domain.BoardType;
 import lombok.Builder;
 
 @Builder
-public record BoardCopyCommand(
+public record BoardSaveCommand(
     BoardType type,
     String title,
     String contents,
@@ -16,10 +16,10 @@ public record BoardCopyCommand(
     String lastUpdateName,
     Integer sortOrder
 ) {
-    public static BoardCopyCommand from(
+    public static BoardSaveCommand from(
         Board b, BoardType reqType, String requestId, String requestName, Integer nextOrder
     ) {
-        return BoardCopyCommand.builder()
+        return BoardSaveCommand.builder()
             .type(reqType)
             .title(b.getTitle())
             .contents(b.getContents())

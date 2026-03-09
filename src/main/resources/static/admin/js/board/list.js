@@ -90,20 +90,30 @@ const pageInit = {
             renderCheckedOrderData($checked);
 
             $orderModal.addClass('is-open').attr('aria-hidden', 'false');
-        });
+        })
+        .on('click.boardBtnControl', '.btn-write-board', function() {  //글쓰기
+            const type = `${BOARD_TYPE}`.toLowerCase();
+            window.location.href = `/admin/bbs/edit/${type}`;
+        })
 
         // 테이블 클래스 위임
         $('.table-wrap')
-        .off('change.tableControl')
-        .on('change.tableControl', '#checkAllItem', function() {
+        .off('change.tableCheck')
+        .on('change.tableCheck', '#checkAllItem', function() {  //게시글 선택
             const checked = $(this).is(':checked');
             $tableBody.find('td input.check-item').prop('checked', checked);
         })
-        .on('change.tableControl', '.check-item', function() {
+        .on('change.tableCheck', '.check-item', function() {
             const total = $tableBody.find('tr').length;
             const checekd = $tableBody.find('.check-item:checked').length;
 
             $('#checkAllItem').prop('checked', total > 0 && total === checekd);
+        })
+        .off('click.tableTitle')
+        .on('click.tableTitle', '.board-title', function() {    // 게시판 상세
+            const id = $(this).data('board-id');
+
+            window.location.href=`/admin/bbs/detail/${id}`;
         });
 
         function checkValidation() {

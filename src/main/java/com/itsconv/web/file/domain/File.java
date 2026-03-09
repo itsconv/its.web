@@ -1,6 +1,7 @@
 package com.itsconv.web.file.domain;
 
 import com.itsconv.web.common.domain.BaseTimeEntity;
+import com.itsconv.web.file.service.dto.command.FileUploadCommand;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,4 +33,11 @@ public class File extends BaseTimeEntity{
 
     @Column(name = "file_size")
     private Long size;
+
+    public void saveFile(FileUploadCommand command) {
+        this.path = command.path();
+        this.uuid = command.uuid();
+        this.originName = command.originName();
+        this.size = command.size();
+    }
 }

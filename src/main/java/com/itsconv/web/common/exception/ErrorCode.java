@@ -17,7 +17,14 @@ public enum ErrorCode {
     USER_DELETED(HttpStatus.FORBIDDEN, "삭제된 사용자입니다."),
     USER_DISABLED(HttpStatus.FORBIDDEN, "사용 중지된 사용자입니다."),
     USER_LOCKED(HttpStatus.LOCKED, "해당 계정은 잠금 처리되었습니다."),
-    ;
+
+    // Board
+    EMPTY_CONTENTS(HttpStatus.BAD_REQUEST, "내용을 입력해주세요."),
+
+    // File
+    FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "파일저장 중 오류가 발생했습니다."),
+    FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "파일을 찾을 수 없습니다."),
+    FILE_DELETE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "파일삭제 중 오류가 발생했습니다.");
 
     private final HttpStatus status;
     private final String message;

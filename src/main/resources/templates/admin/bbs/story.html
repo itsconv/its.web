@@ -34,7 +34,7 @@
             </td>
             <td class="row-value" th:text="${status.index + 1}"></td>
             <td>
-              <span th:text="${row.title}" class="board-title row-value"></span>
+              <span th:text="${row.title}" th:attr="data-board-id=${row.id}" class="board-title row-value"></span>
               <span class="board-badge badge-new"
                     th:if="${(boardPage.first and status.index == 0) or (row.createDate != null and row.createDate.isAfter(T(java.time.LocalDateTime).now().minusDays(7)))}">
                 NEW

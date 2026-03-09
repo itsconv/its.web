@@ -3,7 +3,7 @@ package com.itsconv.web.board.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.itsconv.web.board.service.dto.command.BoardCopyCommand;
+import com.itsconv.web.board.service.dto.command.BoardSaveCommand;
 import com.itsconv.web.board.service.dto.command.BoardMoveCommand;
 import com.itsconv.web.common.domain.BaseTimeEntity;
 import com.itsconv.web.file.domain.FileDetail;
@@ -72,7 +72,7 @@ public class Board extends BaseTimeEntity {
         this.sortOrder = command.nextOrder();
     }
 
-    public void saveCopiedBoard(BoardCopyCommand command) {
+    public void saveBoard(BoardSaveCommand command) {
         this.type = command.type();
         this.title = command.title();
         this.contents = command.contents();

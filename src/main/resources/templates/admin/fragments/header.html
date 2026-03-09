@@ -24,7 +24,7 @@
     <a th:href="@{/admin/bbs/data}"
        href="/admin/bbs/data"
        class="tab-btn"
-       th:classappend="${pageData == 'data' or pageData == 'bbs-list' or pageData == 'notice' or pageData == 'download' or pageData == 'story'} ? ' active' : ''">
+       th:classappend="${pageData == 'data' or pageData == 'notice' or pageData == 'download' or pageData == 'story' or pageData == 'edit'} ? ' active' : ''">
       <span class="tab-icon"><img th:src="@{/asset/img/icon3.png}" src="/asset/img/icon3.png" alt="게시판관리 아이콘" /></span>
       <span class="tab-label">게시판관리</span>
     </a>
