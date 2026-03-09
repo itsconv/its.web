@@ -4,6 +4,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.itsconv.web.board.domain.BoardSearchType;
 import com.itsconv.web.board.domain.BoardType;
 
 import lombok.Getter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 public class BoardListRequest {
     private BoardType type;
     private String keyword = "";
+    private BoardSearchType searchType = BoardSearchType.TITLE;
     private int page = 1;
     private int size = 10;
 

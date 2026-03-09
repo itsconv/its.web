@@ -8,13 +8,14 @@ import java.util.Arrays;
 @Getter
 @RequiredArgsConstructor
 public enum BoardType {
-    DATA("data", "admin/bbs/data"),
-    DOWNLOAD("download", "admin/bbs/download"),
-    NOTICE("its_notice", "admin/bbs/its_notice"),
-    STORY("story", "admin/bbs/story");
+    DATA("data", "admin/bbs/data", "홍보자료"),
+    DOWNLOAD("download", "admin/bbs/download", "자료실"),
+    NOTICE("notice", "admin/bbs/notice", "공지사항"),
+    STORY("story", "admin/bbs/story", "ITS Story");
 
     private final String path;
     private final String viewPath;
+    private final String menu;
 
     public static BoardType from(String value) {
         return Arrays.stream(values())

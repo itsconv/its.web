@@ -1,0 +1,112 @@
+﻿<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}"
+  th:with="pageData=${pageData}">
+
+<head>
+  <title>ITSConvergence 관리자</title>
+  <link rel="stylesheet" th:href="@{/admin/css/bbs/edit.css}" href="/admin/css/bbs/edit.css" />
+  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+</head>
+
+<body>
+  <div layout:fragment="page-content" class="bbs-edit-page">
+    <div id="bbsEditContent" class="bbs-edit-content"
+      th:attr="
+        data-is-create=${isCreate},
+        data-board-type=${boardForm.boardType.path}
+        ">
+      <div class="bbs-edit-head">
+        <p class="bbs-edit-required">* 표시는 필수입력 항목입니다.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="bbs-edit-table">
+          <colgroup>
+            <col class="bbs-edit-th-col" />
+            <col />
+            <col class="bbs-edit-th-col" />
+            <col />
+          </colgroup>
+          <tbody>
+            <tr>
+              <th>작성자 <span class="req">*</span></th>
+              <td>
+                <input type="text" id="createName" th:value="${boardForm.createName}" class="input bbs-input" readonly />
+              </td>
+              <th>작성일시</th>
+              <td>
+                <input type="text" id="createDate" th:value="${boardForm.createDate}" class="input bbs-input" readonly />
+              </td>
+            </tr>
+
+            <tr>
+              <th>제목 <span class="req">*</span></th>
+              <td colspan="3">
+                <input type="text" id="title" th:value="${boardForm.title}" class="input bbs-input bbs-title-input" maxlength="100" />
+              </td>
+            </tr>
+
+            <tr>
+              <th>내용 <span class="req">*</span></th>
+              <td colspan="3" class="bbs-editor-cell">
+                <div id="bbsEditor" class="bbs-editor"></div>
+                <textarea id="contents" th:text="${boardForm.contents}" class="bbs-contents-source"></textarea>
+              </td>
+            </tr>
+
+            <tr>
+              <th>첨부파일</th>
+              <td colspan="3" class="bbs-file-cell">
+                <div class="bbs-file-row">
+                  <label class="bbs-file-index">파일 1</label>
+                  <input type="file" id="attachFile1" class="bbs-file-input" />
+                  <label class="bbs-thumb-check">
+                    <input type="checkbox" class="thumb-check" name="thumbnailOrder" value="1" />
+                    썸네일
+                  </label>
+                </div>
+
+                <div class="bbs-file-row">
+                  <label class="bbs-file-index">파일 2</label>
+                  <input type="file" id="attachFile2" class="bbs-file-input" />
+                  <label class="bbs-thumb-check">
+                    <input type="checkbox" class="thumb-check" name="thumbnailOrder" value="2" />
+                    썸네일
+                  </label>
+                </div>
+
+                <div class="bbs-file-row">
+                  <label class="bbs-file-index">파일 3</label>
+                  <input type="file" id="attachFile3" class="bbs-file-input" />
+                  <label class="bbs-thumb-check">
+                    <input type="checkbox" class="thumb-check" name="thumbnailOrder" value="3" />
+                    썸네일
+                  </label>
+                </div>
+
+                <p class="bbs-file-help">체크된 파일이 썸네일로 사용됩니다.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="action-area bbs-edit-action-area">
+        <a th:href="@{/admin/bbs/{typePath}(typePath=${boardForm.boardType.path})}" class="add-btn list-btn">목록</a>
+        <div class="bbs-edit-action-right">
+          <button type="button" id="bbsSaveButton" class="add-btn confirm-btn">저장</button>
+          <button type="button" id="bbsCancelButton" class="add-btn list-btn">취소</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block layout:fragment="scripts">
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script th:src="@{/admin/js/board/edit.js}"></script>
+    <script th:src="@{/admin/js/board/crud.js}"></script>
+  </th:block>
+</body>
+
+</html>

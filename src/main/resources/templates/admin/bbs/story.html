@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}"
-  th:with="pageData='story'">
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}">
 
 <head>
   <title>ITSConvergence 관리자</title>
@@ -11,14 +10,64 @@
   <div layout:fragment="page-content">
     <div class="table-wrap">
       <table>
-        <thead id="dataTableHead"></thead>
-        <tbody id="dataTableBody"></tbody>
+        <thead id="dataTableHead">
+          <tr>
+            <th>
+              <input type="checkbox" id="checkAllItem" />
+            </th>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일시</th>
+          </tr>
+        </thead>
+        <tbody id="dataTableBody">
+          <tr th:each="row, status : ${boardPage.content}">
+            <td>
+              <input 
+                type="checkbox" 
+                class="check-item"
+                th:attr="data-board-id=${row.id},
+                         data-board-order=${row.sortOrder},
+                         data-board-idx=${status.index + 1},
+                         data-board-title=${row.title}"/>
+            </td>
+            <td class="row-value" th:text="${status.index + 1}"></td>
+            <td>
+              <span th:text="${row.title}" th:attr="data-board-id=${row.id}" class="board-title row-value"></span>
+              <span class="board-badge badge-new"
+                    th:if="${(boardPage.first and status.index == 0) or (row.createDate != null and row.createDate.isAfter(T(java.time.LocalDateTime).now().minusDays(7)))}">
+                NEW
+              </span>
+              <span class="board-badge badge-hot"
+                    th:if="${row.viewCount != null and row.viewCount >= 20}">
+                HOT
+              </span>
+            </td>
+            <td th:text="${row.createName}"></td>
+            <td th:text="${#temporals.format(row.createDate, 'yyyy-MM-dd')}"></td>
+          </tr>
+          <tr th:if="${boardPage.empty}">
+            <td colspan="5">조회된 데이터가 없습니다.</td>
+          </tr>
+        </tbody>
       </table>
     </div>
-    <th:block th:replace="~{admin/fragments/pagination :: adminPagination}"></th:block>
+
+    <!--공통 페이징 -->
+    <th:block th:with="
+      paginationPage=${boardPage},
+      paginationAction=@{/admin/bbs/story},
+      paginationFormId='frmAdminBoardPage',
+      paginationReq=${boardRequest}">
+      <th:block th:replace="~{admin/fragments/pagination_board :: boardPagination}"></th:block>
+    </th:block>
+
+    <th:block th:replace="~{admin/bbs/modal :: bbs-modal}"></th:block>
   </div>
 
   <th:block layout:fragment="scripts">
+
   </th:block>
 </body>
 </html>

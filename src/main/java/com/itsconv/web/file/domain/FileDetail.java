@@ -1,6 +1,7 @@
 package com.itsconv.web.file.domain;
 
 import com.itsconv.web.board.domain.Board;
+import com.itsconv.web.file.service.dto.command.FileDetailCommand;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,18 +26,33 @@ public class FileDetail {
     @Column(name = "detail_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "file_id", nullable = false)
     private File file;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "owner_id", referencedColumnName = "board_id",
-     nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "board_id", nullable = true)
     private Board board;
 
     @Column(name = "is_thumbnail", length = 1)
-    private String isThumbnail;
+    private String isThumbnail = "N";
 
     @Column(name = "file_order")
     private Integer sortOrder;
+
+    @Column(name = "status", length = 4)
+    private String status;
+
+    public void saveDetail(FileDetailCommand command) {
+        this.file = command.file();
+        this.board = command.board();
+        this.isThumbnail = command.isThumbnail();
+        this.sortOrder = command.sortOrder();
+        this.status = command.status();
+    }
+
+    public void updateStatus(Board board, String status) {
+        this.board = board;
+        this.status = status;
+    }
 }
