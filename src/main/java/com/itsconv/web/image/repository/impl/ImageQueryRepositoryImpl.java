@@ -31,7 +31,8 @@ public class ImageQueryRepositoryImpl implements ImageQueryRepository {
                         slot.code,
                         slot.name,
                         slot.guideText,
-                        slot.guideSize,
+                        slot.guideWidth,
+                        slot.guideHeight,
                         mapping.fileId,
                         file.path,
                         file.originName

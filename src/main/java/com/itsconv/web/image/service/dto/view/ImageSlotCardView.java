@@ -5,7 +5,8 @@ public record ImageSlotCardView(
         String slotCode,
         String slotName,
         String guideText,
-        String guideSize,
+        Integer guideWidth,
+        Integer guideHeight,
         Long fileId,
         String filePath,
         String fileOriginName
@@ -24,5 +25,13 @@ public record ImageSlotCardView(
         }
 
         return "/front/trading-center#" + slotCode;
+    }
+
+    public String guideSizeText() {
+        if (guideWidth == null || guideHeight == null) {
+            return null;
+        }
+
+        return guideWidth + "x" + guideHeight;
     }
 }

@@ -2,6 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const tabLinks = document.querySelectorAll(".sub-tab-list li a");
   const tabButtons = document.querySelectorAll(".tab-menu button");
   const tabPanels = document.querySelectorAll(".tab-contents .clearfix > li");
+  const tabIndexByTargetId = {
+    "wey-ip-remote-main": 0,
+    "wdp-main": 1,
+    "wey-smart-touch-main": 2,
+    "bt-dealer-board-main": 3,
+    "recording-solution-main": 4,
+    "architecture-main": 5,
+    "ticker-board-main": 6,
+    "motion-desk-monitor-arm-main": 8,
+    "cable-facilities-main": 9
+  };
 
   const animateScrollTo = function (targetY, duration) {
     const startY = window.scrollY;
@@ -53,6 +64,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 
+  const activateTabByHash = function () {
+    const hash = window.location.hash;
+    if (!hash) {
+      return;
+    }
+
+    const targetId = hash.replace("#", "");
+    const tabIndex = tabIndexByTargetId[targetId];
+
+    if (typeof tabIndex === "number") {
+      updateTabState(tabIndex);
+    }
+
+    const target = document.getElementById(targetId);
+    if (!target) {
+      return;
+    }
+
+    window.setTimeout(function () {
+      const top = target.getBoundingClientRect().top + window.scrollY;
+      animateScrollTo(top, 480);
+    }, 20);
+  };
+
   tabButtons.forEach(function (button, index) {
     button.addEventListener("click", function () {
       updateTabState(index);
@@ -65,4 +100,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     updateTabState(initialIndex >= 0 ? initialIndex : 0);
   }
+
+  activateTabByHash();
+
+  window.addEventListener("hashchange", function () {
+    activateTabByHash();
+  });
 });

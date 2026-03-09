@@ -44,8 +44,11 @@ public class PageImageSlot extends BaseTimeEntity {
     @Column(name = "guide_text", length = 255)
     private String guideText;
 
-    @Column(name = "guide_size", length = 50)
-    private String guideSize;
+    @Column(name = "guide_width")
+    private Integer guideWidth;
+
+    @Column(name = "guide_height")
+    private Integer guideHeight;
 
     @Builder
     private PageImageSlot(
@@ -54,14 +57,16 @@ public class PageImageSlot extends BaseTimeEntity {
             String name,
             String label,
             String guideText,
-            String guideSize
+            Integer guideWidth,
+            Integer guideHeight
     ) {
         this.tabMenuId = tabMenuId;
         this.code = code;
         this.name = name;
         this.label = label;
         this.guideText = guideText;
-        this.guideSize = guideSize;
+        this.guideWidth = guideWidth;
+        this.guideHeight = guideHeight;
     }
 
     public static PageImageSlot create(
@@ -70,7 +75,8 @@ public class PageImageSlot extends BaseTimeEntity {
             String name,
             String label,
             String guideText,
-            String guideSize
+            Integer guideWidth,
+            Integer guideHeight
     ) {
         return PageImageSlot.builder()
                 .tabMenuId(tabMenuId)
@@ -78,14 +84,16 @@ public class PageImageSlot extends BaseTimeEntity {
                 .name(name)
                 .label(label)
                 .guideText(guideText)
-                .guideSize(guideSize)
+                .guideWidth(guideWidth)
+                .guideHeight(guideHeight)
                 .build();
     }
 
-    public void update(String name, String label, String guideText, String guideSize) {
+    public void update(String name, String label, String guideText, Integer guideWidth, Integer guideHeight) {
         this.name = name;
         this.label = label;
         this.guideText = guideText;
-        this.guideSize = guideSize;
+        this.guideWidth = guideWidth;
+        this.guideHeight = guideHeight;
     }
 }

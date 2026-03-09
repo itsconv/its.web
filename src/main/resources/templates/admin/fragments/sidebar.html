@@ -35,14 +35,10 @@
   <th:block th:if="${activeTab == 'media'}">
     <h3 class="sidebar-title">이미지관리</h3>
     <nav class="submenu">
-      <a th:href="@{/admin/image/trading-room}" class="submenu-btn"
-         th:classappend="${pageData == 'image-trading-room'} ? 'active'">통합트레이딩룸</a>
-      <a th:href="@{/admin/image/ai-monitoring-center}" class="submenu-btn"
-         th:classappend="${pageData == 'image-ai-monitoring-center'} ? 'active'">AI관제센터</a>
-      <a th:href="@{/admin/image/ai-contact-center}" class="submenu-btn"
-         th:classappend="${pageData == 'image-ai-contact-center'} ? 'active'">AI컨텍센터</a>
-      <a th:href="@{/admin/image/uc-solution}" class="submenu-btn"
-         th:classappend="${pageData == 'image-uc-solution'} ? 'active'">UC솔루션</a>
+      <a th:each="mainMenu : ${mainMenus}"
+         th:href="@{/admin/image(mainMenuCode=${mainMenu.code})}"
+         th:text="${mainMenu.name}"
+         class="submenu-btn">메인메뉴</a>
     </nav>
   </th:block>
 
