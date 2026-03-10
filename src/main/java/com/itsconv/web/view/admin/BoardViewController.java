@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itsconv.web.board.controller.dto.request.BoardListRequest;
@@ -22,7 +23,7 @@ import com.itsconv.web.view.admin.dto.BoardFormView;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 임시 ViewController
+ * Temporary ViewController
  */
 @Controller
 @RequiredArgsConstructor
@@ -70,14 +71,18 @@ public class BoardViewController {
         return "admin/bbs/edit";
     }
 
-    @GetMapping("/detail/{id}")
-    public String loadDetailForm(@PathVariable Long id, Model model) {
+    @GetMapping("/detail/{typePath}")
+    public String loadDetailForm(@PathVariable String typePath, @RequestParam Long id, Model model) {
         BoardDetailView view = boardService.getBoardDetailView(id);
+        BoardAttachedResponse attachedBoard = boardService.findBoardOne(id);
 
         model.addAttribute("boardId", id);
         model.addAttribute("boardDetail", view);
+        model.addAttribute("boardAttaches", attachedBoard.attaches());
 
         return "admin/bbs/detail";
     }
     
 }
+
+

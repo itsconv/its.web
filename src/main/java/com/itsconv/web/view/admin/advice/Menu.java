@@ -14,10 +14,10 @@ public enum Menu {
     POPUP_LIST(new String[]{"/admin/popup/list"}, "popup-list", "basic", "기본설정", "팝업관리", "팝업을 등록, 수정, 삭제할 수 있습니다."),
     POPUP_EDIT(new String[]{"/admin/popup/edit"}, "popup-list", "basic", "기본설정", "팝업관리", "팝업을 등록, 수정, 삭제할 수 있습니다."),
 
-    DATA(new String[]{"/admin/bbs/data", "/admin/bbs/bbs_list", "/admin/bbs/edit/data"}, "data", "posts", "게시판관리", "홍보자료", "홍보자료를 등록, 수정, 삭제할 수 있습니다."),
-    NOTICE(new String[]{"/admin/bbs/notice", "/admin/bbs/edit/notice"}, "notice", "posts", "게시판관리", "공지사항", "공지사항을 등록, 수정, 삭제할 수 있습니다."),
-    DOWNLOAD(new String[]{"/admin/bbs/download", "/admin/bbs/edit/download"}, "download", "posts", "게시판관리", "자료실", "자료실 게시물을 등록, 수정, 삭제할 수 있습니다."),
-    STORY(new String[]{"/admin/bbs/story", "/admin/bbs/edit/story"}, "story", "posts", "게시판관리", "ITS Story", "ITS Story 게시물을 등록, 수정, 삭제할 수 있습니다."),
+    DATA(new String[]{"/admin/bbs/data", "/admin/bbs/bbs_list", "/admin/bbs/edit/data", "/admin/bbs/detail/data"}, "data", "posts", "게시판관리", "홍보자료", "홍보자료를 등록, 수정, 삭제할 수 있습니다."),
+    NOTICE(new String[]{"/admin/bbs/notice", "/admin/bbs/edit/notice", "/admin/bbs/detail/notice"}, "notice", "posts", "게시판관리", "공지사항", "공지사항을 등록, 수정, 삭제할 수 있습니다."),
+    DOWNLOAD(new String[]{"/admin/bbs/download", "/admin/bbs/edit/download", "/admin/bbs/detail/download"}, "download", "posts", "게시판관리", "자료실", "자료실 게시물을 등록, 수정, 삭제할 수 있습니다."),
+    STORY(new String[]{"/admin/bbs/story", "/admin/bbs/edit/story", "/admin/bbs/detail/story"}, "story", "posts", "게시판관리", "ITS Story", "ITS Story 게시물을 등록, 수정, 삭제할 수 있습니다."),
 
     HISTORY(new String[]{"/admin/history/list"}, "history", "news", "연혁관리", "연혁관리", "연혁 항목을 등록, 수정, 삭제할 수 있습니다."),
 

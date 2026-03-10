@@ -154,12 +154,14 @@ public class BoardService {
             throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
         }
 
+        List<Long> fileIds = fileService.findFileIdsByBoardIds(boardIds);
+
         boardRepository.deleteAllById(boardIds);
 
         // FK 삭제 SQL에 먼저 반영
         entityManager.flush();
 
-        fileService.deleteFiles(boardIds);
+        fileService.deleteFiles(fileIds);
     }
 
     @Transactional
@@ -168,7 +170,13 @@ public class BoardService {
             throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
         }
 
+        List<Long> fileIds = fileService.findFileIdsByBoardIds(List.of(boardId));
+
         boardRepository.deleteById(boardId);
+
+        entityManager.flush();
+
+        fileService.deleteFiles(fileIds);
     }
     
     @Transactional

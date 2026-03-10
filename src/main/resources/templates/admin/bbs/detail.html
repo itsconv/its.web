@@ -22,6 +22,18 @@
       <section class="board-detail-body">
         <div class="board-detail-content" th:utext="${boardDetail.contents}"></div>
       </section>
+
+      <section class="board-detail-files">
+        <h5 class="board-detail-files-title">첨부파일</h5>
+        <ul class="board-detail-file-list" th:if="${boardAttaches != null and !#lists.isEmpty(boardAttaches)}">
+          <li th:each="attach : ${boardAttaches}" class="board-detail-file-item">
+            <a class="board-detail-file-link"
+               th:href="@{/api/file/view/{id}(id=${attach.fileId})}"
+               th:text="${attach.originName}"></a>
+            <span class="board-detail-file-badge" th:if="${'Y'.equals(attach.isThumbnail())}">썸네일</span>
+          </li>
+        </ul>
+      </section>
     </article>
 
     <section class="board-detail-nav">
@@ -29,7 +41,7 @@
         <span class="nav-label">이전글</span>
         <div class="nav-value">
           <a th:if="${boardDetail.prevPost != null}"
-             th:href="@{/admin/bbs/detail/{id}(id=${boardDetail.prevPost.id})}"
+             th:href="@{/admin/bbs/detail/{typePath}(typePath=${boardDetail.type.path}, id=${boardDetail.prevPost.id})}"
              th:text="${boardDetail.prevPost.title}"></a>
           <span th:if="${boardDetail.prevPost == null}" class="nav-empty">이전글이 없습니다.</span>
         </div>
@@ -38,7 +50,7 @@
         <span class="nav-label">다음글</span>
         <div class="nav-value">
           <a th:if="${boardDetail.nextPost != null}"
-             th:href="@{/admin/bbs/detail/{id}(id=${boardDetail.nextPost.id})}"
+             th:href="@{/admin/bbs/detail/{typePath}(typePath=${boardDetail.type.path}, id=${boardDetail.nextPost.id})}"
              th:text="${boardDetail.nextPost.title}"></a>
           <span th:if="${boardDetail.nextPost == null}" class="nav-empty">다음글이 없습니다.</span>
         </div>
@@ -47,7 +59,7 @@
 
     <div class="action-area board-detail-actions">
       <a th:href="@{/admin/bbs/{type}(type=${boardDetail.type.path})}" class="add-btn list-btn">목록</a>
-      <a th:href="@{/admin/bbs/edit/{id}(id=${boardDetail.id})}" class="add-btn confirm-btn">수정</a>
+      <a th:href="@{/admin/bbs/edit/{typePath}/{id}(typePath=${boardDetail.type.path}, id=${boardDetail.id})}" class="add-btn confirm-btn">수정</a>
       <button type="button" id="btnDeleteBoard" class="add-btn">삭제</button>
     </div>
   </div>
@@ -79,3 +91,4 @@
 </body>
 
 </html>
+

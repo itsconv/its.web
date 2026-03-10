@@ -112,8 +112,9 @@ const pageInit = {
         .off('click.tableTitle')
         .on('click.tableTitle', '.board-title', function() {    // 게시판 상세
             const id = $(this).data('board-id');
+            const type = `${BOARD_TYPE}`.toLowerCase();
 
-            window.location.href=`/admin/bbs/detail/${id}`;
+            window.location.href=`/admin/bbs/detail/${type}?id=${id}`;
         });
 
         function checkValidation() {

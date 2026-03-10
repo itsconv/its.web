@@ -50,6 +50,11 @@ public class FileService {
         return fileDetailRepository.findAttachsByBoardId(boardId);
     }
 
+    @Transactional(readOnly = true)
+    public List<Long> findFileIdsByBoardIds(List<Long> boardIds) {
+        return fileDetailRepository.findFileIdsByBoardIds(boardIds);
+    }
+
     /**
      * 에디터에서 파일첨부.
      * Board와의 연관성에 따라 FileStatus 핸들링
@@ -106,10 +111,9 @@ public class FileService {
 
     @Transactional
     public void deleteFiles(List<Long> ids) {
-        List<Long> fileIds = fileDetailRepository.findFileIdsByBoardIds(ids);
-        List<com.itsconv.web.file.domain.File> files = fileRepository.findAllById(fileIds);
+        List<com.itsconv.web.file.domain.File> files = fileRepository.findAllById(ids);
 
-        if (files.isEmpty() || files.size() != ids.size()) {
+        if (files.isEmpty()) {
             throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
         }
 

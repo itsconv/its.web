@@ -11,4 +11,5 @@ public interface FileDetailRepository extends JpaRepository<FileDetail, Long>, F
 
     @Query("select fd.file.id from FileDetail fd where fd.board.id in (:boardIds)")
     List<Long> findFileIdsByBoardIds(List<Long> boardIds);
+
 }
