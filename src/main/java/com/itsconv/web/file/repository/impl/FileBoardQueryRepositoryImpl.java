@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.itsconv.web.file.domain.QFile;
 import com.itsconv.web.file.domain.QFileDetail;
-import com.itsconv.web.file.repository.FileDetailQueryRepository;
+import com.itsconv.web.file.repository.FileBoardQueryRepository;
 import com.itsconv.web.view.admin.dto.FileAttachView;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,7 +12,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class FileDetailQueryRepositoryImpl implements FileDetailQueryRepository {
+public class FileBoardQueryRepositoryImpl implements FileBoardQueryRepository {
     
     private final JPAQueryFactory jpaQueryFactory;
 

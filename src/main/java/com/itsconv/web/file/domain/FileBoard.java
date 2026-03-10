@@ -17,14 +17,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "its_file_detail")
+@Table(name = "its_file_board")
 @Getter
 @NoArgsConstructor
-public class FileDetail {
+public class FileBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "detail_id")
-    private Long id;
+    @Column(name = "mapped_id")
+    private Long mappedId;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "file_id", nullable = false)

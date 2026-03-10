@@ -4,7 +4,7 @@ public record FileAttachView(
     Long detailId,
     Long fileId,
     String originName,
-    boolean isThumbnail,
+    String isThumbnail,
     Integer sortOrder
 ) {
     

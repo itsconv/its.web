@@ -6,7 +6,7 @@ import java.util.List;
 import com.itsconv.web.board.service.dto.command.BoardSaveCommand;
 import com.itsconv.web.board.service.dto.command.BoardMoveCommand;
 import com.itsconv.web.common.domain.BaseTimeEntity;
-import com.itsconv.web.file.domain.FileDetail;
+import com.itsconv.web.file.domain.FileBoard;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -63,7 +63,7 @@ public class Board extends BaseTimeEntity {
     private Integer sortOrder;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FileDetail> files = new ArrayList<>();
+    private List<FileBoard> files = new ArrayList<>();
 
     public void changeBoardType(BoardMoveCommand command) {
         this.type = command.targetType();

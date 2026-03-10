@@ -28,7 +28,7 @@ import com.itsconv.web.board.service.dto.command.BoardSlotCommand;
 import com.itsconv.web.board.service.dto.view.BoardReadView;
 import com.itsconv.web.common.exception.BusinessException;
 import com.itsconv.web.common.exception.ErrorCode;
-import com.itsconv.web.file.domain.FileDetail;
+import com.itsconv.web.file.domain.FileBoard;
 import com.itsconv.web.file.service.FileService;
 import com.itsconv.web.file.service.dto.command.FileConnectBoardCommand;
 import com.itsconv.web.security.service.UserPrincipal;
@@ -154,12 +154,14 @@ public class BoardService {
             throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
         }
 
+        List<Long> fileIds = fileService.findFileIdsByBoardIds(boardIds);
+
         boardRepository.deleteAllById(boardIds);
 
         // FK 삭제 SQL에 먼저 반영
         entityManager.flush();
 
-        fileService.deleteFiles(boardIds);
+        fileService.deleteFiles(fileIds);
     }
 
     @Transactional
@@ -168,7 +170,13 @@ public class BoardService {
             throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
         }
 
+        List<Long> fileIds = fileService.findFileIdsByBoardIds(List.of(boardId));
+
         boardRepository.deleteById(boardId);
+
+        entityManager.flush();
+
+        fileService.deleteFiles(fileIds);
     }
     
     @Transactional
