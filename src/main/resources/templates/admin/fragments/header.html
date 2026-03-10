@@ -18,28 +18,28 @@
        href="/admin/user/list"
        class="tab-btn"
        th:classappend="${pageData == 'admin-list' or pageData == 'popup-list'} ? ' active' : ''">
-      <span class="tab-icon"><img th:src="@{/asset/img/icon2.png}" src="/asset/img/icon2.png" alt="기본설정 아이콘" /></span>
+      <span class="tab-icon"><img th:src="@{/asset/img/icon_settings.svg}" src="/asset/img/icon_settings.svg" alt="기본설정 아이콘" /></span>
       <span class="tab-label">기본설정</span>
     </a>
     <a th:href="@{/admin/bbs/data}"
        href="/admin/bbs/data"
        class="tab-btn"
        th:classappend="${pageData == 'data' or pageData == 'notice' or pageData == 'download' or pageData == 'story' or pageData == 'edit'} ? ' active' : ''">
-      <span class="tab-icon"><img th:src="@{/asset/img/icon3.png}" src="/asset/img/icon3.png" alt="게시판관리 아이콘" /></span>
+      <span class="tab-icon"><img th:src="@{/asset/img/icon_board.svg}" src="/asset/img/icon_board.svg" alt="게시판관리 아이콘" /></span>
       <span class="tab-label">게시판관리</span>
     </a>
     <a th:href="@{/admin/history/list}"
        href="/admin/history/list"
        class="tab-btn"
        th:classappend="${pageData == 'history'} ? ' active' : ''">
-      <span class="tab-icon"><img th:src="@{/asset/img/icon11.png}" src="/asset/img/icon11.png" alt="연혁관리 아이콘" /></span>
+      <span class="tab-icon"><img th:src="@{/asset/img/icon_history.svg}" src="/asset/img/icon_history.svg" alt="연혁관리 아이콘" /></span>
       <span class="tab-label">연혁관리</span>
     </a>
     <a th:href="@{/admin/image}"
        href="/admin/image"
        class="tab-btn tab-image"
        th:classappend="${pageData == 'image-management' or pageData == 'image-trading-room' or pageData == 'image-ai-monitoring-center' or pageData == 'image-ai-contact-center' or pageData == 'image-uc-solution'} ? ' active' : ''">
-      <span class="tab-icon"></span>
+      <span class="tab-icon"><img th:src="@{/asset/img/icon_image.svg}" src="/asset/img/icon_image.svg" alt="이미지관리 아이콘" /></span>
       <span class="tab-label">이미지관리</span>
     </a>
   </div>

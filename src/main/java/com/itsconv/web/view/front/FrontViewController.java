@@ -15,8 +15,8 @@ public class FrontViewController {
     private final ImageService imageService;
 
     @GetMapping("/trading-center")
-    public String tradingCenter(Model model) {
-        model.addAttribute("imageUrlMap", imageService.findImageUrlsByMainMenuCode("TRADING_ROOM"));
+    public String getTradingCenter(Model model) {
+        model.addAttribute("pageImageUrls", imageService.findImageUrlsByMainMenuCode("TRADING_ROOM"));
         return "front/trading_center";
     }
 }

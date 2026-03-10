@@ -19,7 +19,7 @@ public class ImageController {
     private final ImageService imageService;
 
     @PostMapping(value = "/{slotId}/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse<Void>> uploadImageFile(
+    public ResponseEntity<ApiResponse<Void>> modifyImageFile(
             @PathVariable Long slotId,
             @RequestPart("request") ImageFileUpdateRequest request,
             @RequestPart("file") MultipartFile file,
