@@ -5,7 +5,6 @@ import com.itsconv.web.menu.domain.Menu;
 import java.util.List;
 
 public record ImageManagementView(
-        List<Menu> mainMenus,
         Menu selectedMainMenu,
         List<Menu> subMenus,
         Menu selectedSubMenu,
@@ -14,7 +13,6 @@ public record ImageManagementView(
         List<ImageSlotCardView> slots
 ) {
     public static ImageManagementView of(
-            List<Menu> mainMenus,
             Menu selectedMainMenu,
             List<Menu> subMenus,
             Menu selectedSubMenu,
@@ -22,6 +20,6 @@ public record ImageManagementView(
             Menu selectedTabMenu,
             List<ImageSlotCardView> slots
     ) {
-        return new ImageManagementView(mainMenus, selectedMainMenu, subMenus, selectedSubMenu, tabMenus, selectedTabMenu, slots);
+        return new ImageManagementView(selectedMainMenu, subMenus, selectedSubMenu, tabMenus, selectedTabMenu, slots);
     }
 }

@@ -43,7 +43,7 @@ public class PageDataAdvice {
         if ("media".equals(currentMenu.getActiveTab())) {
             model.addAttribute(
                     "mainMenus",
-                    menuRepository.findByDepthAndUseYnOrderBySortOrderAsc(MenuDepth.MAIN, "Y")
+                    menuRepository.findMenuByDepth(MenuDepth.MAIN)
             );
         }
     }

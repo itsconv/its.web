@@ -71,6 +71,16 @@ a {
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo:link,
+.logo:visited,
+.logo:hover,
+.logo:active {
+  text-decoration: none;
+  color: inherit;
 }
 
 .header-nav {
@@ -184,8 +194,8 @@ a {
 
 .sidebar {
   width: 224px;
-  background: var(--gray-100);
-  border-right: 1px solid var(--gray-300);
+  background: #323f6c;
+  border-right: 1px solid #323f6c;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -194,7 +204,7 @@ a {
 }
 
 .sidebar.collapsed {
-  width: 12px;
+  width: 0;
   padding: 0;
 }
 
@@ -214,8 +224,8 @@ a {
   font-size: 14px;
   font-weight: 700;
   box-sizing: border-box;
-  color: #666666;
-  border-bottom: 1px solid #e5e5e5;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .submenu {
@@ -224,7 +234,7 @@ a {
   gap: 0;
   flex: 0;
   padding: 12px 0;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .submenu-btn {
@@ -235,21 +245,26 @@ a {
   padding: 0 0 0 30px;
   height: 35px;
   background: transparent;
-  color: #666666;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
   display: flex;
   align-items: center;
   line-height: 1.25;
   justify-content: flex-start;
   text-decoration: none;
+  transition: color 0.2s;
 }
 
 .submenu-btn:link,
-.submenu-btn:visited,
+.submenu-btn:visited {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .submenu-btn:hover,
 .submenu-btn:active {
   text-decoration: none;
-  color: inherit;
+  color: #ffffff;
 }
 
 .submenu-btn::before {
@@ -258,13 +273,13 @@ a {
 }
 
 .submenu-btn.active {
-  color: #112c6f;
-  font-weight: 500;
+  color: #ffffff;
+  font-weight: 700;
 }
 
 .collapse-btn {
   position: absolute;
-  right: -13px;
+  left: calc(100% + 1px);
   top: 50%;
   transform: translateY(-50%);
   width: 26px;
@@ -1069,6 +1084,8 @@ padding: 12px 15px;
     padding-right: 16px;
   }
 
+
+
   .header-nav {
     gap: 10px;
   }
@@ -1495,4 +1512,48 @@ input.common-input-type:focus {
 .table-wrap .board-title:hover {
     cursor: pointer;
     border-bottom: 1px solid #333;
+}
+
+/* 공통 Action 버튼 (수정, 삭제) */
+.edit-btn,
+.delete-btn {
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: NotoKR, Arial;
+  width: 56px;
+  height: 40px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  text-decoration: none;
+  line-height: normal;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.edit-btn:link,
+.edit-btn:visited,
+.edit-btn:hover,
+.edit-btn:active,
+.delete-btn:link,
+.delete-btn:visited,
+.delete-btn:hover,
+.delete-btn:active {
+  text-decoration: none;
+  color: #fff;
+}
+
+.edit-btn {
+  background: #323f6c;
+}
+
+.delete-btn {
+  background: #323f6c;
 }

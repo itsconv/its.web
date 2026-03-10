@@ -447,7 +447,8 @@ a:link, a:hover, a:visited, a:active {
 
 .pic.top1 .f-left img {
     width: 100%;
-    height: auto;
+    height: 312px;
+    object-fit: cover;
     display: block;
 }
 
@@ -592,10 +593,15 @@ a:link, a:hover, a:visited, a:active {
     overflow: hidden;
 }
 
-.tab-contents .con1 .float::after {
-    content: "";
+.tab-contents .con1 .f-left {
+    width: 430px;
+}
+
+.tab-contents .con1 .f-left img {
+    width: 430px;
+    height: 405px;
+    object-fit: cover;
     display: block;
-    clear: both;
 }
 
 .tab-contents .clearfix > li {

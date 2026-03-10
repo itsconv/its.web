@@ -62,7 +62,7 @@
     <springProfile name="dev,local">
     <!-- SQL 출력 -->
     <logger name="org.hibernate.SQL" level="DEBUG"/>
-    <logger name="org.hibernate.orm.jdbc.bind" level="TRACE"/>
+    <logger name="org.hibernate.orm.jdbc.bind" level="OFF"/>
 
     <logger name="org.hibernate" level="WARN"/>
     <logger name="org.springframework.transaction" level="DEBUG"/>

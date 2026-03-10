@@ -38,7 +38,8 @@
       <a th:each="mainMenu : ${mainMenus}"
          th:href="@{/admin/image(mainMenuCode=${mainMenu.code})}"
          th:text="${mainMenu.name}"
-         class="submenu-btn">메인메뉴</a>
+         class="submenu-btn"
+         th:classappend="${param.mainMenuCode != null ? (#strings.equals(param.mainMenuCode, mainMenu.code) ? 'active' : '') : (mainMenuStat.first ? 'active' : '')}">메인메뉴</a>
     </nav>
   </th:block>
 

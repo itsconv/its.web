@@ -5,9 +5,9 @@ import com.itsconv.web.common.exception.ErrorCode;
 import com.itsconv.web.file.domain.File;
 import com.itsconv.web.file.repository.FileRepository;
 import com.itsconv.web.image.domain.PageImageMapping;
+import com.itsconv.web.image.repository.ImageQueryRepository;
 import com.itsconv.web.image.repository.PageImageMappingRepository;
 import com.itsconv.web.image.repository.PageImageSlotRepository;
-import com.itsconv.web.image.repository.ImageQueryRepository;
 import com.itsconv.web.image.service.dto.view.ImageManagementView;
 import com.itsconv.web.image.service.dto.view.ImageSlotCardView;
 import com.itsconv.web.menu.domain.Menu;
@@ -18,67 +18,57 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.stream.Collectors;
+
+import com.itsconv.web.image.service.dto.view.PageImageUrlsView;
 
 @Service
 @RequiredArgsConstructor
 public class ImageService {
-
-    private static final String USE_Y = "Y";
-    private static final String PAGE_IMAGE_UPLOAD_DIR = "src/main/resources/static/upload/page-image";
-    private static final String PAGE_IMAGE_URL_PATH = "/upload/page-image";
 
     private final MenuRepository menuRepository;
     private final ImageQueryRepository imageQueryRepository;
     private final PageImageSlotRepository pageImageSlotRepository;
     private final PageImageMappingRepository pageImageMappingRepository;
     private final FileRepository fileRepository;
+    private final ImageFileStorage imageFileStorage;
 
     @Transactional(readOnly = true)
     public ImageManagementView findImageManagementView(String mainMenuCode, String subMenuCode, String tabMenuCode) {
-        List<Menu> mainMenus = menuRepository.findByDepthAndUseYnOrderBySortOrderAsc(MenuDepth.MAIN, USE_Y);
-        // 메인 메뉴 미선택 시 정렬 기준 첫 번째 메뉴를 기본값으로 사용한다.
-        Menu selectedMainMenu = findMainMenu(mainMenuCode, mainMenus);
+        Menu selectedMainMenu = menuRepository.findByCode(mainMenuCode)
+                .orElseGet(() -> menuRepository.findMenuByDepth(MenuDepth.MAIN).stream().findFirst()
+                        .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_NOT_FOUND)));
 
-        List<Menu> subMenus = menuRepository.findByParentMenuIdAndUseYnOrderBySortOrderAsc(selectedMainMenu.getId(), USE_Y);
-        Menu selectedSubMenu = findSubMenu(subMenuCode, subMenus);
+        List<Menu> subMenus = menuRepository.findMenuByParentMenuId(selectedMainMenu.getId());
+        Menu selectedSubMenu = findMenuByCodeOrDefault(subMenuCode, subMenus);
 
-        List<Menu> tabMenus = menuRepository.findByParentMenuIdAndUseYnOrderBySortOrderAsc(selectedSubMenu.getId(), USE_Y);
-        // 3뎁스 탭이 없으면 2뎁스 메뉴 자체를 이미지 관리 대상으로 사용한다.
+        List<Menu> tabMenus = menuRepository.findMenuByParentMenuId(selectedSubMenu.getId());
         Menu selectedTabMenu = findTabMenu(tabMenuCode, tabMenus, selectedSubMenu);
-        List<ImageSlotCardView> slotViews = imageQueryRepository.findImageSlotCardsByMenuId(selectedTabMenu.getId());
+        List<ImageSlotCardView> slotViews = imageQueryRepository.findImageSlotCardsByMenuIds(List.of(selectedTabMenu.getId()))
+                .getOrDefault(selectedTabMenu.getId(), List.of());
 
-        return ImageManagementView.of(mainMenus, selectedMainMenu, subMenus, selectedSubMenu, tabMenus, selectedTabMenu, slotViews);
+        return ImageManagementView.of(selectedMainMenu, subMenus, selectedSubMenu, tabMenus, selectedTabMenu, slotViews);
     }
 
     @Transactional(readOnly = true)
-    public Map<String, String> findImageUrlsByMainMenuCode(String mainMenuCode) {
+    public PageImageUrlsView findImageUrlsByMainMenuCode(String mainMenuCode) {
         Menu mainMenu = menuRepository.findByCode(mainMenuCode)
                 .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_NOT_FOUND));
 
-        List<Menu> subMenus = menuRepository.findByParentMenuIdAndUseYnOrderBySortOrderAsc(mainMenu.getId(), USE_Y);
+        List<Menu> subMenus = menuRepository.findMenuByParentMenuId(mainMenu.getId());
+        List<Long> targetMenuIds = extractTargetMenuIds(subMenus);
+
+        Map<Long, List<ImageSlotCardView>> slotCardMap = imageQueryRepository.findImageSlotCardsByMenuIds(targetMenuIds);
         Map<String, String> imageUrlMap = new LinkedHashMap<>();
 
-        for (Menu subMenu : subMenus) {
-            List<Menu> tabMenus = menuRepository.findByParentMenuIdAndUseYnOrderBySortOrderAsc(subMenu.getId(), USE_Y);
-
-            if (tabMenus.isEmpty()) {
-                appendImageUrls(imageUrlMap, subMenu.getId());
-                continue;
-            }
-
-            for (Menu tabMenu : tabMenus) {
-                appendImageUrls(imageUrlMap, tabMenu.getId());
-            }
+        for (Long menuId : targetMenuIds) {
+            appendImageUrls(imageUrlMap, slotCardMap.getOrDefault(menuId, List.of()));
         }
 
-        return imageUrlMap;
+        return PageImageUrlsView.of(imageUrlMap);
     }
 
     @Transactional
@@ -90,7 +80,13 @@ public class ImageService {
             throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
         }
 
-        File storedFile = storeFile(uploadFile);
+        ImageFileStorage.StoredImageFile storedImageFile = imageFileStorage.store(uploadFile);
+        File storedFile = fileRepository.save(File.create(
+                storedImageFile.path(),
+                storedImageFile.uuid(),
+                storedImageFile.savedFileName(),
+                storedImageFile.size()
+        ));
 
         pageImageMappingRepository.findBySlotId(slotId)
                 .ifPresentOrElse(
@@ -101,17 +97,22 @@ public class ImageService {
                 );
     }
 
-    private Menu findSubMenu(String subMenuCode, List<Menu> subMenus) {
-        if (subMenuCode == null || subMenuCode.isBlank()) {
-            return subMenus.stream()
-                    .findFirst()
-                    .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_NOT_FOUND));
-        }
+    private List<Long> extractTargetMenuIds(List<Menu> subMenus) {
+        List<Long> subMenuIds = subMenus.stream()
+                .map(Menu::getId)
+                .toList();
+
+        Map<Long, List<Menu>> tabMenuMap = menuRepository.findMenuByParentMenuIdIn(subMenuIds).stream()
+                .collect(Collectors.groupingBy(Menu::getParentMenuId));
 
         return subMenus.stream()
-                .filter(subMenu -> subMenu.getCode().equals(subMenuCode))
-                .findFirst()
-                .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_NOT_FOUND));
+                .flatMap(subMenu -> {
+                    List<Menu> tabMenus = tabMenuMap.getOrDefault(subMenu.getId(), List.of());
+                    return tabMenus.isEmpty() ?
+                            java.util.stream.Stream.of(subMenu.getId()) :
+                            tabMenus.stream().map(Menu::getId);
+                })
+                .toList();
     }
 
     private Menu findTabMenu(String tabMenuCode, List<Menu> tabMenus, Menu selectedSubMenu) {
@@ -119,16 +120,7 @@ public class ImageService {
             return selectedSubMenu;
         }
 
-        if (tabMenuCode == null || tabMenuCode.isBlank()) {
-            return tabMenus.stream()
-                    .findFirst()
-                    .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_NOT_FOUND));
-        }
-
-        Menu tabMenu = tabMenus.stream()
-                .filter(menu -> menu.getCode().equals(tabMenuCode))
-                .findFirst()
-                .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_NOT_FOUND));
+        Menu tabMenu = findMenuByCodeOrDefault(tabMenuCode, tabMenus);
 
         if (!MenuDepth.TAB.equals(tabMenu.getDepth())) {
             throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
@@ -137,53 +129,14 @@ public class ImageService {
         return tabMenu;
     }
 
-    private Menu findMainMenu(String mainMenuCode, List<Menu> mainMenus) {
-        if (mainMenuCode == null || mainMenuCode.isBlank()) {
-            return mainMenus.stream()
-                    .findFirst()
-                    .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_NOT_FOUND));
-        }
-
-        return mainMenus.stream()
-                .filter(menu -> menu.getCode().equals(mainMenuCode))
+    private Menu findMenuByCodeOrDefault(String code, List<Menu> menus) {
+        return menus.stream()
+                .filter(menu -> code == null || code.isBlank() || menu.getCode().equals(code))
                 .findFirst()
                 .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_NOT_FOUND));
     }
 
-    private File storeFile(MultipartFile uploadFile) {
-        String originalFilename = uploadFile.getOriginalFilename();
-        String extension = extractExtension(originalFilename);
-        String uuid = UUID.randomUUID().toString();
-        String savedFileName = uuid + extension;
-        Path uploadDirectory = Path.of(PAGE_IMAGE_UPLOAD_DIR);
-        Path targetPath = uploadDirectory.resolve(savedFileName);
-
-        try {
-            Files.createDirectories(uploadDirectory);
-            uploadFile.transferTo(targetPath);
-        } catch (IOException e) {
-            throw new BusinessException(ErrorCode.COMMON_INTERNAL_SERVER_ERROR, "파일 저장 중 오류가 발생했습니다.", e);
-        }
-
-        return fileRepository.save(File.create(
-                PAGE_IMAGE_URL_PATH,
-                uuid,
-                savedFileName,
-                uploadFile.getSize()
-        ));
-    }
-
-    private String extractExtension(String originalFilename) {
-        if (originalFilename == null || !originalFilename.contains(".")) {
-            return "";
-        }
-
-        return originalFilename.substring(originalFilename.lastIndexOf("."));
-    }
-
-    private void appendImageUrls(Map<String, String> imageUrlMap, Long menuId) {
-        List<ImageSlotCardView> slotCards = imageQueryRepository.findImageSlotCardsByMenuId(menuId);
-
+    private void appendImageUrls(Map<String, String> imageUrlMap, List<ImageSlotCardView> slotCards) {
         for (ImageSlotCardView slotCard : slotCards) {
             imageUrlMap.put(slotCard.slotCode(), slotCard.thumbnailUrl());
         }

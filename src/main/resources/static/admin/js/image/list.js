@@ -16,7 +16,7 @@
   let selectedSlotId = null;
   let selectedFile = null;
 
-  openButtons.forEach((button) => {
+  for (const button of openButtons) {
     button.addEventListener("click", function (event) {
       event.preventDefault();
       selectedSlotId = this.dataset.slotId;
@@ -25,14 +25,14 @@
       preview.src = "";
       preview.classList.remove("is-visible");
       guideSize.textContent = this.dataset.guideSize || "-";
-      title.textContent = this.dataset.slotName + " 수정";
+      title.textContent = `${this.dataset.slotName} 수정`;
       modal.classList.add("is-open");
     });
-  });
+  }
 
-  closeButtons.forEach((button) => {
+  for (const button of closeButtons) {
     button.addEventListener("click", closeModal);
-  });
+  }
 
   modal.addEventListener("click", function (event) {
     if (event.target === modal) {
@@ -79,22 +79,22 @@
 
     submitButton.disabled = true;
 
-    try {
-      const response = await fetch("/api/admin/images/" + selectedSlotId + "/file", {
-        method: "POST",
-        body: formData,
+    $.ajax({
+      url: `/api/admin/images/${selectedSlotId}/file`,
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+    })
+      .then(function () {
+        window.location.reload();
+      })
+      .catch(function (err) {
+        alert(err.responseJSON?.message || "이미지 수정에 실패했습니다.");
+      })
+      .always(function () {
+        submitButton.disabled = false;
       });
-
-      if (!response.ok) {
-        throw new Error("이미지 수정에 실패했습니다.");
-      }
-
-      window.location.reload();
-    } catch (error) {
-      alert(error.message || "이미지 수정에 실패했습니다.");
-    } finally {
-      submitButton.disabled = false;
-    }
   });
 
   function applyFile(file) {
