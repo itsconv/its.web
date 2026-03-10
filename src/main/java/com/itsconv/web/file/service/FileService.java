@@ -23,7 +23,7 @@ import com.itsconv.web.file.domain.FileStatus;
 import com.itsconv.web.file.repository.FileBoardRepository;
 import com.itsconv.web.file.repository.FileRepository;
 import com.itsconv.web.file.service.dto.command.FileConnectBoardCommand;
-import com.itsconv.web.file.service.dto.command.FileDetailCommand;
+import com.itsconv.web.file.service.dto.command.FileBoardCommand;
 import com.itsconv.web.file.service.dto.command.FileUploadCommand;
 import com.itsconv.web.view.admin.dto.FileAttachView;
 
@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class FileService {
     private final FileRepository fileRepository;
-    private final FileBoardRepository fileDetailRepository;
+    private final FileBoardRepository fileBoardRepository;
     private final BoardRepository boardRepository;
 
     private final Environment env;
@@ -47,12 +47,12 @@ public class FileService {
 
     @Transactional(readOnly = true)
     public List<FileAttachView> findAttachesByBoardId(Long boardId) {
-        return fileDetailRepository.findAttachsByBoardId(boardId);
+        return fileBoardRepository.findAttachsByBoardId(boardId);
     }
 
     @Transactional(readOnly = true)
     public List<Long> findFileIdsByBoardIds(List<Long> boardIds) {
-        return fileDetailRepository.findFileIdsByBoardIds(boardIds);
+        return fileBoardRepository.findFileIdsByBoardIds(boardIds);
     }
 
     /**
@@ -149,17 +149,17 @@ public class FileService {
 
             String thumbYn = (thumbOrder != null && thumbOrder.equals(slot.slotNo())) ? "Y" : "N";
 
-            FileDetailCommand detailCommand = new FileDetailCommand(
+            FileBoardCommand detailCommand = new FileBoardCommand(
                 saved, board, thumbYn, slot.slotNo(), FileStatus.USED.toString());
 
             FileBoard detail = new FileBoard();
             
-            detail.saveDetail(detailCommand);
+            detail.saveFileBoard(detailCommand);
             
             details.add(detail);            
         }
             
-        fileDetailRepository.saveAll(details);
+        fileBoardRepository.saveAll(details);
     }
 
     private void confirmEditorFiles(Board board, List<Long> detailIds) {
@@ -169,7 +169,7 @@ public class FileService {
         List<FileBoard> details = new ArrayList<>();
         
         for (Long detailId : detailIds) {
-            FileBoard detail = fileDetailRepository.findById(detailId)
+            FileBoard detail = fileBoardRepository.findById(detailId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_BAD_REQUEST));
             
             detail.updateStatus(board, FileStatus.USED.toString());
@@ -177,18 +177,18 @@ public class FileService {
             details.add(detail);
         }
 
-        fileDetailRepository.saveAll(details);
+        fileBoardRepository.saveAll(details);
     }
 
     private FileBoard setDetailTemp(com.itsconv.web.file.domain.File entity) {        
-        FileDetailCommand command = new FileDetailCommand(
+        FileBoardCommand command = new FileBoardCommand(
             entity, null, "N", 0, FileStatus.TEMP.toString());
 
         FileBoard detail = new FileBoard();
 
-        detail.saveDetail(command);
+        detail.saveFileBoard(command);
 
-        return fileDetailRepository.save(detail);
+        return fileBoardRepository.save(detail);
     }
 
     private com.itsconv.web.file.domain.File storeOneFileMeta(MultipartFile attachFile) {
