@@ -28,7 +28,7 @@ import com.itsconv.web.board.service.dto.command.BoardSlotCommand;
 import com.itsconv.web.board.service.dto.view.BoardReadView;
 import com.itsconv.web.common.exception.BusinessException;
 import com.itsconv.web.common.exception.ErrorCode;
-import com.itsconv.web.file.domain.FileDetail;
+import com.itsconv.web.file.domain.FileBoard;
 import com.itsconv.web.file.service.FileService;
 import com.itsconv.web.file.service.dto.command.FileConnectBoardCommand;
 import com.itsconv.web.security.service.UserPrincipal;

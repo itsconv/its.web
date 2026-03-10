@@ -18,9 +18,9 @@ import com.itsconv.web.common.exception.BusinessException;
 import com.itsconv.web.common.exception.ErrorCode;
 import com.itsconv.web.common.util.DateUtil;
 import com.itsconv.web.file.controller.dto.response.FileEditorResponse;
-import com.itsconv.web.file.domain.FileDetail;
+import com.itsconv.web.file.domain.FileBoard;
 import com.itsconv.web.file.domain.FileStatus;
-import com.itsconv.web.file.repository.FileDetailRepository;
+import com.itsconv.web.file.repository.FileBoardRepository;
 import com.itsconv.web.file.repository.FileRepository;
 import com.itsconv.web.file.service.dto.command.FileConnectBoardCommand;
 import com.itsconv.web.file.service.dto.command.FileDetailCommand;
@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class FileService {
     private final FileRepository fileRepository;
-    private final FileDetailRepository fileDetailRepository;
+    private final FileBoardRepository fileDetailRepository;
     private final BoardRepository boardRepository;
 
     private final Environment env;
@@ -74,9 +74,9 @@ public class FileService {
         }
 
         // 게시판 에디터 임시 저장
-        FileDetail detail = setDetailTemp(savedFile);
+        FileBoard detail = setDetailTemp(savedFile);
 
-        return new FileEditorResponse(viewUrl, detail.getId());
+        return new FileEditorResponse(viewUrl, detail.getMappedId());
     }
 
     /**
@@ -142,7 +142,7 @@ public class FileService {
     private void confirmBoardFiles(List<BoardSlotCommand> slots, Integer thumbOrder, Board board) {
         if (slots == null || slots.isEmpty()) return;
 
-        List<FileDetail> details = new ArrayList<>();
+        List<FileBoard> details = new ArrayList<>();
         
         for (BoardSlotCommand slot : slots) {
             com.itsconv.web.file.domain.File saved = storeOneFileMeta(slot.file());
@@ -152,7 +152,7 @@ public class FileService {
             FileDetailCommand detailCommand = new FileDetailCommand(
                 saved, board, thumbYn, slot.slotNo(), FileStatus.USED.toString());
 
-            FileDetail detail = new FileDetail();
+            FileBoard detail = new FileBoard();
             
             detail.saveDetail(detailCommand);
             
@@ -166,10 +166,10 @@ public class FileService {
         // 에디터 파일 확정
         if (detailIds == null || detailIds.isEmpty()) return;
 
-        List<FileDetail> details = new ArrayList<>();
+        List<FileBoard> details = new ArrayList<>();
         
         for (Long detailId : detailIds) {
-            FileDetail detail = fileDetailRepository.findById(detailId)
+            FileBoard detail = fileDetailRepository.findById(detailId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_BAD_REQUEST));
             
             detail.updateStatus(board, FileStatus.USED.toString());
@@ -180,11 +180,11 @@ public class FileService {
         fileDetailRepository.saveAll(details);
     }
 
-    private FileDetail setDetailTemp(com.itsconv.web.file.domain.File entity) {        
+    private FileBoard setDetailTemp(com.itsconv.web.file.domain.File entity) {        
         FileDetailCommand command = new FileDetailCommand(
             entity, null, "N", 0, FileStatus.TEMP.toString());
 
-        FileDetail detail = new FileDetail();
+        FileBoard detail = new FileBoard();
 
         detail.saveDetail(command);
 
