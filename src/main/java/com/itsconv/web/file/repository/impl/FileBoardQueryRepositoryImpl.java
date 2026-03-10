@@ -3,7 +3,7 @@ package com.itsconv.web.file.repository.impl;
 import java.util.List;
 
 import com.itsconv.web.file.domain.QFile;
-import com.itsconv.web.file.domain.QFileDetail;
+import com.itsconv.web.file.domain.QFileBoard;
 import com.itsconv.web.file.repository.FileBoardQueryRepository;
 import com.itsconv.web.view.admin.dto.FileAttachView;
 import com.querydsl.core.types.Projections;
@@ -19,12 +19,12 @@ public class FileBoardQueryRepositoryImpl implements FileBoardQueryRepository {
     @Override
     public List<FileAttachView> findAttachsByBoardId(Long boardId) {
         QFile f = QFile.file;
-        QFileDetail fd = QFileDetail.fileDetail;
+        QFileBoard fd = QFileBoard.fileBoard;
 
         return jpaQueryFactory
             .select(Projections.constructor(
                 FileAttachView.class,
-                fd.id,
+                fd.mappedId,
                 f.id,
                 f.originName,
                 fd.isThumbnail,

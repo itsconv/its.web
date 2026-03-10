@@ -1,7 +1,7 @@
 package com.itsconv.web.file.domain;
 
 import com.itsconv.web.board.domain.Board;
-import com.itsconv.web.file.service.dto.command.FileDetailCommand;
+import com.itsconv.web.file.service.dto.command.FileBoardCommand;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,7 +43,7 @@ public class FileBoard {
     @Column(name = "status", length = 4)
     private String status;
 
-    public void saveDetail(FileDetailCommand command) {
+    public void saveFileBoard(FileBoardCommand command) {
         this.file = command.file();
         this.board = command.board();
         this.isThumbnail = command.isThumbnail();
