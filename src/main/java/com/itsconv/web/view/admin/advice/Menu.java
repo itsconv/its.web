@@ -19,7 +19,13 @@ public enum Menu {
     DOWNLOAD(new String[]{"/admin/bbs/download", "/admin/bbs/edit/download"}, "download", "posts", "게시판관리", "자료실", "자료실 게시물을 등록, 수정, 삭제할 수 있습니다."),
     STORY(new String[]{"/admin/bbs/story", "/admin/bbs/edit/story"}, "story", "posts", "게시판관리", "ITS Story", "ITS Story 게시물을 등록, 수정, 삭제할 수 있습니다."),
 
-    HISTORY(new String[]{"/admin/history/list"}, "history", "news", "연혁관리", "연혁관리", "연혁 항목을 등록, 수정, 삭제할 수 있습니다.");
+    HISTORY(new String[]{"/admin/history/list"}, "history", "news", "연혁관리", "연혁관리", "연혁 항목을 등록, 수정, 삭제할 수 있습니다."),
+
+    IMAGE_MANAGEMENT(new String[]{"/admin/image"}, "image-management", "media", "이미지관리", "이미지관리", "이미지관리를 관리할 수 있습니다."),
+    IMAGE_TRADING_ROOM(new String[]{"/admin/image/trading-room"}, "image-trading-room", "media", "이미지관리", "통합트레이딩룸", "통합트레이딩룸을 관리할 수 있습니다."),
+    IMAGE_AI_MONITORING_CENTER(new String[]{"/admin/image/ai-monitoring-center"}, "image-ai-monitoring-center", "media", "이미지관리", "AI관제센터", "AI관제센터를 관리할 수 있습니다."),
+    IMAGE_AI_CONTACT_CENTER(new String[]{"/admin/image/ai-contact-center"}, "image-ai-contact-center", "media", "이미지관리", "AI컨텍센터", "AI컨텍센터를 관리할 수 있습니다."),
+    IMAGE_UC_SOLUTION(new String[]{"/admin/image/uc-solution"}, "image-uc-solution", "media", "이미지관리", "UC솔루션", "UC솔루션을 관리할 수 있습니다.");
 
     private final String[] uris;
     private final String pageData;

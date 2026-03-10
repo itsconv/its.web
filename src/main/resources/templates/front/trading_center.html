@@ -56,8 +56,8 @@
     <div class="contents">
         <div class="pic top1">
             <div class="float">
-                <div class="f-left">
-                    <img src="/asset/img/top1-1.png" alt="기대효과 이미지">
+                <div class="f-left" id="business-overview-main">
+                    <img th:src="${imageUrlMap['business-overview-main'] ?: '/asset/img/trading-room/business-overview1.png'}" alt="기대효과 이미지">
                 </div>
                 <div class="f-left">
                     <span class="circle-tit">기대효과</span>
@@ -96,7 +96,7 @@
                 <li class="active">
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con1.png" alt="WEY IP-Remote"></div>
+                            <div class="f-left" id="wey-ip-remote-main"><img th:src="${imageUrlMap['wey-ip-remote-main'] ?: '/asset/img/trading-room/solution1.png'}" alt="WEY IP-Remote"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -134,7 +134,7 @@
                 <li>
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con2.png" alt="WDP"></div>
+                            <div class="f-left" id="wdp-main"><img th:src="${imageUrlMap['wdp-main'] ?: '/asset/img/trading-room/solution2.png'}" alt="WDP"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -165,7 +165,7 @@
                 <li>
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con3.png" alt="WDP"></div>
+                            <div class="f-left" id="wey-smart-touch-main"><img th:src="${imageUrlMap['wey-smart-touch-main'] ?: '/asset/img/trading-room/solution3.png'}" alt="WDP"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -204,7 +204,7 @@
                 <li>
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con4.png" alt="WDP"></div>
+                            <div class="f-left" id="bt-dealer-board-main"><img th:src="${imageUrlMap['bt-dealer-board-main'] ?: '/asset/img/trading-room/solution4.png'}" alt="WDP"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -240,7 +240,7 @@
                 <li>
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con5.png" alt="WDP"></div>
+                            <div class="f-left" id="recording-solution-main"><img th:src="${imageUrlMap['recording-solution-main'] ?: '/asset/img/trading-room/solution5.png'}" alt="WDP"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -273,7 +273,7 @@
                 <li>
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con6.png" alt="WDP"></div>
+                            <div class="f-left" id="architecture-main"><img th:src="${imageUrlMap['architecture-main'] ?: '/asset/img/trading-room/solution6.png'}" alt="WDP"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -307,7 +307,7 @@
                 <li>
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con7.png" alt="WDP"></div>
+                            <div class="f-left" id="ticker-board-main"><img th:src="${imageUrlMap['ticker-board-main'] ?: '/asset/img/trading-room/solution7.png'}" alt="WDP"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -343,7 +343,7 @@
                 <li>
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con8.png" alt="WDP"></div>
+                            <div class="f-left"><img src="/asset/img/trading-room/solution8.png" alt="WDP"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -375,7 +375,7 @@
                 <li>
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con9.png" alt="WDP"></div>
+                            <div class="f-left" id="motion-desk-monitor-arm-main"><img th:src="${imageUrlMap['motion-desk-monitor-arm-main'] ?: '/asset/img/trading-room/solution9.png'}" alt="WDP"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -409,7 +409,7 @@
                 <li>
                     <div class="con1 con-sds">
                         <div class="float">
-                            <div class="f-left"><img src="/asset/img/con10.png" alt="WDP"></div>
+                            <div class="f-left" id="cable-facilities-main"><img th:src="${imageUrlMap['cable-facilities-main'] ?: '/asset/img/trading-room/solution10.png'}" alt="WDP"></div>
                             <div class="f-left">
                                 <div class="con1-text">
                                     <div class="context1">
@@ -444,37 +444,37 @@
         <h3 id="t4" class="sub-tit">구축사례</h3>
         <div class="brand-wrap">
             <ul class="brand-list clearfix l-5">
-                <li><a><img src="/asset/img/1.png" alt=""></a></li>
-                <li><a><img src="/asset/img/2.png" alt=""></a></li>
-                <li><a><img src="/asset/img/3.png" alt=""></a></li>
-                <li><a><img src="/asset/img/4.png" alt=""></a></li>
-                <li><a><img src="/asset/img/5.png" alt=""></a></li>
-                <li><a><img src="/asset/img/6.png" alt=""></a></li>
-                <li><a><img src="/asset/img/7.png" alt=""></a></li>
-                <li><a><img src="/asset/img/8.png" alt=""></a></li>
-                <li><a><img src="/asset/img/9.png" alt=""></a></li>
-                <li><a><img src="/asset/img/10.png" alt=""></a></li>
-                <li><a><img src="/asset/img/11.png" alt=""></a></li>
-                <li><a><img src="/asset/img/12.png" alt=""></a></li>
-                <li><a><img src="/asset/img/13.png" alt=""></a></li>
-                <li><a><img src="/asset/img/14.png" alt=""></a></li>
-                <li><a><img src="/asset/img/15.png" alt=""></a></li>
-                <li><a><img src="/asset/img/16.png" alt=""></a></li>
-                <li><a><img src="/asset/img/17.png" alt=""></a></li>
-                <li><a><img src="/asset/img/18.png" alt=""></a></li>
-                <li><a><img src="/asset/img/19.png" alt=""></a></li>
-                <li><a><img src="/asset/img/20.png" alt=""></a></li>
-                <li><a><img src="/asset/img/21.png" alt=""></a></li>
-                <li><a><img src="/asset/img/22.png" alt=""></a></li>
-                <li><a><img src="/asset/img/23.png" alt=""></a></li>
-                <li><a><img src="/asset/img/24.png" alt=""></a></li>
+                <li id="success-case-01"><a><img th:src="${imageUrlMap['success-case-01'] ?: '/asset/img/trading-room/success-case1.png'}" alt=""></a></li>
+                <li id="success-case-02"><a><img th:src="${imageUrlMap['success-case-02'] ?: '/asset/img/trading-room/success-case2.png'}" alt=""></a></li>
+                <li id="success-case-03"><a><img th:src="${imageUrlMap['success-case-03'] ?: '/asset/img/trading-room/success-case3.png'}" alt=""></a></li>
+                <li id="success-case-04"><a><img th:src="${imageUrlMap['success-case-04'] ?: '/asset/img/trading-room/success-case4.png'}" alt=""></a></li>
+                <li id="success-case-05"><a><img th:src="${imageUrlMap['success-case-05'] ?: '/asset/img/trading-room/success-case5.png'}" alt=""></a></li>
+                <li id="success-case-06"><a><img th:src="${imageUrlMap['success-case-06'] ?: '/asset/img/trading-room/success-case6.png'}" alt=""></a></li>
+                <li id="success-case-07"><a><img th:src="${imageUrlMap['success-case-07'] ?: '/asset/img/trading-room/success-case7.png'}" alt=""></a></li>
+                <li id="success-case-08"><a><img th:src="${imageUrlMap['success-case-08'] ?: '/asset/img/trading-room/success-case8.png'}" alt=""></a></li>
+                <li id="success-case-09"><a><img th:src="${imageUrlMap['success-case-09'] ?: '/asset/img/trading-room/success-case9.png'}" alt=""></a></li>
+                <li id="success-case-10"><a><img th:src="${imageUrlMap['success-case-10'] ?: '/asset/img/trading-room/success-case10.png'}" alt=""></a></li>
+                <li id="success-case-11"><a><img th:src="${imageUrlMap['success-case-11'] ?: '/asset/img/trading-room/success-case11.png'}" alt=""></a></li>
+                <li id="success-case-12"><a><img th:src="${imageUrlMap['success-case-12'] ?: '/asset/img/trading-room/success-case12.png'}" alt=""></a></li>
+                <li id="success-case-13"><a><img th:src="${imageUrlMap['success-case-13'] ?: '/asset/img/trading-room/success-case13.png'}" alt=""></a></li>
+                <li id="success-case-14"><a><img th:src="${imageUrlMap['success-case-14'] ?: '/asset/img/trading-room/success-case14.png'}" alt=""></a></li>
+                <li id="success-case-15"><a><img th:src="${imageUrlMap['success-case-15'] ?: '/asset/img/trading-room/success-case15.png'}" alt=""></a></li>
+                <li id="success-case-16"><a><img th:src="${imageUrlMap['success-case-16'] ?: '/asset/img/trading-room/success-case16.png'}" alt=""></a></li>
+                <li id="success-case-17"><a><img th:src="${imageUrlMap['success-case-17'] ?: '/asset/img/trading-room/success-case17.png'}" alt=""></a></li>
+                <li id="success-case-18"><a><img th:src="${imageUrlMap['success-case-18'] ?: '/asset/img/trading-room/success-case18.png'}" alt=""></a></li>
+                <li id="success-case-19"><a><img th:src="${imageUrlMap['success-case-19'] ?: '/asset/img/trading-room/success-case19.png'}" alt=""></a></li>
+                <li id="success-case-20"><a><img th:src="${imageUrlMap['success-case-20'] ?: '/asset/img/trading-room/success-case20.png'}" alt=""></a></li>
+                <li id="success-case-21"><a><img th:src="${imageUrlMap['success-case-21'] ?: '/asset/img/trading-room/success-case21.png'}" alt=""></a></li>
+                <li id="success-case-22"><a><img th:src="${imageUrlMap['success-case-22'] ?: '/asset/img/trading-room/success-case22.png'}" alt=""></a></li>
+                <li id="success-case-23"><a><img th:src="${imageUrlMap['success-case-23'] ?: '/asset/img/trading-room/success-case23.png'}" alt=""></a></li>
+                <li id="success-case-24"><a><img th:src="${imageUrlMap['success-case-24'] ?: '/asset/img/trading-room/success-case24.png'}" alt=""></a></li>
             </ul>
         </div>
         <div class="d-line"></div>
 
         <h3 id="t5" class="sub-tit">담당자</h3>
         <div class="scroll-table">
-            <img src="/asset/img/scroll.png" alt="" class="scroll-image">
+            <img src="/asset/img/trading-room/scroll.png" alt="" class="scroll-image">
             <div class="scroll-table-wrap">
                 <table class="table">
                     <tbody>

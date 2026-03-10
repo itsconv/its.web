@@ -258,6 +258,84 @@ a:link, a:hover, a:visited, a:active {
     max-width: 1420px;
 }
 
+#business-overview-main:target,
+#wey-ip-remote-main:target,
+#wdp-main:target,
+#wey-smart-touch-main:target,
+#bt-dealer-board-main:target,
+#recording-solution-main:target,
+#architecture-main:target,
+#ticker-board-main:target,
+#motion-desk-monitor-arm-main:target,
+#cable-facilities-main:target,
+[id^="success-case-"]:target {
+    position: relative;
+}
+
+#business-overview-main:target img,
+#wey-ip-remote-main:target img,
+#wdp-main:target img,
+#wey-smart-touch-main:target img,
+#bt-dealer-board-main:target img,
+#recording-solution-main:target img,
+#architecture-main:target img,
+#ticker-board-main:target img,
+#motion-desk-monitor-arm-main:target img,
+#cable-facilities-main:target img,
+[id^="success-case-"]:target img {
+    filter: brightness(0.55);
+    transition: filter 0.2s ease;
+}
+
+#business-overview-main:target::after,
+#wey-ip-remote-main:target::after,
+#wdp-main:target::after,
+#wey-smart-touch-main:target::after,
+#bt-dealer-board-main:target::after,
+#recording-solution-main:target::after,
+#architecture-main:target::after,
+#ticker-board-main:target::after,
+#motion-desk-monitor-arm-main:target::after,
+#cable-facilities-main:target::after {
+    content: "선택된 이미지";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(220, 38, 38, 0.92);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+[id^="success-case-"]:target a {
+    position: relative;
+}
+
+[id^="success-case-"]:target a::after {
+    content: "선택된 이미지";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(220, 38, 38, 0.92);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
 .sub-tab-list {
     display: flex;
     width: 1420px;

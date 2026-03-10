@@ -1,14 +1,16 @@
 package com.itsconv.web.file.domain;
 
 import com.itsconv.web.common.domain.BaseTimeEntity;
-import com.itsconv.web.file.service.dto.command.FileUploadCommand;
 
+import com.itsconv.web.file.service.dto.command.FileUploadCommand;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -39,5 +41,22 @@ public class File extends BaseTimeEntity{
         this.uuid = command.uuid();
         this.originName = command.originName();
         this.size = command.size();
+    }
+
+    @Builder
+    public File(String path, String uuid, String originName, Long size) {
+        this.path = path;
+        this.uuid = uuid;
+        this.originName = originName;
+        this.size = size;
+    }
+
+    public static File create(String path, String uuid, String originName, Long size) {
+        return File.builder()
+                .path(path)
+                .uuid(uuid)
+                .originName(originName)
+                .size(size)
+                .build();
     }
 }

@@ -32,5 +32,15 @@
     </nav>
   </th:block>
 
+  <th:block th:if="${activeTab == 'media'}">
+    <h3 class="sidebar-title">이미지관리</h3>
+    <nav class="submenu">
+      <a th:each="mainMenu : ${mainMenus}"
+         th:href="@{/admin/image(mainMenuCode=${mainMenu.code})}"
+         th:text="${mainMenu.name}"
+         class="submenu-btn">메인메뉴</a>
+    </nav>
+  </th:block>
+
   <button type="button" id="collapseBtn" class="collapse-btn" aria-label="사이드바 접기">◀</button>
 </aside>
