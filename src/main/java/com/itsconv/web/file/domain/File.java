@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "its_file")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class File extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +44,7 @@ public class File extends BaseTimeEntity{
     }
 
     @Builder
-    private File(String path, String uuid, String originName, Long size) {
+    public File(String path, String uuid, String originName, Long size) {
         this.path = path;
         this.uuid = uuid;
         this.originName = originName;

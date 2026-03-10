@@ -9,6 +9,6 @@ import com.itsconv.web.file.domain.FileDetail;
 
 public interface FileDetailRepository extends JpaRepository<FileDetail, Long>, FileDetailQueryRepository{
 
-    @Query("select fd.fileId from FileDetail fd where fd.boardId in (:boardIds)")
+    @Query("select fd.file.id from FileDetail fd where fd.board.id in (:boardIds)")
     List<Long> findFileIdsByBoardIds(List<Long> boardIds);
 }
