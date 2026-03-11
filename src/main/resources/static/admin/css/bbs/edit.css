@@ -119,6 +119,56 @@
   color: #1f2937;
   font-size: 13px;
 }
+.bbs-file-input {
+  display: none;
+}
+
+.bbs-file-existing-name {
+  flex: 0 1 280px;
+  max-width: 280px;
+  color: #1f2937;
+  font-size: 13px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bbs-file-name-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bbs-file-edit-btn,
+.bbs-file-existing-remove {
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 4px;
+  border: 1px solid #cfd8e3;
+  background: #fff;
+  color: #1f2937;
+  font-size: 12px;
+  cursor: pointer;
+}
+.bbs-file-existing-remove {
+  width: 28px;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1;
+  margin-left: 0;
+  border: none;
+  background: transparent;
+  color: #64748b;
+}
+.bbs-file-existing-remove:hover {
+  color: #1e3a8a;
+}
+
+.bbs-file-edit-btn:hover,
+.bbs-file-existing-remove:hover {
+  border-color: #2f4ea1;
+  color: #1e3a8a;
+}
 
 .bbs-thumb-check {
   display: inline-flex;
@@ -219,4 +269,3 @@
 .bbs-editor .ProseMirror {
   text-align: left !important;
 }
-

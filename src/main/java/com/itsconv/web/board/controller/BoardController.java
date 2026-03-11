@@ -1,7 +1,6 @@
 package com.itsconv.web.board.controller;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itsconv.web.board.controller.dto.request.BoardCopyRequest;
 import com.itsconv.web.board.controller.dto.request.BoardCreateRequest;
+import com.itsconv.web.board.controller.dto.request.BoardModifyRequest;
 import com.itsconv.web.board.controller.dto.request.BoardMoveRequest;
 import com.itsconv.web.board.controller.dto.request.BoardOrderRequest;
 import com.itsconv.web.board.service.BoardService;
@@ -90,5 +90,24 @@ public class BoardController {
         return ResponseEntity.ok(ApiResponse.success());
     }
     
+    @PutMapping(value="/{boardId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<Void>> modifyBoard(
+        @Valid @RequestPart("request") BoardModifyRequest request,
+        @PathVariable("boardId") Long boardId,
+        @RequestPart(value = "file1", required = false) MultipartFile file1,
+        @RequestPart(value = "file2", required = false) MultipartFile file2,
+        @RequestPart(value = "file3", required = false) MultipartFile file3,
+        @AuthenticationPrincipal UserPrincipal userPrincipal
+    ) {
+        List<BoardSlotCommand> files = List.of(
+            new BoardSlotCommand(1, file1),
+            new BoardSlotCommand(2, file2),
+            new BoardSlotCommand(3, file3)
+        ).stream().filter(m -> m.file() != null && !m.file().isEmpty()).toList();
+
+        boardService.updateBoard(boardId, request, files, userPrincipal);
+
+        return ResponseEntity.ok(ApiResponse.success());
+    }
 
 }

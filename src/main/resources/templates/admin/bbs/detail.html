@@ -25,10 +25,12 @@
 
       <section class="board-detail-files">
         <h5 class="board-detail-files-title">첨부파일</h5>
-        <ul class="board-detail-file-list" th:if="${boardAttaches != null and !#lists.isEmpty(boardAttaches)}">
-          <li th:each="attach : ${boardAttaches}" class="board-detail-file-item">
+        <ul class="board-detail-file-list"
+            th:if="${boardAttaches != null and !#lists.isEmpty(boardAttaches.?[sortOrder != null and sortOrder > 0])}">
+          <li th:each="attach : ${boardAttaches.?[sortOrder != null and sortOrder > 0]}" class="board-detail-file-item">
             <a class="board-detail-file-link"
-               th:href="@{/api/file/view/{id}(id=${attach.fileId})}"
+               href="#"
+               th:attr="data-download-url=@{/api/file/download/{id}(id=${attach.fileId})}"
                th:text="${attach.originName}"></a>
             <span class="board-detail-file-badge" th:if="${'Y'.equals(attach.isThumbnail())}">썸네일</span>
           </li>
@@ -66,6 +68,15 @@
 
   <th:block layout:fragment="scripts">
     <script th:inline="javascript">
+      $('.board-detail-file-link').on('click', function(event) {
+        event.preventDefault();
+
+        const downloadUrl = $(this).data('download-url');
+        if (!downloadUrl) return;
+
+        window.location.href = downloadUrl;
+      });
+
       $('#btnDeleteBoard').on('click', function() {
         if (!confirm('삭제하시겠습니까?')) return;
 
@@ -91,4 +102,3 @@
 </body>
 
 </html>
-

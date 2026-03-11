@@ -101,10 +101,10 @@ const pageInit = {
         .off('change.tableCheck')
         .on('change.tableCheck', '#checkAllItem', function() {  //게시글 선택
             const checked = $(this).is(':checked');
-            $tableBody.find('td input.check-item').prop('checked', checked);
+            $tableBody.find('input.check-item').prop('checked', checked);
         })
         .on('change.tableCheck', '.check-item', function() {
-            const total = $tableBody.find('tr').length;
+            const total = $tableBody.find('.check-item').length;
             const checekd = $tableBody.find('.check-item:checked').length;
 
             $('#checkAllItem').prop('checked', total > 0 && total === checekd);
@@ -279,4 +279,3 @@ function modalBtnView() {
 
     return {move, copy}
 }
-

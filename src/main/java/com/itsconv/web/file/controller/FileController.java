@@ -5,9 +5,11 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +67,25 @@ public class FileController {
         return ResponseEntity.ok()
             .contentType(MediaType.parseMediaType(contentType))
             .header(HttpHeaders.CACHE_CONTROL, "no-cache")
+            .body(resource);
+    }
+
+    @GetMapping("/download/{id}")
+    public ResponseEntity<Resource> download(@PathVariable Long id) throws MalformedURLException {
+        com.itsconv.web.file.domain.File f = fileService.findFileById(id);
+
+        Path path = Paths.get(f.getPath(), f.getUuid());
+        Resource resource = new UrlResource(path.toUri());
+
+        return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_OCTET_STREAM)
+            .header(
+                HttpHeaders.CONTENT_DISPOSITION,
+                ContentDisposition.attachment()
+                    .filename(f.getOriginName(), StandardCharsets.UTF_8)
+                    .build()
+                    .toString()
+            )
             .body(resource);
     }
 }

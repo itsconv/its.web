@@ -1,10 +1,16 @@
 package com.itsconv.web.file.service;
 
 import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -22,9 +28,12 @@ import com.itsconv.web.file.domain.FileBoard;
 import com.itsconv.web.file.domain.FileStatus;
 import com.itsconv.web.file.repository.FileBoardRepository;
 import com.itsconv.web.file.repository.FileRepository;
-import com.itsconv.web.file.service.dto.command.FileConnectBoardCommand;
 import com.itsconv.web.file.service.dto.command.FileBoardCommand;
+import com.itsconv.web.file.service.dto.command.FileConnectBoardCommand;
+import com.itsconv.web.file.service.dto.command.FileRemoveCommand;
+import com.itsconv.web.file.service.dto.command.FileUpdateCommand;
 import com.itsconv.web.file.service.dto.command.FileUploadCommand;
+import com.itsconv.web.file.service.dto.view.BoardThumbnailView;
 import com.itsconv.web.view.admin.dto.FileAttachView;
 
 import lombok.RequiredArgsConstructor;
@@ -53,6 +62,15 @@ public class FileService {
     @Transactional(readOnly = true)
     public List<Long> findFileIdsByBoardIds(List<Long> boardIds) {
         return fileBoardRepository.findFileIdsByBoardIds(boardIds);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BoardThumbnailView> findThumbnailFileIdsByBoardIds(List<Long> boardIds) {
+        if (boardIds == null || boardIds.isEmpty()) {
+            return List.of();
+        }
+
+        return fileBoardRepository.findThumbnailFileIdsByBoardIds(boardIds);
     }
 
     /**
@@ -97,20 +115,9 @@ public class FileService {
         confirmEditorFiles(board, command.detailIds());
     }
 
+    // Board 삭제 후 연관 파일 제거
     @Transactional
-    public void deleteFile(Long id) {
-        com.itsconv.web.file.domain.File file = fileRepository.findById(id)
-            .orElseThrow(() -> new BusinessException(ErrorCode.COMMON_BAD_REQUEST));
-
-        fileRepository.delete(file);
-
-        if(!deleteStoredFile(file)) {
-            throw new BusinessException(ErrorCode.FILE_DELETE_FAILED);
-        }
-    }
-
-    @Transactional
-    public void deleteFiles(List<Long> ids) {
+    public void deleteFilesAfterRemoveBoards(List<Long> ids) {
         List<com.itsconv.web.file.domain.File> files = fileRepository.findAllById(ids);
 
         if (files.isEmpty()) {
@@ -126,6 +133,125 @@ public class FileService {
         }
     }
 
+    // 첨부된 파일만 제거
+    @Transactional
+    public void removeAttachment(FileRemoveCommand command) {
+        com.itsconv.web.file.domain.File targetFile = fileBoardRepository.findFileByMappedId(command);
+
+        if (targetFile == null) {
+            throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
+        }
+
+        // 매핑 먼저 제거
+        fileBoardRepository.deleteById(command.mappedId());
+
+        // 파일 메타 제거
+        fileRepository.delete(targetFile);
+
+        if(!deleteStoredFile(targetFile)) {
+            throw new BusinessException(ErrorCode.FILE_DELETE_FAILED);
+        }
+    }
+
+    /**
+     * 게시판 업데이트
+     * 에디터 첨부파일 수정 시, 매핑 테이블 상태값 변경
+     * 게시판 첨부파일 수정 시, 기존 파일 제거 확정
+     * 신규 첨부파일 등록
+     */
+    @Transactional
+    public void updateBoardFiles(Board board, List<BoardSlotCommand> files, FileUpdateCommand command) {
+        removeScheduledAttachments(command.boardId(), command.removeMappedIds());
+        markRemovedEditorFilesTemp(board.getId(), command.removeEditorDetailIds());
+
+        confirmBoardFiles(files, command.thumbnailOrder(), board);
+
+        confirmEditorFiles(board, command.detailIds());
+    }
+
+    // 에디터에서 첨부된 미아 파일 및 수정시 삭제된 임시상태의 파일 제거
+    @Transactional
+    public int purgeExpiredTempEditorFiles(LocalDateTime cutoff) {
+        List<FileBoard> expiredFiles = fileBoardRepository.findExpiredTempFiles(
+            FileStatus.TEMP.toString(),
+            cutoff
+        );
+
+        int removedCount = 0;
+
+        for (FileBoard detail : expiredFiles) {
+            com.itsconv.web.file.domain.File file = detail.getFile();
+
+            fileBoardRepository.delete(detail);
+            fileRepository.delete(file);
+            deleteStoredFileQuietly(file);
+
+            removedCount++;
+        }
+
+        return removedCount;
+    }
+
+    // 게시판에 첨부된 파일 삭제
+    private void removeScheduledAttachments(Long boardId, List<Long> removeMappedIds) {
+        if (removeMappedIds == null || removeMappedIds.isEmpty()) return;
+
+        for (Long mappedId : removeMappedIds) {
+            removeAttachment(FileRemoveCommand.from(boardId, mappedId));
+        }
+    }
+
+    // 에디터 첨부파일은 상태값만 변경. (실제 삭제는 스케줄러)
+    private void markRemovedEditorFilesTemp(Long boardId, List<Long> removeEditorDetailIds) {
+        if (removeEditorDetailIds == null || removeEditorDetailIds.isEmpty()) return;
+
+        List<FileBoard> details = fileBoardRepository.findAllByMappedIds(removeEditorDetailIds);
+
+        if (details.size() != removeEditorDetailIds.size()) {
+            throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
+        }
+
+        for (FileBoard detail : details) {
+            boolean belongsToBoard = detail.getBoard() != null && boardId.equals(detail.getBoard().getId());
+            boolean isTempUpload = detail.getBoard() == null;
+            boolean isEditorFile = detail.getSortOrder() != null && detail.getSortOrder() == 0;
+
+            if (!isEditorFile || (!belongsToBoard && !isTempUpload)) {
+                throw new BusinessException(ErrorCode.COMMON_BAD_REQUEST);
+            }
+
+            detail.markEditorTemp();
+        }
+
+        fileBoardRepository.saveAll(details);
+    }
+
+    @Transactional
+    public String copyEditorFilesForBoard(Long sourceBoardId, String sourceContents, Board targetBoard) {
+        List<FileBoard> sourceEditorFiles = fileBoardRepository.findUsedEditorFilesByBoardId(
+            sourceBoardId,
+            FileStatus.USED.toString()
+        );
+
+        if (sourceEditorFiles.isEmpty()) {
+            return sourceContents;
+        }
+
+        String copiedContents = sourceContents;
+
+        for (FileBoard sourceDetail : sourceEditorFiles) {
+            com.itsconv.web.file.domain.File copiedFile = copyStoredFile(sourceDetail.getFile());
+            createCopiedEditorFileBoard(copiedFile, targetBoard);
+
+            String oldViewUrl = env.getProperty("app.file.view-dir") + sourceDetail.getFile().getId();
+            String newViewUrl = env.getProperty("app.file.view-dir") + copiedFile.getId();
+
+            copiedContents = copiedContents.replace(oldViewUrl, newViewUrl);
+        }
+
+        return copiedContents;
+    }
+
     private boolean deleteStoredFile(com.itsconv.web.file.domain.File file) {
         String path = file.getPath();
         String uuid = file.getUuid();
@@ -137,6 +263,21 @@ public class FileService {
         }
 
         return targetFile.delete();
+    }
+
+    private void deleteStoredFileQuietly(com.itsconv.web.file.domain.File file) {
+        String path = file.getPath();
+        String uuid = file.getUuid();
+        File targetFile = new File(path, uuid);
+
+        if (!targetFile.exists()) {
+            log.warn("Skip deleting missing temp file. fileId={}", file.getId());
+            return;
+        }
+
+        if (!targetFile.delete()) {
+            log.warn("Failed to delete expired temp file from storage. fileId={}", file.getId());
+        }
     }
 
     private void confirmBoardFiles(List<BoardSlotCommand> slots, Integer thumbOrder, Board board) {
@@ -189,6 +330,64 @@ public class FileService {
         detail.saveFileBoard(command);
 
         return fileBoardRepository.save(detail);
+    }
+
+    private FileBoard createCopiedEditorFileBoard(com.itsconv.web.file.domain.File file, Board board) {
+        FileBoardCommand command = new FileBoardCommand(
+            file, board, "N", 0, FileStatus.USED.toString()
+        );
+
+        FileBoard detail = new FileBoard();
+        detail.saveFileBoard(command);
+
+        return fileBoardRepository.save(detail);
+    }
+
+    private com.itsconv.web.file.domain.File copyStoredFile(com.itsconv.web.file.domain.File source) {
+        String prefix = env.getProperty("app.file.base-dir");
+        String yearDir = DateUtil.toString(new Date(), "yyyy");
+        String monthDir = DateUtil.toString(new Date(), "MM");
+        String filePath = prefix + yearDir + "/" + monthDir + "/";
+
+        String ext = extractExtension(source);
+        String uuid = UUID.randomUUID() + (ext.isEmpty() ? "" : "." + ext);
+
+        File destination = new File(filePath);
+        if (!destination.exists()) destination.mkdirs();
+
+        Path sourcePath = Paths.get(source.getPath(), source.getUuid());
+        Path targetPath = Paths.get(filePath, uuid);
+
+        try {
+            Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            log.error("Failed to copy stored file - fileId = {}", source.getId(), e);
+            throw new BusinessException(ErrorCode.FILE_UPLOAD_FAILED);
+        }
+
+        return fileRepository.save(
+            com.itsconv.web.file.domain.File.create(
+                filePath,
+                uuid,
+                source.getOriginName(),
+                source.getSize()
+            )
+        );
+    }
+
+    private String extractExtension(com.itsconv.web.file.domain.File source) {
+        String originName = source.getOriginName();
+
+        if (originName != null && originName.contains(".")) {
+            return originName.substring(originName.lastIndexOf(".") + 1);
+        }
+
+        String uuid = source.getUuid();
+        if (uuid != null && uuid.contains(".")) {
+            return uuid.substring(uuid.lastIndexOf(".") + 1);
+        }
+
+        return "";
     }
 
     private com.itsconv.web.file.domain.File storeOneFileMeta(MultipartFile attachFile) {

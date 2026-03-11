@@ -14,7 +14,8 @@
     <div id="bbsEditContent" class="bbs-edit-content"
       th:attr="
         data-is-create=${isCreate},
-        data-board-type=${boardForm.boardType.path}
+        data-board-type=${boardForm.boardType.path},
+        data-board-id=${boardId}
         ">
       <div class="bbs-edit-head">
         <p class="bbs-edit-required">* 표시는 필수입력 항목입니다.</p>
@@ -36,7 +37,12 @@
               </td>
               <th>작성일시</th>
               <td>
-                <input type="text" id="createDate" th:value="${boardForm.createDate}" class="input bbs-input" readonly />
+                <input
+                  type="text"
+                  id="createDate"
+                  th:value="${boardForm.createDate != null ? #temporals.format(boardForm.createDate, 'yyyy-MM-dd HH:mm:ss') : ''}"
+                  class="input bbs-input"
+                  readonly />
               </td>
             </tr>
 
@@ -58,8 +64,25 @@
             <tr>
               <th>첨부파일</th>
               <td colspan="3" class="bbs-file-cell">
-                <div class="bbs-file-row">
+                <div class="bbs-file-existing-data" aria-hidden="true">
+                  <div
+                    class="bbs-file-existing-item"
+                    th:each="file : ${boardForm.fileList.?[sortOrder != null and sortOrder > 0]}"
+                    th:attr="data-sort-order=${file.sortOrder}, data-detail-id=${file.detailId}, data-origin-name=${file.originName}, data-is-thumbnail=${file.isThumbnail}">
+                  </div>
+                  <div 
+                    class="bbs-editor-files" 
+                    th:each="editor : ${boardForm.fileList.?[sortOrder != null and sortOrder == 0]}"
+                    th:attr="data-detail-id=${editor.detailId}, data-file-url=@{/api/file/view/{id}(id=${editor.fileId})}"></div>
+                </div>
+
+                <div class="bbs-file-row" data-slot="1">
                   <label class="bbs-file-index">파일 1</label>
+                  <span class="bbs-file-name-wrap">
+                    <span class="bbs-file-existing-name"></span>
+                    <button type="button" class="bbs-file-existing-remove" aria-label="삭제">×</button>
+                  </span>
+                  <button type="button" class="bbs-file-edit-btn">파일선택</button>
                   <input type="file" id="attachFile1" class="bbs-file-input" />
                   <label class="bbs-thumb-check">
                     <input type="checkbox" class="thumb-check" name="thumbnailOrder" value="1" />
@@ -67,8 +90,13 @@
                   </label>
                 </div>
 
-                <div class="bbs-file-row">
+                <div class="bbs-file-row" data-slot="2">
                   <label class="bbs-file-index">파일 2</label>
+                  <span class="bbs-file-name-wrap">
+                    <span class="bbs-file-existing-name"></span>
+                    <button type="button" class="bbs-file-existing-remove" aria-label="삭제">×</button>
+                  </span>
+                  <button type="button" class="bbs-file-edit-btn">파일선택</button>
                   <input type="file" id="attachFile2" class="bbs-file-input" />
                   <label class="bbs-thumb-check">
                     <input type="checkbox" class="thumb-check" name="thumbnailOrder" value="2" />
@@ -76,8 +104,13 @@
                   </label>
                 </div>
 
-                <div class="bbs-file-row">
+                <div class="bbs-file-row" data-slot="3">
                   <label class="bbs-file-index">파일 3</label>
+                  <span class="bbs-file-name-wrap">
+                    <span class="bbs-file-existing-name"></span>
+                    <button type="button" class="bbs-file-existing-remove" aria-label="삭제">×</button>
+                  </span>
+                  <button type="button" class="bbs-file-edit-btn">파일선택</button>
                   <input type="file" id="attachFile3" class="bbs-file-input" />
                   <label class="bbs-thumb-check">
                     <input type="checkbox" class="thumb-check" name="thumbnailOrder" value="3" />
@@ -102,7 +135,7 @@
     </div>
   </div>
 
-  <th:block layout:fragment="scripts">
+  <th:block layout:fragment="scripts">  
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script th:src="@{/admin/js/board/edit.js}"></script>
     <script th:src="@{/admin/js/board/crud.js}"></script>

@@ -12,9 +12,10 @@ public record BoardListResponse(
     Integer viewCount,
     String createName,
     LocalDateTime createDate,
-    Integer sortOrder
+    Integer sortOrder,
+    Long thumbnailFileId
 ) {
-    public static BoardListResponse from(Board b) {
+    public static BoardListResponse from(Board b, Long thumbnailFileId) {
         return new BoardListResponse(
             b.getId(),
             b.getType(),
@@ -22,7 +23,8 @@ public record BoardListResponse(
             b.getViewCount(), 
             b.getCreateName(),
             b.getCreateDate(),
-            b.getSortOrder()
+            b.getSortOrder(),
+            thumbnailFileId
         );
     }
 }
