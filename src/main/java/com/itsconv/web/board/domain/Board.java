@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.itsconv.web.board.service.dto.command.BoardSaveCommand;
+import com.itsconv.web.board.service.dto.command.BoardModifyCommand;
 import com.itsconv.web.board.service.dto.command.BoardMoveCommand;
 import com.itsconv.web.common.domain.BaseTimeEntity;
 import com.itsconv.web.file.domain.FileBoard;
@@ -83,7 +84,22 @@ public class Board extends BaseTimeEntity {
         this.sortOrder = command.sortOrder();
     }
 
+    public void updateBoard(BoardModifyCommand command) {
+        this.title = command.title();
+        this.contents = command.contents();
+        this.lastUpdateId = command.lastUpdateId();
+        this.lastUpdateName = command.lastUpdateName();
+    }
+
+    public void replaceContents(String contents) {
+        this.contents = contents;
+    }
+
     public void updateOrder(Integer reqOrder) {
         this.sortOrder = reqOrder;
+    }
+
+    public void increaseView() {
+        this.viewCount = this.viewCount + 1;
     }
 }

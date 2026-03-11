@@ -1,6 +1,7 @@
 package com.itsconv.web.file.domain;
 
 import com.itsconv.web.board.domain.Board;
+import com.itsconv.web.common.domain.BaseTimeEntity;
 import com.itsconv.web.file.service.dto.command.FileBoardCommand;
 
 import jakarta.persistence.Column;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "its_file_board")
 @Getter
 @NoArgsConstructor
-public class FileBoard {
+public class FileBoard extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mapped_id")
@@ -54,5 +55,12 @@ public class FileBoard {
     public void updateStatus(Board board, String status) {
         this.board = board;
         this.status = status;
+    }
+
+    // 에디터에서 삭제된 이미지 파일 상태변경 -> 스케줄러 삭제 대상
+    public void markEditorTemp() {
+        this.board = null;
+        this.status = FileStatus.TEMP.toString();
+        this.isThumbnail = "N";
     }
 }

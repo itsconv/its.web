@@ -19,13 +19,13 @@ public record BoardDetailView(
     BoardPost prevPost,
     BoardPost nextPost
 ) {
-    public static BoardDetailView from(Board b, BoardPost prev, BoardPost next) {
+    public static BoardDetailView from(Board b, String contents, BoardPost prev, BoardPost next) {
         return BoardDetailView.builder()
             .id(b.getId())
             .createName(b.getCreateName())
             .createDate(b.getCreateDate())
             .title(b.getTitle())
-            .contents(b.getContents())
+            .contents(contents)
             .viewCount(b.getViewCount())
             .type(b.getType())
             .prevPost(prev)

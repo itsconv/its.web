@@ -1,18 +1,31 @@
 const Executor = (function() {
     function getFormParam() {
         const frm = new FormData();
+        const isCreate = $('#bbsEditContent').data('is-create');
 
         const type = $("#bbsEditContent").data('board-type').toUpperCase();
         const title = $('#title').val();
         const contents = editor.getHTML();
         const thumbnailOrder = $("input[name='thumbnailOrder']:checked").val() || "";
+        const detailIds = typeof window.getCurrentEditorDetailIds === 'function'
+            ? window.getCurrentEditorDetailIds()
+            : [];
+        const removeMappedIds = Array.isArray(window.REMOVE_MAPPED_IDS) ? window.REMOVE_MAPPED_IDS : [];
         
         const jsonData = {
             type,
             title,
             contents,
             thumbnailOrder,
-            detailIds: DETAIL_IDS
+            detailIds
+        }
+
+        // 수정모드일때만 삭제예정 ids 추가
+        if (!isCreate) {
+            jsonData.removeMappedIds = removeMappedIds;
+            jsonData.removeEditorDetailIds = typeof window.getRemovedEditorDetailIds === 'function'
+                ? window.getRemovedEditorDetailIds(detailIds)
+                : [];
         }
 
         frm.append("request", new Blob(
@@ -108,6 +121,22 @@ const Executor = (function() {
                 contentType: false
             })
             .then(function(res){
+                if (typeof callback === 'function') callback(res);
+            })
+            .catch(function(error){
+                console.log('Ajax error :', error);
+                alert(error.responseJSON.message);
+            });
+        },
+        update(boardId, callback) {
+            $.ajax({
+                url: `/api/bbs/${boardId}`,
+                type: 'PUT',
+                data: getFormParam(),
+                processData: false,
+                contentType: false
+            })
+            .then(function(res) {
                 if (typeof callback === 'function') callback(res);
             })
             .catch(function(error){
