@@ -1,18 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   const tabLinks = document.querySelectorAll(".sub-tab-list li a");
-  const tabButtons = document.querySelectorAll(".tab-menu button");
-  const tabPanels = document.querySelectorAll(".tab-contents .clearfix > li");
-  const tabIndexByTargetId = {
-    "wey-ip-remote-main": 0,
-    "wdp-main": 1,
-    "wey-smart-touch-main": 2,
-    "bt-dealer-board-main": 3,
-    "recording-solution-main": 4,
-    "architecture-main": 5,
-    "ticker-board-main": 6,
-    "motion-desk-monitor-arm-main": 8,
-    "cable-facilities-main": 9
-  };
+  const solutionGroups = document.querySelectorAll(".solution-group");
+  const imageGalleries = Array.from(document.querySelectorAll(".tab-contents .con1 .float"))
+    .map(function (wrapper) {
+      return wrapper.querySelector(".f-left");
+    })
+    .filter(function (gallery) {
+      return gallery && gallery.querySelector("img");
+    });
 
   const animateScrollTo = function (targetY, duration) {
     const startY = window.scrollY;
@@ -38,6 +33,19 @@ document.addEventListener("DOMContentLoaded", function () {
     requestAnimationFrame(step);
   };
 
+  const activateGroupTab = function (group, activeIndex) {
+    const tabButtons = group.querySelectorAll(".tab-menu button");
+    const tabPanels = group.querySelectorAll(".tab-contents .clearfix > li");
+
+    tabButtons.forEach(function (button, index) {
+      button.setAttribute("aria-pressed", String(index === activeIndex));
+    });
+
+    tabPanels.forEach(function (panel, index) {
+      panel.classList.toggle("active", index === activeIndex);
+    });
+  };
+
   tabLinks.forEach(function (anchor) {
     anchor.addEventListener("click", function (event) {
       event.preventDefault();
@@ -53,16 +61,84 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  const updateTabState = function (activeIndex) {
+  solutionGroups.forEach(function (group) {
+    const tabButtons = group.querySelectorAll(".tab-menu button");
+
     tabButtons.forEach(function (button, index) {
-      const pressed = index === activeIndex;
-      button.setAttribute("aria-pressed", String(pressed));
+      button.addEventListener("click", function () {
+        activateGroupTab(group, index);
+      });
     });
 
-    tabPanels.forEach(function (panel, index) {
-      panel.classList.toggle("active", index === activeIndex);
+    if (tabButtons.length > 0) {
+      const initialIndex = Array.from(tabButtons).findIndex(function (button) {
+        return button.getAttribute("aria-pressed") === "true";
+      });
+
+      activateGroupTab(group, initialIndex >= 0 ? initialIndex : 0);
+    }
+  });
+
+  const activateGalleryImage = function (gallery, activeIndex) {
+    const images = gallery.querySelectorAll(".gallery-image");
+    const dots = gallery.querySelectorAll(".gallery-dot");
+
+    images.forEach(function (image, index) {
+      image.classList.toggle("active", index === activeIndex);
+    });
+
+    dots.forEach(function (dot, index) {
+      dot.classList.toggle("is-active", index === activeIndex);
+      dot.setAttribute("aria-pressed", String(index === activeIndex));
     });
   };
+
+  imageGalleries.forEach(function (gallery) {
+    gallery.classList.add("image-gallery-enabled");
+
+    const rawImages = Array.from(gallery.querySelectorAll("img"));
+    const images = rawImages.map(function (image, index) {
+      image.classList.add("gallery-image");
+      if (!image.classList.contains("active") && index === 0) {
+        image.classList.add("active");
+      }
+      return image;
+    });
+
+    let dotsContainer = gallery.querySelector(".gallery-dots");
+    if (!dotsContainer) {
+      dotsContainer = document.createElement("div");
+      dotsContainer.className = "gallery-dots";
+      dotsContainer.setAttribute("aria-label", "image selector");
+      gallery.appendChild(dotsContainer);
+    }
+
+    if (!dotsContainer || images.length === 0) {
+      return;
+    }
+
+    dotsContainer.innerHTML = "";
+
+    images.forEach(function (_, index) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "gallery-dot";
+      dot.setAttribute("aria-label", "이미지 " + (index + 1));
+      dot.setAttribute("aria-pressed", "false");
+
+      dot.addEventListener("click", function () {
+        activateGalleryImage(gallery, index);
+      });
+
+      dotsContainer.appendChild(dot);
+    });
+
+    const initialIndex = Array.from(images).findIndex(function (image) {
+      return image.classList.contains("active");
+    });
+
+    activateGalleryImage(gallery, initialIndex >= 0 ? initialIndex : 0);
+  });
 
   const activateTabByHash = function () {
     const hash = window.location.hash;
@@ -71,35 +147,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const targetId = hash.replace("#", "");
-    const tabIndex = tabIndexByTargetId[targetId];
-
-    if (typeof tabIndex === "number") {
-      updateTabState(tabIndex);
-    }
-
     const target = document.getElementById(targetId);
     if (!target) {
       return;
     }
+
+    solutionGroups.forEach(function (group) {
+      const tabPanels = Array.from(group.querySelectorAll(".tab-contents .clearfix > li"));
+      const panelIndex = tabPanels.findIndex(function (panel) {
+        return panel.contains(target);
+      });
+
+      if (panelIndex >= 0) {
+        activateGroupTab(group, panelIndex);
+      }
+    });
 
     window.setTimeout(function () {
       const top = target.getBoundingClientRect().top + window.scrollY;
       animateScrollTo(top, 480);
     }, 20);
   };
-
-  tabButtons.forEach(function (button, index) {
-    button.addEventListener("click", function () {
-      updateTabState(index);
-    });
-  });
-
-  if (tabButtons.length > 0) {
-    const initialIndex = Array.from(tabButtons).findIndex(function (button) {
-      return button.getAttribute("aria-pressed") === "true";
-    });
-    updateTabState(initialIndex >= 0 ? initialIndex : 0);
-  }
 
   activateTabByHash();
 
