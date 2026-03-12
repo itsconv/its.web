@@ -19,4 +19,22 @@ public class FrontViewController {
         model.addAttribute("pageImageUrls", imageService.findImageUrlsByMainMenuCode("TRADING_ROOM"));
         return "front/trading_center";
     }
+
+    @GetMapping("/operation-center")
+    public String getOperationCenter(Model model) {
+        model.addAttribute("pageImageUrls", imageService.findImageUrlsByMainMenuCode("AI_MONITORING_CENTER"));
+        return "front/operation_center";
+    }
+
+    @GetMapping("/contact-center")
+    public String getContactCenter(Model model) {
+        model.addAttribute("pageImageUrls", imageService.findImageUrlsByMainMenuCode("AI_CONTACT_CENTER"));
+        return "front/contact_center";
+    }
+
+    @GetMapping("/uc-solution")
+    public String getUcSolution(Model model) {
+        model.addAttribute("pageImageUrls", imageService.findImageUrlsByMainMenuCode("UC_SOLUTION"));
+        return "front/uc_solution";
+    }
 }

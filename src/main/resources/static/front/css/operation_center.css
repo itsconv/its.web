@@ -113,7 +113,7 @@ header {
 .hero {
     position: relative;
     height: 500px;
-    background-image: url('/asset/img/trading-room/hero.png');
+    background-image: url('/asset/img/operation-center/hero.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -445,7 +445,7 @@ a:link, a:hover, a:visited, a:active {
 }
 
 .sub-tab-list li {
-    width: 20%;
+    width: 25%;
     height: 56px;
     border-bottom: none;
 }
@@ -681,9 +681,13 @@ a:link, a:hover, a:visited, a:active {
     width: 20%;
 }
 
+.tab-menu.columns-7 li {
+    width: 14.2857%;
+}
+
 .tab-menu button {
     width: 100%;
-    height: 58px;
+    min-height: 72px;
     position: relative;
     overflow: hidden;
     color: #8c97a8;
@@ -694,7 +698,10 @@ a:link, a:hover, a:visited, a:active {
     font-family: NotoKR, 'Noto Sans KR', sans-serif;
     text-align: center;
     cursor: pointer;
-    text-wrap: nowrap;
+    white-space: normal;
+    line-height: 1.35;
+    padding: 12px 10px;
+    word-break: keep-all;
 }
 
 .tab-menu li button[aria-pressed="true"] {

@@ -113,7 +113,7 @@ header {
 .hero {
     position: relative;
     height: 500px;
-    background-image: url('/asset/img/trading-room/hero.png');
+    background-image: url('/asset/img/contact-center/hero.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -617,6 +617,10 @@ a:link, a:hover, a:visited, a:active {
     margin: 34px 0 0;
 }
 
+.tab-contents .brand-wrap {
+    padding-bottom: 36px;
+}
+
 .brand-list {
     margin: 0;
     padding: 0;
@@ -673,6 +677,10 @@ a:link, a:hover, a:visited, a:active {
     border-bottom: 1px solid #d8e0ea;
 }
 
+.tab-menu.columns-3 li {
+    width: 33.3333%;
+}
+
 .tab-menu.columns-4 li {
     width: 25%;
 }
@@ -681,9 +689,13 @@ a:link, a:hover, a:visited, a:active {
     width: 20%;
 }
 
+.tab-menu.columns-7 li {
+    width: 14.2857%;
+}
+
 .tab-menu button {
     width: 100%;
-    height: 58px;
+    min-height: 72px;
     position: relative;
     overflow: hidden;
     color: #8c97a8;
@@ -694,7 +706,10 @@ a:link, a:hover, a:visited, a:active {
     font-family: NotoKR, 'Noto Sans KR', sans-serif;
     text-align: center;
     cursor: pointer;
-    text-wrap: nowrap;
+    white-space: normal;
+    line-height: 1.35;
+    padding: 12px 10px;
+    word-break: keep-all;
 }
 
 .tab-menu li button[aria-pressed="true"] {
@@ -810,6 +825,10 @@ a:link, a:hover, a:visited, a:active {
 
 .architecture-image-wrap {
     padding: 24px 28px 8px;
+}
+
+.tab-contents .architecture-image-wrap {
+    padding-bottom: 36px;
 }
 
 .architecture-image {

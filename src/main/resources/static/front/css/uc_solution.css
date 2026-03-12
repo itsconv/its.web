@@ -113,7 +113,7 @@ header {
 .hero {
     position: relative;
     height: 500px;
-    background-image: url('/asset/img/trading-room/hero.png');
+    background-image: url('/asset/img/uc-solution/hero.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -354,47 +354,38 @@ a:link, a:hover, a:visited, a:active {
 }
 
 #business-overview-main:target,
-#wey-ip-remote-main:target,
-#wdp-main:target,
-#wey-smart-touch-main:target,
-#uds-usb-desk-switch-main:target,
-#bt-dealer-board-main:target,
-#recording-solution-main:target,
-#bt-ticker-board-main:target,
-#bt-motion-desk-monitor-arm-main:target,
-#bt-cable-facilities-main:target,
-#architecture-main:target,
+#cloud-pbx-main:target,
+#video-conference-logitech-main:target,
+#wireless-presentation-airmedia-main:target,
+#auto-minutes-main:target,
+#public-data-metadata-main:target,
+#ai-metadata-main:target,
+#ai-assistant-main:target,
 [id^="success-case-"]:target {
     position: relative;
 }
 
 #business-overview-main:target img,
-#wey-ip-remote-main:target img,
-#wdp-main:target img,
-#wey-smart-touch-main:target img,
-#uds-usb-desk-switch-main:target img,
-#bt-dealer-board-main:target img,
-#recording-solution-main:target img,
-#bt-ticker-board-main:target img,
-#bt-motion-desk-monitor-arm-main:target img,
-#bt-cable-facilities-main:target img,
-#architecture-main:target img,
+#cloud-pbx-main:target img,
+#video-conference-logitech-main:target img,
+#wireless-presentation-airmedia-main:target img,
+#auto-minutes-main:target img,
+#public-data-metadata-main:target img,
+#ai-metadata-main:target img,
+#ai-assistant-main:target img,
 [id^="success-case-"]:target img {
     filter: brightness(0.55);
     transition: filter 0.2s ease;
 }
 
 #business-overview-main:target::after,
-#wey-ip-remote-main:target::after,
-#wdp-main:target::after,
-#wey-smart-touch-main:target::after,
-#uds-usb-desk-switch-main:target::after,
-#bt-dealer-board-main:target::after,
-#recording-solution-main:target::after,
-#bt-ticker-board-main:target::after,
-#bt-motion-desk-monitor-arm-main:target::after,
-#bt-cable-facilities-main:target::after,
-#architecture-main:target::after {
+#cloud-pbx-main:target::after,
+#video-conference-logitech-main:target::after,
+#wireless-presentation-airmedia-main:target::after,
+#auto-minutes-main:target::after,
+#public-data-metadata-main:target::after,
+#ai-metadata-main:target::after,
+#ai-assistant-main:target::after {
     content: "선택된 이미지";
     position: absolute;
     top: 50%;
@@ -617,6 +608,10 @@ a:link, a:hover, a:visited, a:active {
     margin: 34px 0 0;
 }
 
+.tab-contents .brand-wrap {
+    padding-bottom: 36px;
+}
+
 .brand-list {
     margin: 0;
     padding: 0;
@@ -673,6 +668,14 @@ a:link, a:hover, a:visited, a:active {
     border-bottom: 1px solid #d8e0ea;
 }
 
+.tab-menu.columns-3 li {
+    width: 33.3333%;
+}
+
+.tab-menu.columns-1 li {
+    width: 100%;
+}
+
 .tab-menu.columns-4 li {
     width: 25%;
 }
@@ -681,9 +684,13 @@ a:link, a:hover, a:visited, a:active {
     width: 20%;
 }
 
+.tab-menu.columns-7 li {
+    width: 14.2857%;
+}
+
 .tab-menu button {
     width: 100%;
-    height: 58px;
+    min-height: 72px;
     position: relative;
     overflow: hidden;
     color: #8c97a8;
@@ -694,7 +701,10 @@ a:link, a:hover, a:visited, a:active {
     font-family: NotoKR, 'Noto Sans KR', sans-serif;
     text-align: center;
     cursor: pointer;
-    text-wrap: nowrap;
+    white-space: normal;
+    line-height: 1.35;
+    padding: 12px 10px;
+    word-break: keep-all;
 }
 
 .tab-menu li button[aria-pressed="true"] {
@@ -810,6 +820,10 @@ a:link, a:hover, a:visited, a:active {
 
 .architecture-image-wrap {
     padding: 24px 28px 8px;
+}
+
+.tab-contents .architecture-image-wrap {
+    padding-bottom: 36px;
 }
 
 .architecture-image {
