@@ -1,4 +1,4 @@
-INSERT INTO page_image_slot (
+INSERT INTO its_page_image_slot (
     slot_id,
     tab_menu_id,
     slot_code,

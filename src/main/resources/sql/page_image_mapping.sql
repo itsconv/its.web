@@ -1,4 +1,4 @@
-INSERT INTO page_image_mapping (
+INSERT INTO its_page_image_mapping (
     mapping_id,
     slot_id,
     file_id,

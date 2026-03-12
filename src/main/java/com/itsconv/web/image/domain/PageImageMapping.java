@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(
-        name = "page_image_mapping",
+        name = "its_page_image_mapping",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_page_image_mapping_slot", columnNames = "slot_id")
+                @UniqueConstraint(name = "uk_its_page_image_mapping_slot", columnNames = "slot_id")
         }
 )
 @Getter
