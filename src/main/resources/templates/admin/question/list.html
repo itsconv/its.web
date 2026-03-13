@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layouts/admin-layout}">
+
+<head>
+  <title>ITSConvergence 관리자</title>
+  <style>
+    .question-list-table tbody tr.unread-row td {
+      background-color: #eaf2ff;
+    }
+
+    .question-list-table tbody tr.unread-row td:first-child {
+      border-left: 4px solid #2f6fec;
+    }
+
+    .question-list-table tbody tr.unread-row .board-title {
+      font-weight: 700;
+      color: #1f3d8f;
+    }
+  </style>
+</head>
+
+<body>
+  <div layout:fragment="page-content">
+    <div class="table-wrap">
+      <table class="question-list-table">
+        <thead id="dataTableHead">
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일시</th>
+            <th>열람여부</th>
+          </tr>
+        </thead>
+        <tbody id="dataTableBody">
+          <tr th:each="row, status : ${questionPage.content}"
+              th:classappend="${row.isCheck != null and row.isCheck == 'N'} ? ' unread-row' : ''">
+            <td class="row-value" th:text="${status.index + 1}"></td>
+            <td>
+              <span th:text="${row.title}" th:attr="data-row-id=${row.id}" class="board-title row-value"></span>
+              <span class="board-badge badge-new"
+                    th:if="${(row.isCheck != null and row.isCheck == 'N')}">
+                NEW
+              </span>
+            </td>
+            <td th:text="${row.createName}"></td>
+            <td th:text="${#temporals.format(row.createDate, 'yyyy-MM-dd')}"></td>
+            <td th:if="${row.isCheck != null and row.isCheck == 'N'}">
+                미열람
+            </td>
+            <td th:if="${row.isCheck != null and row.isCheck == 'Y'}">
+                열람
+            </td>
+          </tr>
+          <tr th:if="${questionPage.empty}">
+            <td colspan="5">조회된 데이터가 없습니다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--공통 페이징 -->
+    <th:block th:with="
+      paginationPage=${questionPage},
+      paginationAction=@{/admin/question/list},
+      paginationFormId='frmAdminQuestionPage'
+    ">
+      <th:block th:replace="~{admin/fragments/pagination :: adminPagination}"></th:block>
+    </th:block>
+
+    <button type="button" id="openModal" class="add-btn">테스트</button>
+
+    <th:block th:replace="~{admin/question/modal :: question-modal}"></th:block>
+  </div>
+
+  <th:block layout:fragment="scripts">
+    <script>
+        $('.table-wrap')
+        .off('click.tblEvent')
+        .on('click.tblEvent', '.board-title', function() {
+            const rowId = $(this).data('row-id');
+            window.location.href=`/admin/question/detail?id=${rowId}`;
+        });
+
+        //테스트
+        $('#openModal').on('click', function() {
+            $('#QuestionFormModal').addClass('is-open').attr('aria-hidden', 'false');
+        });
+    </script>
+  </th:block>
+</body>
+</html>

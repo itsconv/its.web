@@ -1,0 +1,67 @@
+<div th:fragment="question-modal">
+    <div id="QuestionFormModal" class="modal-backdrop" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="QuestionFormModalTitle">
+            <div class="modal-header">
+                <h3 class="modal-title"></h3>
+                <button type="button" class="modal-close js-modal-close" aria-label="close">x</button>
+            </div>
+            <div class="modal-body modal-type-table">
+                <table id="tblManageOrder">
+                    <tbody>
+                        <tr>
+                            <td class="td-label">관련부서</td>
+                            <td class="td-input">
+                                <select id="questionGroupId" class="common-select-type">
+                                    <option value="">선택해주세요</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">작성자명</td>
+                            <td class="td-input">
+                                <input type="text" id="questionCreateName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">제목</td>
+                            <td class="td-input">
+                                <input type="text" id="questionTitle" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">내용</td>
+                            <td class="td-input">
+                                <textarea id="questionContents" rows="6" style="width: 100%; resize: vertical;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-label">E-MAIL</td>
+                            <td class="td-input">
+                                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                    <input type="text" id="questionEmailLocal" style="width: 180px;" placeholder="아이디" />
+                                    <span>@</span>
+                                    <select id="questionEmailDomainSelect" class="common-select-type" style="width: 180px;">
+                                        <option value="">선택해주세요</option>
+                                        <option value="naver.com">naver.com</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="daum.net">daum.net</option>
+                                        <option value="kakao.com">kakao.com</option>
+                                        <option value="outlook.com">outlook.com</option>
+                                        <option value="direct">직접입력</option>
+                                    </select>
+                                    <input type="text" id="questionEmailDomainDirect" style="display: none; width: 180px;" placeholder="도메인 직접입력" />
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSaveQuestion" type="button" class="add-btn confirm-btn">저장</button>
+                <button type="button" class="modal-btn-eq js-modal-close">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/admin/js/question/form.js}"></script>
+</div>

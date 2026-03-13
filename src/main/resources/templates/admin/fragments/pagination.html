@@ -9,7 +9,7 @@
       startPage=${((currentPage - 1) / blockSize) * blockSize + 1},
       endPage=${(startPage + blockSize - 1) < totalPages ? (startPage + blockSize - 1) : totalPages}
   ">
-  <div th:if="${p != null and totalPages > 1}">
+  <div th:if="${p != null and totalPages > 0}">
     <form th:id="${formId}" method="get" th:action="${action != null ? action : '#'}">
       <input type="hidden" name="page" th:value="${currentPage}" />
       <input type="hidden" name="size" th:value="${p.size}" />
