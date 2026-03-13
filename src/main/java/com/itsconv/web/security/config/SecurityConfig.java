@@ -22,6 +22,7 @@ public class SecurityConfig {
 
     // 인증 없어도 접근 가능한 URL 리스트
     private static final String[] PERMIT_PATTERNS = {
+            "/",
             "/login",
             "/error",
             "/api/auth/status",
