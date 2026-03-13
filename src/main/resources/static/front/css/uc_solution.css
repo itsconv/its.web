@@ -354,6 +354,7 @@ a:link, a:hover, a:visited, a:active {
 }
 
 #business-overview-main:target,
+#business-overview-sub-main:target,
 #cloud-pbx-main:target,
 #video-conference-logitech-main:target,
 #wireless-presentation-airmedia-main:target,
@@ -361,11 +362,12 @@ a:link, a:hover, a:visited, a:active {
 #public-data-metadata-main:target,
 #ai-metadata-main:target,
 #ai-assistant-main:target,
-[id^="success-case-"]:target {
+[id^="customer-logo-"]:target {
     position: relative;
 }
 
 #business-overview-main:target img,
+#business-overview-sub-main:target img,
 #cloud-pbx-main:target img,
 #video-conference-logitech-main:target img,
 #wireless-presentation-airmedia-main:target img,
@@ -373,12 +375,13 @@ a:link, a:hover, a:visited, a:active {
 #public-data-metadata-main:target img,
 #ai-metadata-main:target img,
 #ai-assistant-main:target img,
-[id^="success-case-"]:target img {
+[id^="customer-logo-"]:target img {
     filter: brightness(0.55);
     transition: filter 0.2s ease;
 }
 
 #business-overview-main:target::after,
+#business-overview-sub-main:target::after,
 #cloud-pbx-main:target::after,
 #video-conference-logitech-main:target::after,
 #wireless-presentation-airmedia-main:target::after,
@@ -403,11 +406,11 @@ a:link, a:hover, a:visited, a:active {
     white-space: nowrap;
 }
 
-[id^="success-case-"]:target a {
+[id^="customer-logo-"]:target a {
     position: relative;
 }
 
-[id^="success-case-"]:target a::after {
+[id^="customer-logo-"]:target a::after {
     content: "선택된 이미지";
     position: absolute;
     top: 50%;
@@ -780,9 +783,33 @@ a:link, a:hover, a:visited, a:active {
 
 .image-gallery,
 .image-gallery-enabled {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.image-gallery.has-targeted-image::after,
+.image-gallery-enabled.has-targeted-image::after {
+    content: "선택된 이미지";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(220, 38, 38, 0.92);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.gallery-image.is-targeted {
+    filter: brightness(0.55);
 }
 
 .tab-contents .con1 .image-gallery .gallery-image,

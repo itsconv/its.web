@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,11 +53,11 @@
         <div class="pic top1">
             <div class="float">
                 <div class="f-left" id="business-overview-main">
-                    <img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                    <img th:src="${pageImageUrls.imageUrls['business-overview-main'] ?: '/asset/img/contact-center/example-image-1.svg'}" src="/asset/img/contact-center/example-image-1.svg" alt="예시 이미지">
                     <p class="image-note">* 실제 고객사의 AI컨텍센터 사진입니다.</p>
                 </div>
-                <div class="f-left">
-                    <img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                <div class="f-left" id="business-overview-sub-main">
+                    <img th:src="${pageImageUrls.imageUrls['business-overview-sub-main'] ?: '/asset/img/contact-center/example-image-2.svg'}" src="/asset/img/contact-center/example-image-2.svg" alt="예시 이미지">
                 </div>
             </div>
         </div>
@@ -83,9 +83,9 @@
                     <div class="con1 con-sds">
                         <div class="float">
                             <div class="f-left image-gallery" id="wey-ip-remote-main">
-                                <img class="gallery-image active" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                                <img class="gallery-image active" th:src="${pageImageUrls.imageUrls['wey-ip-remote-main'] ?: '/asset/img/contact-center/example-image-3.svg'}" src="/asset/img/contact-center/example-image-3.svg" alt="예시 이미지">
+                                <img class="gallery-image" id="wey-ip-remote-main-2" th:src="${pageImageUrls.imageUrls['wey-ip-remote-main-2'] ?: '/asset/img/contact-center/example-image-4.svg'}" src="/asset/img/contact-center/example-image-4.svg" alt="예시 이미지">
+                                <img class="gallery-image" id="wey-ip-remote-main-3" th:src="${pageImageUrls.imageUrls['wey-ip-remote-main-3'] ?: '/asset/img/contact-center/example-image-5.svg'}" src="/asset/img/contact-center/example-image-5.svg" alt="예시 이미지">
                                 <div class="gallery-dots" aria-label="AVAYA IPCC image selector"></div>
                             </div>
                             <div class="f-left">
@@ -120,18 +120,18 @@
                 <li>
                     <div class="architecture-image-wrap">
                         <div class="architecture-image" id="avaya-architecture-main">
-                            <img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                            <img th:src="${pageImageUrls.imageUrls['avaya-architecture-main'] ?: '/asset/img/contact-center/example-image-6.svg'}" src="/asset/img/contact-center/example-image-6.svg" alt="예시 이미지">
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="brand-wrap">
                         <ul class="brand-list">
-                            <li id="avaya-customer-01"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                            <li id="avaya-customer-02"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                            <li id="avaya-customer-03"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                            <li id="avaya-customer-04"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                            <li id="avaya-customer-05"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
+                            <li id="avaya-customer-01"><a><img th:src="${pageImageUrls.imageUrls['avaya-customer-01'] ?: '/asset/img/contact-center/example-image-7.svg'}" src="/asset/img/contact-center/example-image-7.svg" alt="예시 이미지"></a></li>
+                            <li id="avaya-customer-02"><a><img th:src="${pageImageUrls.imageUrls['avaya-customer-02'] ?: '/asset/img/contact-center/example-image-8.svg'}" src="/asset/img/contact-center/example-image-8.svg" alt="예시 이미지"></a></li>
+                            <li id="avaya-customer-03"><a><img th:src="${pageImageUrls.imageUrls['avaya-customer-03'] ?: '/asset/img/contact-center/example-image-9.svg'}" src="/asset/img/contact-center/example-image-9.svg" alt="예시 이미지"></a></li>
+                            <li id="avaya-customer-04"><a><img th:src="${pageImageUrls.imageUrls['avaya-customer-04'] ?: '/asset/img/contact-center/example-image-10.svg'}" src="/asset/img/contact-center/example-image-10.svg" alt="예시 이미지"></a></li>
+                            <li id="avaya-customer-05"><a><img th:src="${pageImageUrls.imageUrls['avaya-customer-05'] ?: '/asset/img/contact-center/example-image-11.svg'}" src="/asset/img/contact-center/example-image-11.svg" alt="예시 이미지"></a></li>
                         </ul>
                     </div>
                 </li>
@@ -156,9 +156,9 @@
                         <div class="con1 con-sds">
                             <div class="float">
                                 <div class="f-left image-gallery" id="able-ipcc-main">
-                                    <img class="gallery-image active" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                                    <img class="gallery-image active" th:src="${pageImageUrls.imageUrls['able-ipcc-main'] ?: '/asset/img/contact-center/example-image-12.svg'}" src="/asset/img/contact-center/example-image-12.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="able-ipcc-main-2" th:src="${pageImageUrls.imageUrls['able-ipcc-main-2'] ?: '/asset/img/contact-center/example-image-13.svg'}" src="/asset/img/contact-center/example-image-13.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="able-ipcc-main-3" th:src="${pageImageUrls.imageUrls['able-ipcc-main-3'] ?: '/asset/img/contact-center/example-image-14.svg'}" src="/asset/img/contact-center/example-image-14.svg" alt="예시 이미지">
                                     <div class="gallery-dots" aria-label="ABLE IPCC image selector"></div>
                                 </div>
                                 <div class="f-left">
@@ -193,18 +193,18 @@
                     <li>
                         <div class="architecture-image-wrap">
                             <div class="architecture-image" id="able-architecture-main">
-                                <img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                                <img th:src="${pageImageUrls.imageUrls['able-architecture-main'] ?: '/asset/img/contact-center/example-image-15.svg'}" src="/asset/img/contact-center/example-image-15.svg" alt="예시 이미지">
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="brand-wrap">
                             <ul class="brand-list">
-                                <li id="able-customer-01"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                                <li id="able-customer-02"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                                <li id="able-customer-03"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                                <li id="able-customer-04"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                                <li id="able-customer-05"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
+                                <li id="able-customer-01"><a><img th:src="${pageImageUrls.imageUrls['able-customer-01'] ?: '/asset/img/contact-center/example-image-16.svg'}" src="/asset/img/contact-center/example-image-16.svg" alt="예시 이미지"></a></li>
+                                <li id="able-customer-02"><a><img th:src="${pageImageUrls.imageUrls['able-customer-02'] ?: '/asset/img/contact-center/example-image-17.svg'}" src="/asset/img/contact-center/example-image-17.svg" alt="예시 이미지"></a></li>
+                                <li id="able-customer-03"><a><img th:src="${pageImageUrls.imageUrls['able-customer-03'] ?: '/asset/img/contact-center/example-image-18.svg'}" src="/asset/img/contact-center/example-image-18.svg" alt="예시 이미지"></a></li>
+                                <li id="able-customer-04"><a><img th:src="${pageImageUrls.imageUrls['able-customer-04'] ?: '/asset/img/contact-center/example-image-19.svg'}" src="/asset/img/contact-center/example-image-19.svg" alt="예시 이미지"></a></li>
+                                <li id="able-customer-05"><a><img th:src="${pageImageUrls.imageUrls['able-customer-05'] ?: '/asset/img/contact-center/example-image-20.svg'}" src="/asset/img/contact-center/example-image-20.svg" alt="예시 이미지"></a></li>
                             </ul>
                         </div>
                     </li>
@@ -232,9 +232,9 @@
                         <div class="con1 con-sds">
                             <div class="float">
                                 <div class="f-left image-gallery" id="sori-recording-main">
-                                    <img class="gallery-image active" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                                    <img class="gallery-image active" th:src="${pageImageUrls.imageUrls['sori-recording-main'] ?: '/asset/img/contact-center/example-image-21.svg'}" src="/asset/img/contact-center/example-image-21.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="sori-recording-main-2" th:src="${pageImageUrls.imageUrls['sori-recording-main-2'] ?: '/asset/img/contact-center/example-image-22.svg'}" src="/asset/img/contact-center/example-image-22.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="sori-recording-main-3" th:src="${pageImageUrls.imageUrls['sori-recording-main-3'] ?: '/asset/img/contact-center/example-image-23.svg'}" src="/asset/img/contact-center/example-image-23.svg" alt="예시 이미지">
                                     <div class="gallery-dots" aria-label="SORI recording image selector"></div>
                                 </div>
                                 <div class="f-left">
@@ -270,9 +270,9 @@
                         <div class="con1 con-sds">
                             <div class="float">
                                 <div class="f-left image-gallery" id="x-call-cti-main">
-                                    <img class="gallery-image active" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                                    <img class="gallery-image active" th:src="${pageImageUrls.imageUrls['x-call-cti-main'] ?: '/asset/img/contact-center/example-image-24.svg'}" src="/asset/img/contact-center/example-image-24.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="x-call-cti-main-2" th:src="${pageImageUrls.imageUrls['x-call-cti-main-2'] ?: '/asset/img/contact-center/example-image-25.svg'}" src="/asset/img/contact-center/example-image-25.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="x-call-cti-main-3" th:src="${pageImageUrls.imageUrls['x-call-cti-main-3'] ?: '/asset/img/contact-center/example-image-26.svg'}" src="/asset/img/contact-center/example-image-26.svg" alt="예시 이미지">
                                     <div class="gallery-dots" aria-label="X-CALL CTI image selector"></div>
                                 </div>
                                 <div class="f-left">
@@ -308,9 +308,9 @@
                         <div class="con1 con-sds">
                             <div class="float">
                                 <div class="f-left image-gallery" id="able-application-main">
-                                    <img class="gallery-image active" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                                    <img class="gallery-image active" th:src="${pageImageUrls.imageUrls['able-application-main'] ?: '/asset/img/contact-center/example-image-27.svg'}" src="/asset/img/contact-center/example-image-27.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="able-application-main-2" th:src="${pageImageUrls.imageUrls['able-application-main-2'] ?: '/asset/img/contact-center/example-image-28.svg'}" src="/asset/img/contact-center/example-image-28.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="able-application-main-3" th:src="${pageImageUrls.imageUrls['able-application-main-3'] ?: '/asset/img/contact-center/example-image-29.svg'}" src="/asset/img/contact-center/example-image-29.svg" alt="예시 이미지">
                                     <div class="gallery-dots" aria-label="ABLE application image selector"></div>
                                 </div>
                                 <div class="f-left">
@@ -346,9 +346,9 @@
                         <div class="con1 con-sds">
                             <div class="float">
                                 <div class="f-left image-gallery" id="able-statistics-main">
-                                    <img class="gallery-image active" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                                    <img class="gallery-image active" th:src="${pageImageUrls.imageUrls['able-statistics-main'] ?: '/asset/img/contact-center/example-image-30.svg'}" src="/asset/img/contact-center/example-image-30.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="able-statistics-main-2" th:src="${pageImageUrls.imageUrls['able-statistics-main-2'] ?: '/asset/img/contact-center/example-image-31.svg'}" src="/asset/img/contact-center/example-image-31.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="able-statistics-main-3" th:src="${pageImageUrls.imageUrls['able-statistics-main-3'] ?: '/asset/img/contact-center/example-image-32.svg'}" src="/asset/img/contact-center/example-image-32.svg" alt="예시 이미지">
                                     <div class="gallery-dots" aria-label="ABLE statistics image selector"></div>
                                 </div>
                                 <div class="f-left">
@@ -384,9 +384,9 @@
                         <div class="con1 con-sds">
                             <div class="float">
                                 <div class="f-left image-gallery" id="able-display-main">
-                                    <img class="gallery-image active" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
-                                    <img class="gallery-image" src="/asset/img/trading-room/example-image.svg" alt="예시 이미지">
+                                    <img class="gallery-image active" th:src="${pageImageUrls.imageUrls['able-display-main'] ?: '/asset/img/contact-center/example-image-33.svg'}" src="/asset/img/contact-center/example-image-33.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="able-display-main-2" th:src="${pageImageUrls.imageUrls['able-display-main-2'] ?: '/asset/img/contact-center/example-image-34.svg'}" src="/asset/img/contact-center/example-image-34.svg" alt="예시 이미지">
+                                    <img class="gallery-image" id="able-display-main-3" th:src="${pageImageUrls.imageUrls['able-display-main-3'] ?: '/asset/img/contact-center/example-image-35.svg'}" src="/asset/img/contact-center/example-image-35.svg" alt="예시 이미지">
                                     <div class="gallery-dots" aria-label="ABLE display image selector"></div>
                                 </div>
                                 <div class="f-left">
@@ -426,11 +426,11 @@
         <h3 id="t5" class="sub-tit">주요 고객사</h3>
         <div class="brand-wrap">
             <ul class="brand-list">
-                <li id="success-case-01"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                <li id="success-case-02"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                <li id="success-case-03"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                <li id="success-case-04"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
-                <li id="success-case-05"><a><img src="/asset/img/trading-room/example-image.svg" alt="예시 이미지"></a></li>
+                <li id="customer-logo-01"><a><img th:src="${pageImageUrls.imageUrls['customer-logo-01'] ?: '/asset/img/contact-center/example-image-36.svg'}" src="/asset/img/contact-center/example-image-36.svg" alt="예시 이미지"></a></li>
+                <li id="customer-logo-02"><a><img th:src="${pageImageUrls.imageUrls['customer-logo-02'] ?: '/asset/img/contact-center/example-image-37.svg'}" src="/asset/img/contact-center/example-image-37.svg" alt="예시 이미지"></a></li>
+                <li id="customer-logo-03"><a><img th:src="${pageImageUrls.imageUrls['customer-logo-03'] ?: '/asset/img/contact-center/example-image-38.svg'}" src="/asset/img/contact-center/example-image-38.svg" alt="예시 이미지"></a></li>
+                <li id="customer-logo-04"><a><img th:src="${pageImageUrls.imageUrls['customer-logo-04'] ?: '/asset/img/contact-center/example-image-39.svg'}" src="/asset/img/contact-center/example-image-39.svg" alt="예시 이미지"></a></li>
+                <li id="customer-logo-05"><a><img th:src="${pageImageUrls.imageUrls['customer-logo-05'] ?: '/asset/img/contact-center/example-image-40.svg'}" src="/asset/img/contact-center/example-image-40.svg" alt="예시 이미지"></a></li>
             </ul>
         </div>
         <div class="d-line"></div>

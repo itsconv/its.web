@@ -81,8 +81,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const images = gallery.querySelectorAll(".gallery-image");
     const dots = gallery.querySelectorAll(".gallery-dot");
 
+    gallery.classList.remove("has-targeted-image");
+
     images.forEach(function (image, index) {
       image.classList.toggle("active", index === activeIndex);
+      image.classList.remove("is-targeted");
     });
 
     dots.forEach(function (dot, index) {
@@ -140,6 +143,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const activateTabByHash = function () {
     const hash = window.location.hash;
+
+    imageGalleries.forEach(function (gallery) {
+      gallery.classList.remove("has-targeted-image");
+      gallery.querySelectorAll(".gallery-image").forEach(function (image) {
+        image.classList.remove("is-targeted");
+      });
+    });
+
     if (!hash) {
       return;
     }
@@ -160,6 +171,18 @@ document.addEventListener("DOMContentLoaded", function () {
         activateGroupTab(group, panelIndex);
       }
     });
+
+    const targetGallery = target.closest(".image-gallery, .image-gallery-enabled");
+    if (targetGallery && target.classList.contains("gallery-image")) {
+      const images = Array.from(targetGallery.querySelectorAll(".gallery-image"));
+      const imageIndex = images.indexOf(target);
+
+      if (imageIndex >= 0) {
+        activateGalleryImage(targetGallery, imageIndex);
+        targetGallery.classList.add("has-targeted-image");
+        target.classList.add("is-targeted");
+      }
+    }
 
     window.setTimeout(function () {
       const top = target.getBoundingClientRect().top + window.scrollY;

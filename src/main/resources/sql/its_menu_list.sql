@@ -1,3 +1,18 @@
+DELETE FROM its_menu_list
+WHERE menu_code IN ('TRADING_ROOM_SUCCESS_CASE', 'AI_MONITORING_CENTER_SUCCESS_CASE');
+
+UPDATE its_menu_list
+SET menu_name = '주요 고객사',
+    sort_order = 5,
+    last_update = NOW()
+WHERE menu_code = 'TRADING_ROOM_CUSTOMERS';
+
+UPDATE its_menu_list
+SET menu_name = '주요 고객사',
+    sort_order = 4,
+    last_update = NOW()
+WHERE menu_code = 'AI_MONITORING_CENTER_CUSTOMERS';
+
 INSERT INTO its_menu_list (
     menu_id,
     parent_menu_id,
@@ -11,6 +26,7 @@ INSERT INTO its_menu_list (
     create_date,
     last_update
 )
+
 SELECT 100, NULL, 'MAIN', 'TRADING_ROOM', '통합트레이딩룸', NULL, 1, 'Y', 'N', NOW(), NOW()
 FROM DUAL
 WHERE NOT EXISTS (
@@ -106,26 +122,7 @@ INSERT INTO its_menu_list (
     create_date,
     last_update
 )
-SELECT 105, 100, 'SUB', 'TRADING_ROOM_SUCCESS_CASE', '구축 성공 사례', NULL, 5, 'Y', 'N', NOW(), NOW()
-FROM DUAL
-WHERE NOT EXISTS (
-    SELECT 1 FROM its_menu_list WHERE menu_code = 'TRADING_ROOM_SUCCESS_CASE'
-);
-
-INSERT INTO its_menu_list (
-    menu_id,
-    parent_menu_id,
-    menu_depth,
-    menu_code,
-    menu_name,
-    menu_path,
-    sort_order,
-    use_yn,
-    del_yn,
-    create_date,
-    last_update
-)
-SELECT 106, 100, 'SUB', 'TRADING_ROOM_CUSTOMERS', '주요고객사', NULL, 6, 'Y', 'N', NOW(), NOW()
+SELECT 106, 100, 'SUB', 'TRADING_ROOM_CUSTOMERS', '주요 고객사', NULL, 5, 'Y', 'N', NOW(), NOW()
 FROM DUAL
 WHERE NOT EXISTS (
     SELECT 1 FROM its_menu_list WHERE menu_code = 'TRADING_ROOM_CUSTOMERS'
@@ -334,8 +331,7 @@ INSERT INTO its_menu_list (
 (401, 400, 'SUB', 'AI_MONITORING_CENTER_BUSINESS_OVERVIEW', '비즈니스개요', NULL, 1, 'Y', 'N', NOW(), NOW()),
 (402, 400, 'SUB', 'AI_MONITORING_CENTER_DISASTER_SOLUTION', '재난안전 상황관제 솔루션', NULL, 2, 'Y', 'N', NOW(), NOW()),
 (403, 400, 'SUB', 'AI_MONITORING_CENTER_ARCHITECTURE', '구성도', NULL, 3, 'Y', 'N', NOW(), NOW()),
-(404, 400, 'SUB', 'AI_MONITORING_CENTER_SUCCESS_CASE', '구축 서공 사례', NULL, 4, 'Y', 'N', NOW(), NOW()),
-(405, 400, 'SUB', 'AI_MONITORING_CENTER_CUSTOMERS', '주요 고객사', NULL, 5, 'Y', 'N', NOW(), NOW());
+(405, 400, 'SUB', 'AI_MONITORING_CENTER_CUSTOMERS', '주요 고객사', NULL, 4, 'Y', 'N', NOW(), NOW());
 
 INSERT INTO its_menu_list (
     menu_id,
