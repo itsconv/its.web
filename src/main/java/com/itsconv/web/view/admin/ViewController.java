@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ViewController {
 
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public String index() {
         return "redirect:/admin/user/list";
     }

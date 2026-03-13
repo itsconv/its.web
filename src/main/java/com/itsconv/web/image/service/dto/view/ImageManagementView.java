@@ -22,4 +22,18 @@ public record ImageManagementView(
     ) {
         return new ImageManagementView(selectedMainMenu, subMenus, selectedSubMenu, tabMenus, selectedTabMenu, slots);
     }
+
+    public String getFrontPreviewBaseUrl() {
+        if (selectedMainMenu == null || selectedMainMenu.getCode() == null) {
+            return "/front/trading-center";
+        }
+
+        return switch (selectedMainMenu.getCode()) {
+            case "TRADING_ROOM" -> "/front/trading-center";
+            case "AI_MONITORING_CENTER" -> "/front/operation-center";
+            case "AI_CONTACT_CENTER" -> "/front/contact-center";
+            case "UC_SOLUTION" -> "/front/uc-solution";
+            default -> "/front/trading-center";
+        };
+    }
 }

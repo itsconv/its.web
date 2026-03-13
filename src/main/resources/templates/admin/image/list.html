@@ -38,7 +38,7 @@
         <div class="image-card-grid" th:if="${!#lists.isEmpty(imageManagementView.slots)}">
           <div class="image-card" th:each="slot : ${imageManagementView.slots}">
             <div class="image-card-preview">
-              <a th:href="${slot.landingUrl()}" target="_blank" style="display:block;width:100%;height:100%;">
+              <a th:href="|${imageManagementView.frontPreviewBaseUrl}#${slot.slotCode}|" target="_blank" style="display:block;width:100%;height:100%;">
                 <img th:if="${slot.thumbnailUrl() != null}" th:src="${slot.thumbnailUrl()}" th:alt="${slot.slotName}">
               </a>
               <span th:if="${slot.thumbnailUrl() == null}" th:text="${slot.slotCode}">slot-code</span>

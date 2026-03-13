@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" fill="none">
+  <rect width="1200" height="720" rx="32" fill="#F1F5F9"/>
+  <rect x="40" y="40" width="1120" height="640" rx="24" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="4" stroke-dasharray="14 14"/>
+  <g>
+    <rect x="486" y="262" width="228" height="92" rx="20" fill="#FFFFFF" stroke="#94A3B8" stroke-width="3"/>
+    <path d="M558 308H642" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+    <path d="M600 266V350" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <text x="600" y="410" text-anchor="middle" fill="#475569" font-family="Noto Sans KR, sans-serif" font-size="54" font-weight="700">예시 이미지</text>
+  <text x="600" y="468" text-anchor="middle" fill="#94A3B8" font-family="Noto Sans KR, sans-serif" font-size="28" font-weight="500">담당자 검토 후 실제 이미지 교체 예정</text>
+</svg>
