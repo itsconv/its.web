@@ -25,7 +25,9 @@ public enum Menu {
     IMAGE_TRADING_ROOM(new String[]{"/admin/image/trading-room"}, "image-trading-room", "media", "이미지관리", "통합트레이딩룸", "통합트레이딩룸을 관리할 수 있습니다."),
     IMAGE_AI_MONITORING_CENTER(new String[]{"/admin/image/ai-monitoring-center"}, "image-ai-monitoring-center", "media", "이미지관리", "AI관제센터", "AI관제센터를 관리할 수 있습니다."),
     IMAGE_AI_CONTACT_CENTER(new String[]{"/admin/image/ai-contact-center"}, "image-ai-contact-center", "media", "이미지관리", "AI컨텍센터", "AI컨텍센터를 관리할 수 있습니다."),
-    IMAGE_UC_SOLUTION(new String[]{"/admin/image/uc-solution"}, "image-uc-solution", "media", "이미지관리", "UC솔루션", "UC솔루션을 관리할 수 있습니다.");
+    IMAGE_UC_SOLUTION(new String[]{"/admin/image/uc-solution"}, "image-uc-solution", "media", "이미지관리", "UC솔루션", "UC솔루션을 관리할 수 있습니다."),
+
+    QUESTION(new String[]{"/admin/question/list", "/admin/question/detail"}, "question", "posts", "게시판관리", "고객문의", "홈페이지 상담신청을 통해 등록된 내용을 확인할 수 있습니다.");
 
     private final String[] uris;
     private final String pageData;

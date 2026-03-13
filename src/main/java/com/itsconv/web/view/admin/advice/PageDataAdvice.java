@@ -6,6 +6,7 @@ import com.itsconv.web.view.admin.PopupViewController;
 import com.itsconv.web.view.admin.ImageViewController;
 import com.itsconv.web.view.admin.HistoryViewController;
 import com.itsconv.web.view.admin.BoardViewController;
+import com.itsconv.web.view.admin.QuestionViewController;
 import com.itsconv.web.view.admin.UserViewController;
 import com.itsconv.web.view.admin.ViewController;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
         PopupViewController.class,
         BoardViewController.class,
         HistoryViewController.class,
-        ImageViewController.class
+        ImageViewController.class,
+        QuestionViewController.class
 })
 @RequiredArgsConstructor
 public class PageDataAdvice {

@@ -20,7 +20,9 @@
       <a th:href="@{/admin/bbs/download}" class="submenu-btn"
          th:classappend="${pageData == 'download'} ? 'active'">자료실</a>
       <a th:href="@{/admin/bbs/story}" class="submenu-btn"
-         th:classappend="${pageData == 'story'} ? 'active'">ITS Story</a>
+      th:classappend="${pageData == 'story'} ? 'active'">ITS Story</a>
+      <a th:href="@{/admin/question/list}" class="submenu-btn"
+         th:classappend="${pageData == 'question'} ? 'active'">고객문의</a>
     </nav>
   </th:block>
 

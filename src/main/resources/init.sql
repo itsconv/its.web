@@ -263,3 +263,41 @@ INSERT INTO its_board (
 ('DOWNLOAD', 'DATA 더미 게시글 18', 'DATA 타입 게시글 더미 내용 18', 'admin', 'admin', 5, NOW(), NOW(), 1, '관리자'),
 ('NOTICE', 'DATA 더미 게시글 19', 'DATA 타입 게시글 더미 내용 19', 'admin', 'admin', 1, NOW(), NOW(), 1, '관리자'),
 ('NOTICE', 'DATA 더미 게시글 20', 'DATA 타입 게시글 더미 내용 20', 'admin', 'admin', 10, NOW(), NOW(), 2, '관리자');
+
+-- 부서 정보
+INSERT INTO its_group_info (
+    group_name
+    , sort_order
+) VALUES 
+('경영지원팀', 1),
+('스마트 융합사업팀', 2),
+('재난안전 사업팀', 3),
+('솔루션 사업팀', 4),
+('연구소', 5),
+('트레이딩 사업팀', 6),
+('AICC 사업팀', 7),
+('공공사업팀', 8),
+('CX기술팀', 9),
+('CX전략팀', 10);
+
+-- 고객문의 글 더미 데이터
+INSERT INTO its_question (
+    is_check, 
+    sort_order, 
+    create_date, 
+    group_id, 
+    id, 
+    last_update, 
+    group_name, 
+    create_name, 
+    last_update_name, 
+    email, 
+    last_update_id, 
+    title, 
+    contents,
+    del_yn
+) VALUES 
+('N', 2, '2026-03-13 08:41:52', 5, 2, '2026-03-13 08:41:54', '연구소', '업체2', NULL, 'sjbaek@itsconv.com', NULL, '테스트2', '<p>문의글</p>', 'N'),
+('N', 1, '2026-03-13 08:40:26', 1, 1, '2026-03-13 08:40:32', '경영지원팀', '업체1', NULL, 'mjkim@itsconv.com', NULL, '테스트입니다.', '<p>테스트입니다.</p>', 'N'),
+('Y', 3, '2026-03-13 08:42:32', 4, 3, '2026-03-13 08:42:33', '솔루션사업팀', '업체3', NULL, 'mjkim@itsconv.com', NULL, '테스트3', '<p>확인글</p>', 'N');
+
